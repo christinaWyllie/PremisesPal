@@ -1,0 +1,12 @@
+DROP DATABASE IF EXISTS `PremisesPal`;
+CREATE DATABASE `PremisesPal`;
+USE `PremisesPal`;
+
+DROP TABLE IF EXISTS ACCOUNT;
+CREATE TABLE ACCOUNT
+(
+	email		VARCHAR(50),
+    pass		VARCHAR(25),
+    
+    PRIMARY KEY (email),
+);
