@@ -5,8 +5,32 @@ USE `PremisesPal`;
 DROP TABLE IF EXISTS ACCOUNT;
 CREATE TABLE ACCOUNT
 (
-	email		VARCHAR(50),
-    pass		VARCHAR(25),
+	email		VARCHAR(50)	NOT NULL,
+    pass		VARCHAR(25)	NOT NULL,
+    location	VARCHAR(100),
+    biography	VARCHAR(200),
     
     PRIMARY KEY (email),
+);
+
+DROP TABLE IF EXISTS ACCOUNT_SPECIALTIES;
+CREATE TABLE ACCOUNT_SPECIALTIES
+(
+	email		VARCHAR(50),
+    specialty	VARCHAR(25),
+    
+    FOREIGN KEY (email) REFERENCES ACCOUNT(email),
+);
+
+
+DROP TABLE IF EXISTS POST_DETAILS;
+CREATE TABLE ACCOUNT_SPECIALTIES
+(
+	email		VARCHAR(50),
+	price		FLOAT,
+    problemType	VARCHAR(50),
+    datePosted	VARCHAR(100),
+    
+    
+    FOREIGN KEY (email) REFERENCES ACCOUNT(email),
 );
