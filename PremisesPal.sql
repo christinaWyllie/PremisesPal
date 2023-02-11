@@ -67,12 +67,13 @@ CREATE TABLE JOB_POSTING
 DROP TABLE IF EXISTS REVIEW;
 CREATE TABLE REVIEW
 (
-	reviewer_email		VARCHAR(50)	NOT NULL,
-    reviewee_email		VARCHAR(50) NOT NULL,
-    date				DATETIME NOT NULL, #date the review was made
+	job_id			INT NOT NULL,
+	reviewer_email		VARCHAR(50),
+    reviewee_email		VARCHAR(50),
+    date			DATETIME, #date the review was made
     feedback			VARCHAR(200),
     job_type			VARCHAR(50),
-    stars				INT, #should be a number from 1-5
+    stars			INT, #should be a number from 1-5
     
     FOREIGN KEY  (reviewee_email) REFERENCES CONTRACTOR(email),
     FOREIGN KEY (reviewer_email) REFERENCES POSTER(email),
