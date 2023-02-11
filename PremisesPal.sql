@@ -7,49 +7,73 @@ CREATE TABLE ACCOUNT
 (
 	email		VARCHAR(50)	NOT NULL,
     pass		VARCHAR(25)	NOT NULL,
-    biography	VARCHAR(200),
     
     PRIMARY KEY (email),
 );
 
-DROP TABLE IF EXISTS ACCOUNT_SPECIALTIES;
-CREATE TABLE ACCOUNT_SPECIALTIES
+DROP TABLE IF EXISTS POSTER;
+CREATE TABLE POSTER
 (
-	email		VARCHAR(50),
-    specialty	VARCHAR(25),
+	email		VARCHAR(50)	NOT NULL,
     
-    FOREIGN KEY (email) REFERENCES ACCOUNT(email),
+    FOREIGN KEY  (email) REFERENCES ACCOUNT(email),
 );
 
-DROP TABLE IF EXISTS ACCOUNT_REFERENCES;
-CREATE TABLE ACCOUNT_REFERENCES
+DROP TABLE IF EXISTS CONTRACTOR;
+CREATE TABLE CONTRACTOR
 (
-	email		VARCHAR(50),
-    reference	VARCHAR(25),
+	email		VARCHAR(50)	NOT NULL,
+    biography	VARCHAR(500),
     
-    FOREIGN KEY (email) REFERENCES ACCOUNT(email),
+    FOREIGN KEY  (email) REFERENCES ACCOUNT(email),
 );
 
-DROP TABLE IF EXISTS ACCOUNT_REVIEWS;
-CREATE TABLE ACCOUNT_REVIEWS
+DROP TABLE IF EXISTS CONTRACTOR_SPECIALTIES;
+CREATE TABLE CONTRACTOR_SPECIALTIES
 (
-	email		VARCHAR(50),
-    review		VARCHAR(25),
+	email		VARCHAR(50)	NOT NULL,
+    skills		VARCHAR(50),
     
-    FOREIGN KEY (email) REFERENCES ACCOUNT(email),
+    FOREIGN KEY  (email) REFERENCES CONTRACTOR(email),
+);
+
+DROP TABLE IF EXISTS CONTRACTOR_REFERENCES;
+CREATE TABLE CONTRACTOR_REFERENCES
+(
+	email		VARCHAR(50)	NOT NULL,
+    ref			VARCHAR(100),
+    
+    FOREIGN KEY  (email) REFERENCES CONTRACTOR(email),
 );
 
 
-DROP TABLE IF EXISTS POST;
-CREATE TABLE POST
+DROP TABLE IF EXISTS JOB_POSTING;
+CREATE TABLE JOB_POSTING
 (
-	post_id		INT AUTO_INCREMENT,
-    email		VARCHAR(50),
-	price		FLOAT,
-    dateOfPosting	VARCHAR(100),
-	location	VARCHAR(100),
-    description	VARCHAR(500),
-    requiredSkills	VARCHAR(100),
+	post_id				INT AUTO_INCREMENT,
+	description			VARCHAR(500),
+    dateOfPosting		DATETIME,
+    status				VARCHAR(15),
+    price				FLOAT,
+    requiredSkills		VARCHAR(50),
     
-    FOREIGN KEY (email) REFERENCES ACCOUNT(email),
+    poster_email		VARCHAR(50),
+    contractor_email	VARCHAR(50),
+    
+    FOREIGN KEY (poster_email) REFERENCES POSTER(email),
+    FOREIGN KEY (contractor_email) REFERENCES CONTRACTOR(email),
+);
+
+DROP TABLE IF EXISTS REVIEW;
+CREATE TABLE REVIEW
+(
+	reviewer_email		VARCHAR(50)	NOT NULL,
+    reviewee_email		VARCHAR(50) NOT NULL,
+    date				DATETIME NOT NULL, #date the review was made
+    feedback			VARCHAR(200),
+    job_type			VARCHAR(50),
+    stars				INT, #should be a number from 1-5
+    
+    FOREIGN KEY  (reviewee_email) REFERENCES CONTRACTOR(email),
+    FOREIGN KEY (reviewer_email) REFERENCES POSTER(email),
 );
