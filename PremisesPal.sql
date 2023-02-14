@@ -8,7 +8,7 @@ CREATE TABLE ACCOUNT
 	email		VARCHAR(50)	NOT NULL,
     pass		VARCHAR(25)	NOT NULL,
     
-    PRIMARY KEY (email),
+    PRIMARY KEY (email)
 );
 
 DROP TABLE IF EXISTS POSTER;
@@ -16,7 +16,7 @@ CREATE TABLE POSTER
 (
 	email		VARCHAR(50)	NOT NULL,
     
-    FOREIGN KEY  (email) REFERENCES ACCOUNT(email),
+    FOREIGN KEY  (email) REFERENCES ACCOUNT(email)
 );
 
 DROP TABLE IF EXISTS CONTRACTOR;
@@ -25,7 +25,7 @@ CREATE TABLE CONTRACTOR
 	email		VARCHAR(50)	NOT NULL,
     biography	VARCHAR(500),
     
-    FOREIGN KEY  (email) REFERENCES ACCOUNT(email),
+    FOREIGN KEY  (email) REFERENCES ACCOUNT(email)
 );
 
 DROP TABLE IF EXISTS CONTRACTOR_SPECIALTIES;
@@ -34,7 +34,7 @@ CREATE TABLE CONTRACTOR_SPECIALTIES
 	email		VARCHAR(50)	NOT NULL,
     skills		VARCHAR(50),
     
-    FOREIGN KEY  (email) REFERENCES CONTRACTOR(email),
+    FOREIGN KEY  (email) REFERENCES CONTRACTOR(email)
 );
 
 DROP TABLE IF EXISTS CONTRACTOR_REFERENCES;
@@ -43,14 +43,14 @@ CREATE TABLE CONTRACTOR_REFERENCES
 	email		VARCHAR(50)	NOT NULL,
     ref			VARCHAR(100),
     
-    FOREIGN KEY  (email) REFERENCES CONTRACTOR(email),
+    FOREIGN KEY  (email) REFERENCES CONTRACTOR(email)
 );
 
 
 DROP TABLE IF EXISTS JOB_POSTING;
 CREATE TABLE JOB_POSTING
 (
-	post_id				INT AUTO_INCREMENT,
+	post_id				INT NOT NULL AUTO_INCREMENT,
 	description			VARCHAR(500),
     dateOfPosting		DATETIME,
     status				VARCHAR(15),
@@ -60,21 +60,22 @@ CREATE TABLE JOB_POSTING
     poster_email		VARCHAR(50),
     contractor_email	VARCHAR(50),
     
+    PRIMARY KEY (post_id),
     FOREIGN KEY (poster_email) REFERENCES POSTER(email),
-    FOREIGN KEY (contractor_email) REFERENCES CONTRACTOR(email),
+    FOREIGN KEY (contractor_email) REFERENCES CONTRACTOR(email)
 );
 
 DROP TABLE IF EXISTS REVIEW;
 CREATE TABLE REVIEW
 (
-	job_id			INT NOT NULL,
+	job_id				INT NOT NULL, #will be a copy of the post_id, not dependent tho
 	reviewer_email		VARCHAR(50),
     reviewee_email		VARCHAR(50),
-    date			DATETIME, #date the review was made
+    date				DATETIME, #date the review was made
     feedback			VARCHAR(200),
     job_type			VARCHAR(50),
-    stars			INT, #should be a number from 1-5
+    stars				INT, #should be a number from 1-5
     
     FOREIGN KEY  (reviewee_email) REFERENCES CONTRACTOR(email),
-    FOREIGN KEY (reviewer_email) REFERENCES POSTER(email),
+    FOREIGN KEY (reviewer_email) REFERENCES POSTER(email)
 );
