@@ -2,8 +2,8 @@ DROP DATABASE IF EXISTS `PremisesPal`;
 CREATE DATABASE `PremisesPal`;
 USE `PremisesPal`;
 
-DROP TABLE IF EXISTS ACCOUNT;
-CREATE TABLE ACCOUNT
+DROP TABLE IF EXISTS `ACCOUNT`;
+CREATE TABLE `ACCOUNT`
 (
 	email		VARCHAR(50)	NOT NULL,
     pass		VARCHAR(25)	NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE JOB_POSTING
     poster_email		VARCHAR(50),
     contractor_email	VARCHAR(50),
     
-    PRIMARY KEY (post_id),
+	PRIMARY KEY (post_id),
     FOREIGN KEY (poster_email) REFERENCES POSTER(email),
     FOREIGN KEY (contractor_email) REFERENCES CONTRACTOR(email)
 );
