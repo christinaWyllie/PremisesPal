@@ -1,0 +1,38 @@
+body {
+    background: #ffffff;
+    font-family: Arial;
+}
+
+p {
+    background: #913232;
+    color: white;
+    padding: 10px;
+}
+.Home {
+    overflow: hidden;
+    background-color: #013b72;
+  }
+
+  .Home h1 {
+    color: #ffffff;
+    text-align: center;
+  }
+  
+  .Home a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .Home a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .Home a.active {
+    background-color: #2aabc2;
+    color: white;
+  }
