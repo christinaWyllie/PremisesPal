@@ -33,6 +33,7 @@ class DBConnection{
     
     // login business logic - find a matching user and verify their password
     async login( email, pswd ) {
+        console.log(`Querying for ${email} ${pswd}`)
         const existingUsers = await this.query(`SELECT email, pass FROM ACCOUNT WHERE email ='${email}'`)
         console.log('Found existing users', existingUsers)
         return (existingUsers && existingUsers.length && existingUsers[0].pass === pswd)
