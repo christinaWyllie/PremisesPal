@@ -23,30 +23,30 @@ class Connection{
     
     validateUsername(username){
         var checked = false;
-        var err;
-        var results;
-
+        console.log("at thw top");
         this.connection.query("SELECT * FROM ACCOUNT WHERE email = '" + username + "'", function(err, results, fields){
+            if(err){
+                console.log(typeof(err));
+                checked = false;
+            }
+            console.log(results.length);
+            //console.log(localResults);
+             // Check if results are empty, thus no catches; return false.
+            if(results.length == 0 || results == undefined) {
+                checked = false;
+                return;
+            }
+
+            if(results[0].email == username){
+                checked = true;
+            } else{
+                checked = false;
+            }
         });
 
-        console.log(results);
+        console.log("LocalResults is:" + localResults);
 
-        if(err){
-            console.log(typeof(err));
-            checked = false;
-        }
-
-        // Check if results are empty, thus no catches; return false.
-        if(results.length == 0 || results == undefined) {
-            checked = false;
-            return;
-        }
-
-        if(results[0].email == username){
-            checked = true;
-        } else{
-            checked = false;
-        }
+       
 
         return checked;
     }
@@ -88,4 +88,3 @@ if(checked) {
 } else {
     console.log("Username does not exist");
 }
-
