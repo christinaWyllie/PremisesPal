@@ -7,7 +7,7 @@ class Login{
     static async query( query ) {
 
         // -- Database connection --
-        var connection = mysql.createConnection({   // <== connection is used to establish connection with database
+        const connection = mysql.createConnection({   // <== connection is used to establish connection with database
             host: 'localhost',
             user: 'seng401',
             password: 'pal', 
@@ -38,7 +38,7 @@ class Login{
         console.log(`validateUsername: Validating ${user}`)
         const existingUsers = await Login.query(`SELECT email FROM ACCOUNT WHERE email ='${user}'`)
         console.log('validateUsername: Found existing users', existingUsers)
-        return (existingUsers && existingUsers.length && existingUsers[0].email === user)  // existingUsers is defined and nonzero
+        return (existingUsers && existingUsers.length)  // existingUsers is defined and nonzero
     }
 
     // == Ensures pass corresponds to given user in ACCOUNT table
@@ -50,24 +50,20 @@ class Login{
     }
 }
 
-/**
- * UNCOMMENT BELOW IN ORDER TO TEST ABOVE FUNCTIONALITY. Run using 'node login.js'
- * An example of how to utilize this microserve (for Jack & Brenek)
- */
-
+// // A demonstration of how middleware (Jack & Brenek) could interact with this function.
 // async function mockLoginFunction() {
 //     console.log("\nMocking login functionality:")
 //     var username = await Login.validateUsername('arion@yahoo.ca')   // <= username to be validated
 //     console.log(`validateUsername returned: ${username}`)
 
-//     if(username) {
+//     if(username == true) {
 //         console.log("! Email is registered\n")
 
 //         var password = await Login.validatePassword('arion@yahoo.ca', 'password')   // <= username and associated password to be validated
 //         console.log(`validatePassword returned: ${password}`)
 
-//         if(password) console.log("! Login successful\n")
-//         else console.log("! Password is incorrect - does not match\n")
+//         if(password == true) console.log("! Login successful\n")
+//         else console.log("! Password is incorrect\n")
 
 //     } else console.log("! Email is not registered\n")
 // }
