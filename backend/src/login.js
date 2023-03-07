@@ -33,7 +33,7 @@ class Login{
     }
     // ======================================================================
 
-    // == Ensures username is present in ACCOUNT table
+    // Ensures username is present in ACCOUNT table
     static async validateUsername( user ) {
         console.log(`validateUsername: Validating ${user}`)
         const existingUsers = await Login.query(`SELECT email FROM ACCOUNT WHERE email ='${user}'`)
@@ -41,7 +41,7 @@ class Login{
         return (existingUsers && existingUsers.length)  // existingUsers is defined and nonzero
     }
 
-    // == Ensures pass corresponds to given user in ACCOUNT table
+    // Ensures pass corresponds to given user in ACCOUNT table
     static async validatePassword( user, pass ) {
         console.log(`validatePassword: validating ${pass} for ${user}`)
         const existingUsers = await Login.query(`SELECT email, pass FROM ACCOUNT WHERE email ='${user}'`)
@@ -50,7 +50,11 @@ class Login{
     }
 }
 
-// // A demonstration of how middleware (Jack & Brenek) could interact with this function.
+/**
+ * UNCOMMENT BELOW TO TEST FUNCTIONALITY. RUN WITH 'node login.js'
+ * A basic demonstration of how to interact with this class, for Jack & Brenek
+ */
+
 // async function mockLoginFunction() {
 //     console.log("\nMocking login functionality:")
 //     var username = await Login.validateUsername('arion@yahoo.ca')   // <= username to be validated
