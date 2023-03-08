@@ -2,7 +2,7 @@ class Post{
 
     Post(){
         // test constructor for frontend
-        // id, description, dateOfPosting, available, price, requiredSkills, poster_email, contractor_email
+        // id, description, dateOfPosting, available, price, requiredSkills, posterEmail, contractorEmail
         this.id = 101;
         this.description = "Sample description for a job posting - need someone who knows how to fix a leaky kitchen sink"
         this.available = true;
@@ -14,7 +14,7 @@ class Post{
         this.contractorEmail = ""
     }
 
-    Post(id){
+    Post(id, description, dateOfPosting, available, price, requiredSkills, posterEmail, contractorEmail){
         // will load all information about the post from the database
     }
 
