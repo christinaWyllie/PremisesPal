@@ -48,14 +48,14 @@ class PostDB{
      */
 
     //Might... not.. need to be async? Idk we'll find out.
-    static async createPost( id, description, dateOfPosting, status, price, requiredSkills, poster_email, contractor_email) {
+    static async createPost( description, dateOfPosting, status, price, requiredSkills, poster_email ) {
         if(!Post.connection) await Post.makeConnection()
 
-        console.log(`Creating Post #${id} from user: ${poster_email}`)
+        console.log(`Creating from poster: ${poster_email}`)
 
         const newPoster = await Post.query(`INSERT INTO POSTER VALUES ('${poster_email}')`)
 
-        const createPost = await Post.query(`INSERT INTO JOB_POSTING VALUES (description, dateOfPosting, status, price, requiredSkills, poster_email)` + 
+        const createPost = await Post.query(`INSERT INTO JOB_POSTING(description, dateOfPosting, status, price, requiredSkills, poster_email) VALUES ` + 
         `('${description}', '${dateOfPosting}', '${status}', ${price}, '${requiredSkills}', '${poster_email}')`) 
         
         return(newPoster.protocol41 && createPost.protocol41)
@@ -64,7 +64,7 @@ class PostDB{
 
 async function mockCreatePostFunction() {
     console.log("\nMocking login functionality:")
-    var newPost = await Post.createPost('Testing new post without contractor', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.ca')   // <= username to be validated
+    var newPost = await Post.createPost('Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.ca')   // <= username to be validated
     console.log("createPost returned", newPost)
 }
 
