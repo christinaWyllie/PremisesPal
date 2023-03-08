@@ -1,18 +1,37 @@
 class Register{
-    static registerAccount(username, password, skills){
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    static registerAccount(email, password, skills){
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        const passwordRegex = /^(?=.*\d).{8,}$/
 
-        if (emailRegex.test(username)){
+        if (!passwordRegex.test(password)) {
+            return false
+        }
+
+        if (emailRegex.test(email)){
             
-            if (password.length >= 4 && password.length <= 16){
-                // register the account 
+            if (Account.validateUsername(email)) {
+                console.log("email is already in use dumguy!");
+                return false
             }
-            else{
-                // let them know the password must be between 4 and 16 characters
+
+            if (password.length < 4 || password.length > 16){
+                console.log("password must be between 4 and 16 characters.");
+                return false
             }
         }
         else {
-            // let them know the username is not a valid email
+            console.log("invalid email syntax doofus.")
+            return false
         }
+
+        if (Account.registerUser(email, password)) {
+            console.log("account registration error in the database.")
+            return false
+        }
+
+        console.log("successfully registered account.")
+        return true
     }
+
+
 }

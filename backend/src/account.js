@@ -1,4 +1,4 @@
-class AccountDB{
+class Account{
 
     // =============================== START =====================================
     static mysql = require('mysql')  //Grab mysql libraries
@@ -39,7 +39,7 @@ class AccountDB{
     // Ensures username is present in ACCOUNT table
     static async validateUsername( user ) {
         console.log(`Connection status: ${Account.connection}`)
-        if (!Login.connection) await Account.makeConnection();  //Establish database connection if not already made
+        if (!Account.connection) await Account.makeConnection();  //Establish database connection if not already made
         console.log(`validateUsername: Validating ${user}`)
 
         const existingUsers = await Account.query(`SELECT email FROM ACCOUNT WHERE email ='${user}'`)
@@ -50,12 +50,23 @@ class AccountDB{
     // Ensures pass corresponds to given user in ACCOUNT table
     static async validatePassword( user, pass ) {
         console.log(`Connection status: ${Account.connection}`)
-        if (!Login.connection) await Account.makeConnection();  //Establish database connection if not already made
+        if (!Account.connection) await Account.makeConnection();  //Establish database connection if not already made
         console.log(`validatePassword: validating ${pass} for ${user}`)
 
         const existingUsers = await Account.query(`SELECT email, pass FROM ACCOUNT WHERE email ='${user}'`)
         console.log('validatePassword: Found existing users', existingUsers)
         return (existingUsers && existingUsers.length && existingUsers[0].pass === pass) // existingUsers is defined, nonzero, and pass matches
+    }
+
+    //function to create a new account
+    static async registerUser(username, password){
+        console.log(`Connection status: ${Account.connection}`)
+        if (!Account.connection) await Account.makeConnection();  //Establish database connection if not already made
+        console.log(`validateUsername: Validating ${username}`)
+
+        const insertUser = await Account.query(`INSERT INTO ACCOUNT VALUES ('${username}', '${password}')`)
+
+        return (insertUser.protocol41)  // returns true if insert is successful
     }
 }
 
@@ -64,21 +75,28 @@ class AccountDB{
  * A basic demonstration of how to interact with this class, for Jack & Brenek
  */
 
+// async function mockLoginFunction() {
+//     console.log("\nMocking login functionality:")
+//     var username = await Account.validateUsername('arion@yahoo.ca')   // <= username to be validated
+//     console.log(`validateUsername returned: ${username}`)
+
+//     if(username) {
+//         console.log("! Email is registered\n")
+
+//         var password = await Account.validatePassword('arion@yahoo.ca', 'password')   // <= username and associated password to be validated
+//         console.log(`validatePassword returned: ${password}`)
+
+//         if(password) console.log("! Login successful\n")
+//         else console.log("! Password is incorrect\n")
+
+//     } else console.log("! Email is not registered\n")
+// }
+
+
 async function mockLoginFunction() {
-    console.log("\nMocking login functionality:")
-    var username = await Account.validateUsername('arion@yahoo.ca')   // <= username to be validated
-    console.log(`validateUsername returned: ${username}`)
-
-    if(username) {
-        console.log("! Email is registered\n")
-
-        var password = await Account.validatePassword('arion@yahoo.ca', 'password')   // <= username and associated password to be validated
-        console.log(`validatePassword returned: ${password}`)
-
-        if(password) console.log("! Login successful\n")
-        else console.log("! Password is incorrect\n")
-
-    } else console.log("! Email is not registered\n")
+    console.log("\nMocking register functionality:")
+    var username = await Account.registerUser('register@yahoo.ca', 'password')   // <= username to be validated
+    console.log(`registerUser returned: ${username}`)
 }
 
 mockLoginFunction()
