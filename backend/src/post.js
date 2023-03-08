@@ -1,5 +1,9 @@
-class DBConnection{  
-    // Copy the following:  
+/**
+ * Microservice responsible for post functionalities
+ * For example: creating, removing, accepting, updating posts
+ */
+
+class Post{
 
     // =============================== START =====================================
     static mysql = require('mysql');  //Grab mysql libraries
@@ -34,39 +38,35 @@ class DBConnection{
         })
     }
     // ================================ END ======================================
-    
-    // login business logic - find a matching user and verify their password
-    static async testLogin( email, pswd ) {
-        console.log(`Querying for ${email} ${pswd}`)
-        if(!DBConnection.connection) await DBConnection.makeConnection()
 
-        const existingUsers = await DBConnection.query(`SELECT email, pass FROM ACCOUNT WHERE email ='${email}'`)
-        console.log('Found existing users', existingUsers)
-        return (existingUsers && existingUsers.length && existingUsers[0].pass === pswd)
+    /**
+     * Inserts new post into job_posting table
+     * Requires: post_id, description, dateOfPosting, status, price, requiredSkills, poster_email
+     * post_id must be unique
+     * poster_email must be a valid ACCOUNT && poster
+     * Will also insert poster_email into poster table.
+     */
+
+    //Might... not.. need to be async? Idk we'll find out.
+    static async createPost( id, description, dateOfPosting, status, price, requiredSkills, poster_email, contractor_email) {
+        if(!Post.connection) await Post.makeConnection()
+
+        console.log(`Creating Post #${id} from user: ${poster_email}`)
+
+        const newPoster = await Post.query(`INSERT INTO POSTER VALUES ('${poster_email}')`)
+
+        const createPost = await Post.query(`INSERT INTO JOB_POSTING VALUES ` + 
+        `(${id}, '${description}', '${dateOfPosting}', '${status}', ${price}, '${requiredSkills}', '${poster_email}', '${contractor_email}')`) 
+        
+        return(newPoster.protocol41 && createPost.protocol41)
     }
-
-    static async testInsert( email, pass ) {
-        if(!DBConnection.connection) await DBConnection.makeConnection()
-        console.log(`Testing insertion of ${email}`)
-
-        const insertUser = await DBConnection.query(`INSERT INTO ACCOUNT VALUES ('${email}', '${pass}')`)
-        return (insertUser.protocol41)  //protocol41 returns state of query i.e true
-    }
 }
 
-async function testExists() {
-    // busines logic to test login 
-    console.log('/login with query')
-    const exists = await DBConnection.testLogin( 'arion@yahoo.ca', 'passwrd') 
-    console.log('DBConnection.login returned', exists)
+async function mockCreatePostFunction() {
+    console.log("\nMocking login functionality:")
+    var newPost = await Post.createPost(2, 'Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.ca', 'arion@yahoo.ca')   // <= username to be validated
+    console.log("createPost returned", newPost)
 }
 
-async function testInsert() {
-    console.log("Testing an insertion query")
-    const insert = await DBConnection.testInsert('test2@gmail.ca', 'test2Password')
-    console.log('DBConnection.testInsert retured', insert)
-}
-
-testInsert()
-
+mockCreatePostFunction()
 
