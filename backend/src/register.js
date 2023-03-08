@@ -4,7 +4,7 @@ class Register{
 
         if (emailRegex.test(email)){
             
-            if (validateUsername(email)) {
+            if (Account.validateUsername(email)) {
                 console.log("email is already in use dumguy!");
                 return false;
             }
@@ -19,4 +19,5 @@ class Register{
             return false;
         }
     }
+
 }
