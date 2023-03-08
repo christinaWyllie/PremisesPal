@@ -1,7 +1,7 @@
 class Account{
 
     // =============================== START =====================================
-    static mysql = require('mysql');  //Grab mysql libraries
+    static mysql = require('mysql')  //Grab mysql libraries
     static connection   //Static connection variable used for database interactivity
     
     // Establishes connection with database - must be called atleast once
