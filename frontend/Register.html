@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <header>
-        <title>PremisesPal/Login</title>
+        <title>PremisesPal/Register</title>
         <link rel="stylesheet" href="main.css" />
     </header>
     <body>
@@ -11,6 +11,37 @@
         <input type="text" placeholder="Enter Email" name="uname" required>
         <label for="psw"><b></b></label>
         <input type="password" placeholder="Enter Password" name="psw" required>
+        <fieldset>
+          <legend>Choose Your Skills</legend>
+          <div>
+            <input type="checkbox" id="carpentry" name="interest" value="carpentry" />
+            <label for="carpentry">Carpentry</label>
+          </div>
+          <div>
+            <input type="checkbox" id="plumbing" name="interest" value="plumbing" />
+            <label for="plumbing">Plumbing</label>
+          </div>
+          <div>
+            <input type="checkbox" id="cleaning" name="interest" value="cleaning" />
+            <label for="cleaning">Cleaning</label>
+          </div>
+          <div>
+            <input type="checkbox" id="electrical" name="interest" value="electrical" />
+            <label for="electrical">Electrical</label>
+          </div>
+          <div>
+            <input type="checkbox" id="landscaping" name="interest" value="landscaping" />
+            <label for="landscaping">Landscaping</label>
+          </div>
+          <div>
+            <input type="checkbox" id="painting" name="interest" value="painting" />
+            <label for="painting">Painting</label>
+          </div>
+          <div>
+            <input type="checkbox" id="other" name="interest" value="other" />
+            <label for="other">Other</label>
+          </div>
+        </fieldset>
         <button type="submit">Register</button>
         <button onclick="window.location.href='Home.html';">Back</button>
       </div>
