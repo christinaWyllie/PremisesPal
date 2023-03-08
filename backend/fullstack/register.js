@@ -1,4 +1,9 @@
+
+
 class Register{
+
+    static account = require('uhhh whatever path account is in')
+
     static async registerAccount(email, password){
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         const passwordRegex = /^(?=.*\d).{8,}$/
@@ -9,7 +14,7 @@ class Register{
 
         if (emailRegex.test(email)){
             
-            if (Account.validateUsername(email)) {
+            if (account.validateUsername(email)) {
                 console.log("email is already in use dumguy!");
                 return false
             }
@@ -24,7 +29,7 @@ class Register{
             return false
         }
 
-        if (Account.registerUser(email, password)) {
+        if (account.registerUser(email, password)) {
             console.log("account registration error in the database.")
             return false
         }
