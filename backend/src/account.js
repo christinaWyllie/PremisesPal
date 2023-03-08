@@ -1,4 +1,4 @@
-class Account{
+class AccountDB{
 
     // =============================== START =====================================
     static mysql = require('mysql')  //Grab mysql libraries

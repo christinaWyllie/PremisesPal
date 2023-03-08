@@ -3,7 +3,7 @@
  * For example: creating, removing, accepting, updating posts
  */
 
-class Post{
+class PostDB{
 
     // =============================== START =====================================
     static mysql = require('mysql');  //Grab mysql libraries
@@ -55,8 +55,8 @@ class Post{
 
         const newPoster = await Post.query(`INSERT INTO POSTER VALUES ('${poster_email}')`)
 
-        const createPost = await Post.query(`INSERT INTO JOB_POSTING VALUES ` + 
-        `(${id}, '${description}', '${dateOfPosting}', '${status}', ${price}, '${requiredSkills}', '${poster_email}', '${contractor_email}')`) 
+        const createPost = await Post.query(`INSERT INTO JOB_POSTING VALUES (description, dateOfPosting, status, price, requiredSkills, poster_email)` + 
+        `('${description}', '${dateOfPosting}', '${status}', ${price}, '${requiredSkills}', '${poster_email}')`) 
         
         return(newPoster.protocol41 && createPost.protocol41)
     }
@@ -64,7 +64,7 @@ class Post{
 
 async function mockCreatePostFunction() {
     console.log("\nMocking login functionality:")
-    var newPost = await Post.createPost(2, 'Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.ca', 'arion@yahoo.ca')   // <= username to be validated
+    var newPost = await Post.createPost('Testing new post without contractor', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.ca')   // <= username to be validated
     console.log("createPost returned", newPost)
 }
 
