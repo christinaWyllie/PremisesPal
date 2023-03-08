@@ -1,5 +1,5 @@
 class Register{
-    static registerAccount(email, password, skills){
+    static async registerAccount(email, password){
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         const passwordRegex = /^(?=.*\d).{8,}$/
 
@@ -24,7 +24,7 @@ class Register{
             return false
         }
 
-        if (Account.registerAccount(email, password)) {
+        if (Account.registerUser(email, password)) {
             console.log("account registration error in the database.")
             return false
         }
