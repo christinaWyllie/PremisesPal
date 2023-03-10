@@ -3,6 +3,8 @@
  */
 
 //const mysql = require('mysql');
+const express = require('express');
+const index = express();
 
 // middleware class for business logic
 class Middleware {
