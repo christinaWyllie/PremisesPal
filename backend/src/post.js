@@ -60,13 +60,48 @@ class Post{
         
         return(newPoster.protocol41 && createPost.protocol41)
     }
+
+    static async getPostsFromEmail(poster_email) {
+        if(!Post.connection) await Post.makeConnection()
+
+        const listIDs = await Post.query(`SELECT post_id FROM JOB_POSTING WHERE poster_email = ('${poster_email}')`)
+        console.log("lidsIDs: ", listIDs)
+        var listOfIDs = []
+        for(let i = 0; i< listIDs.length; i++){
+            listOfIDs.push(listIDs[i].post_id)
+        }
+        return(listOfIDs)
+    }
+
+    static async getPostFromID(id) {
+        if(!Post.connection) await Post.makeConnection()
+
+        const postInfoStored = await Post.query(`SELECT * FROM JOB_POSTING WHERE post_id = ('${id}')`)
+        var postInfo = []
+        postInfo.push(postInfoStored[0].post_id)
+        postInfo.push(postInfoStored[0].description)
+        postInfo.push(postInfoStored[0].dateOfPosting)
+        postInfo.push(postInfoStored[0].status)
+        postInfo.push(postInfoStored[0].price)
+        postInfo.push(postInfoStored[0].post_id)
+        postInfo.push(postInfoStored[0].requiredSkills)
+        postInfo.push(postInfoStored[0].poster_email)
+        postInfo.push(postInfoStored[0].contractor_email)
+        return(postInfo)
+    }
 }
 
-async function mockCreatePostFunction() {
-    console.log("\nMocking login functionality:")
-    var newPost = await Post.createPost('Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.ca')   // <= username to be validated
-    console.log("createPost returned", newPost)
+// async function mockCreatePostFunction() {
+//     console.log("\nMocking login functionality:")
+//     var newPost = await Post.createPost('Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'email123@shaw.ca')   // <= username to be validated
+//     console.log("createPost returned", newPost)
+// }
+
+async function mockGetIDFunction() {
+    console.log("\nMocking getID functionality:")
+    var username = await Post.getPostFromID(1)   // <= username to be validated
+    console.log("registerUser returned: ", username)
 }
 
-mockCreatePostFunction()
+mockGetIDFunction()
 
