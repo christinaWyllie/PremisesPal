@@ -34,31 +34,67 @@ class Contractor{
     }
     // ================================ END ======================================
 
+    /**
+     * Adds a new contractor into the contractor table, if email does not already exist
+     */
     static async addContractor(email, biography) {
-        if(!Post.connection) await Contractor.makeConnection()
+        if(!Contractor.connection) await Contractor.makeConnection()
 
-        const newContractor = await Contractor.query(`INSERT INTO contractor (email, biography)
-                                                    SELECT '${email}', '${biography}'
-                                                    WHERE NOT EXISTS (SELECT 1 FROM contractor WHERE email = '${email}'`)
+        const newContractor = await Contractor.query(`INSERT INTO contractor VALUES ('${email}', '${biography}')`)
 
-        
+        return(newContractor.protocol41)
     }
 
     static async addReference(email, reference) {
+        if(!Contractor.connection) await Contractor.makeConnection()
 
+        const newReference = await Contractor.query(`INSERT INTO contractor_references VALUES ('${email}', '${reference}')`)
+
+        return(newReference.protocol41)
     }
 
     static async addSkill(email, skill) {
+        if(!Contractor.connection) await Contractor.makeConnection()
 
+        const newSkill = await Contractor.query(`INSERT INTO contractor_specialties VALUES ('${email}', '${skill}')`)
+
+        return(newSkill.protocol41)
     }
 
     static async viewReferences(email) {
+        if(!Contractor.connection) await Contractor.makeConnection()
 
+        const references = await Contractor.query(`SELECT * FROM contractor_references WHERE email = '${email}'`)
+
+        var allReferences = []
+
+        for(let i = 0; i < references.length; i++) {
+            allReferences.push(references[i].ref)
+        }
+
+        return(allReferences)
     }
 
     static async viewSkills(email) {
+        if(!Contractor.connection) await Contractor.makeConnection()
 
+        const skills = await Contractor.query(`SELECT * FROM contractor_specialties WHERE email = '${email}'`)
+
+        var allSkills = []
+
+        for(let i = 0; i < skills.length; i++) {
+            allSkills.push(skills[i].skills)
+        }
+
+        return(allSkills)
     }
 
-
 }
+
+async function mockAddContractor() {
+    console.log("\nMocking new contractor functionlity:")
+    var newContractor = await Contractor.viewSkills('test@gmail.ca')   // <= username to be validated
+    console.log("createPost returned", newContractor)
+}
+
+mockAddContractor()
