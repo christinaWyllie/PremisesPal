@@ -1,9 +1,4 @@
-/**
- * Microservice responsible for post functionalities
- * For example: creating, removing, accepting, updating posts
- */
-
-class PostDB{
+class Contractor{
 
     // =============================== START =====================================
     static mysql = require('mysql');  //Grab mysql libraries
@@ -39,33 +34,31 @@ class PostDB{
     }
     // ================================ END ======================================
 
-    /**
-     * Inserts new post into job_posting table
-     * Requires: post_id, description, dateOfPosting, status, price, requiredSkills, poster_email
-     * post_id must be unique
-     * poster_email must be a valid ACCOUNT && poster
-     * Will also insert poster_email into poster table.
-     */
+    static async addContractor(email, biography) {
+        if(!Post.connection) await Contractor.makeConnection()
 
-    //Might... not.. need to be async? Idk we'll find out.
-    static async createPost( description, dateOfPosting, status, price, requiredSkills, poster_email ) {
-        if(!Post.connection) await Post.makeConnection()
-        console.log(`Creating from poster: ${poster_email}`)
+        const newContractor = await Contractor.query(`INSERT INTO contractor (email, biography)
+                                                    SELECT '${email}', '${biography}'
+                                                    WHERE NOT EXISTS (SELECT 1 FROM contractor WHERE email = '${email}'`)
 
-        const newPoster = await Post.query(`INSERT INTO POSTER VALUES ('${poster_email}')`)
-
-        const createPost = await Post.query(`INSERT INTO JOB_POSTING(description, dateOfPosting, status, price, requiredSkills, poster_email) VALUES ` + 
-        `('${description}', '${dateOfPosting}', '${status}', ${price}, '${requiredSkills}', '${poster_email}')`) 
         
-        return(newPoster.protocol41 && createPost.protocol41)
     }
+
+    static async addReference(email, reference) {
+
+    }
+
+    static async addSkill(email, skill) {
+
+    }
+
+    static async viewReferences(email) {
+
+    }
+
+    static async viewSkills(email) {
+
+    }
+
+
 }
-
-async function mockCreatePostFunction() {
-    console.log("\nMocking login functionality:")
-    var newPost = await Post.createPost('Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.ca')   // <= username to be validated
-    console.log("createPost returned", newPost)
-}
-
-mockCreatePostFunction()
-
