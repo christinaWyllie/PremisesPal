@@ -39,21 +39,20 @@ class Post{
     }
     // ================================ END ======================================
 
-    /**
+    /*
      * Inserts new post into job_posting table
-     * Requires: post_id, description, dateOfPosting, status, price, requiredSkills, poster_email
-     * post_id must be unique
+     * Requires: description, dateOfPosting, status, price, requiredSkills, poster_email
      * poster_email must be a valid ACCOUNT && poster
      * Will also insert poster_email into poster table.
      */
-
-    //Might... not.. need to be async? Idk we'll find out.
     static async createPost( description, dateOfPosting, status, price, requiredSkills, poster_email ) {
         if(!Post.connection) await Post.makeConnection()
 
         console.log(`Creating from poster: ${poster_email}`)
 
-        const newPoster = await Post.query(`INSERT INTO POSTER VALUES ('${poster_email}')`)
+        const newPoster = await Post.query(`INSERT INTO poster(email) 
+                                            SELECT '${poster_email}'
+                                            WHERE NOT EXISTS (SELECT 1 FROM poster WHERE email = '${poster_email}');`)
 
         const createPost = await Post.query(`INSERT INTO JOB_POSTING(description, dateOfPosting, status, price, requiredSkills, poster_email) VALUES ` + 
         `('${description}', '${dateOfPosting}', '${status}', ${price}, '${requiredSkills}', '${poster_email}')`) 
@@ -61,6 +60,25 @@ class Post{
         return(newPoster.protocol41 && createPost.protocol41)
     }
 
+    /*
+     * Deletes existing post from job_posting table
+     * Requires: post_id
+     */
+    static async deletePost(id){
+        if(!Post.connection) await Post.makeConnection()
+
+        console.log(`Deleting post: ${id}`)
+
+        const deletedPost = await Post.query(`DELETE FROM JOB_POSTING WHERE post_id = ('${id}')`)
+
+        return(deletedPost.protocol41)
+
+    }
+
+    /*
+     * Retrieves post ids from existing email from job_posting table
+     * Requires: poster_email
+     */
     static async getPostsFromEmail(poster_email) {
         if(!Post.connection) await Post.makeConnection()
 
@@ -73,6 +91,10 @@ class Post{
         return(listOfIDs)
     }
 
+    /*
+     * Retrieves all information for an existing post_id from job_posting table
+     * Requires: post_id
+     */
     static async getPostFromID(id) {
         if(!Post.connection) await Post.makeConnection()
 
@@ -89,19 +111,87 @@ class Post{
         postInfo.push(postInfoStored[0].contractor_email)
         return(postInfo)
     }
+
+    /*
+     * Assigns a contractor to an existing post to job_posting table
+     * Requires: post_id, contractor_email
+     */
+    static async assignContractor(id, contractor_email){
+        if(!Post.connection) await Post.makeConnection()
+
+        const newContractor = await Post.query(`UPDATE JOB_POSTING SET contractor_email = ('${contractor_email}') WHERE post_id = '${id}'`)
+        return(newContractor.protocol41)
+    }
+
+    /*
+     * Sets the post status of an existing post to Inactive in the job_posting table
+     * Requires: post_id
+     */
+    static async setPostInactive(id){
+        if(!Post.connection) await Post.makeConnection()
+
+        const inactive = await Post.query(`UPDATE JOB_POSTING SET status = 'Inactive' WHERE post_id = '${id}'`)
+        return(inactive.protocol41)
+    }
+
+     /*
+     * Sets the post status of an existing post to Active in the job_posting table
+     * Requires: post_id
+     */
+    static async setPostActive(id){
+        if(!Post.connection) await Post.makeConnection()
+
+        const active = await Post.query(`UPDATE JOB_POSTING SET status = 'Active' WHERE post_id = '${id}'`)
+        return(active.protocol41)
+    }
+
+     /*
+     * Sets the post status of an existing post to In Progress in the job_posting table
+     * Requires: post_id
+     */
+    static async setPostInProgress(id){
+        if(!Post.connection) await Post.makeConnection()
+
+        const progress = await Post.query(`UPDATE JOB_POSTING SET status = 'In Progress' WHERE post_id = '${id}'`)
+        return(progress.protocol41)
+    }
+
+     /*
+     * Updates the price of an existing post in the job_posting table
+     * Requires: post_id, newPrice
+     */
+    static async updatePrice(id, newPrice){
+        if(!Post.connection) await Post.makeConnection()
+
+        const price = await Post.query(`UPDATE JOB_POSTING SET price = ('${newPrice}') WHERE post_id = '${id}'`)
+        return(price.protocol41)
+    }
+
+    /*
+     * Updates the description of an existing post in the job_posting table
+     * Requires: post_id, newDescription
+     */
+    static async updateDescription(id, newDescription){
+        if(!Post.connection) await Post.makeConnection()
+
+        const description = await Post.query(`UPDATE JOB_POSTING SET description = ('${newDescription}') WHERE post_id = '${id}'`)
+        return(description.protocol41)
+    }
 }
 
-// async function mockCreatePostFunction() {
-//     console.log("\nMocking login functionality:")
-//     var newPost = await Post.createPost('Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'email123@shaw.ca')   // <= username to be validated
-//     console.log("createPost returned", newPost)
+async function mockCreatePostFunction() {
+    // console.log("\nMocking login functionality:")
+    // var newPost = await Post.createPost('Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.com')   // <= username to be validated
+    // console.log("createPost returned", newPost)
+
+    var newContractor = await Post.deletePost(6)
+}
+
+// async function mockGetIDFunction() {
+//     console.log("\nMocking getID functionality:")
+//     var username = await Post.getPostFromID(1)   // <= username to be validated
+//     console.log("registerUser returned: ", username)
 // }
 
-async function mockGetIDFunction() {
-    console.log("\nMocking getID functionality:")
-    var username = await Post.getPostFromID(1)   // <= username to be validated
-    console.log("registerUser returned: ", username)
-}
-
-mockGetIDFunction()
+mockCreatePostFunction()
 
