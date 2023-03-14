@@ -33,6 +33,16 @@ class DBConnection{
             })    
         })
     }
+
+    static async registerUser(username, password){
+        console.log(`Connection status: ${Login.connection}`)
+        if (!Login.connection) await Account.makeConnection();  //Establish database connection if not already made
+        console.log(`validateUsername: Validating ${user}`)
+
+        const insertUser = await Account.query(`INSERT INTO ACCOUNT VALUES ('${username}', '${password}')`)
+
+        return (insertUser.protocol41)  // returns true if insert is successful
+    }
     // ================================ END ======================================
     
     // login business logic - find a matching user and verify their password
