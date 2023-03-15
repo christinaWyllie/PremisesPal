@@ -1,4 +1,4 @@
-class Review {
+class ReviewDB {
 
     // =============================== START =====================================
     static mysql = require('mysql');  //Grab mysql libraries
@@ -34,5 +34,33 @@ class Review {
     }
     // ================================ END ======================================
     
+    /*
+     * Deletes existing post from job_posting table
+     * Requires: post_id
+     */
+    static async createReview(id, reviewer_email, reviewee_email, feedback, jobType, stars){
+        if(!ReviewDB.connection) await ReviewDB.makeConnection()
+
+        console.log(`Creating Review: ${id}`)
+
+        let today = new Date().toISOString().slice(0, 10)
+
+        
+
+        const createdReview = await ReviewDB.query(`INSERT INTO REVIEW 
+                                                    SELECT ${id}, '${reviewer_email}', '${reviewee_email}', '${today}', '${feedback}', '${jobType}', ${stars}
+                                                    WHERE NOT EXISTS (SELECT 1 FROM REVIEW WHERE job_id = ${id})`);
+
+        return(createdReview.protocol41)
+
+    }
 
 }
+
+async function mockLoginFunction() {
+    console.log("\nMocking register functionality:")
+    var username = await ReviewDB.createReview(3, 'ethan@ucalgary.ca',  'christina@gmail.com','good','paint', 4) 
+    console.log(`registerUser returned: ${username}`)
+}
+
+mockLoginFunction()

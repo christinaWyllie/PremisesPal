@@ -46,14 +46,14 @@ class PostDB{
      * Will also insert poster_email into poster table.
      */
     static async createPost( description, dateOfPosting, status, price, requiredSkills, poster_email ) {
-        if(!Post.connection) await Post.makeConnection()
+        if(!PostDB.connection) await PostDB.makeConnection()
         console.log(`Creating from poster: ${poster_email}`)
 
-        const newPoster = await Post.query(`INSERT INTO poster(email) 
+        const newPoster = await PostDB.query(`INSERT INTO poster(email) 
                                             SELECT '${poster_email}'
                                             WHERE NOT EXISTS (SELECT 1 FROM poster WHERE email = '${poster_email}');`)
 
-        const createPost = await Post.query(`INSERT INTO JOB_POSTING(description, dateOfPosting, status, price, requiredSkills, poster_email) VALUES ` + 
+        const createPost = await PostDB.query(`INSERT INTO JOB_POSTING(description, dateOfPosting, status, price, requiredSkills, poster_email) VALUES ` + 
         `('${description}', '${dateOfPosting}', '${status}', ${price}, '${requiredSkills}', '${poster_email}')`) 
         
         return(newPoster.protocol41 && createPost.protocol41)
@@ -64,11 +64,11 @@ class PostDB{
      * Requires: post_id
      */
     static async deletePost(id){
-        if(!Post.connection) await Post.makeConnection()
+        if(!PostDB.connection) await PostDB.makeConnection()
 
         console.log(`Deleting post: ${id}`)
 
-        const deletedPost = await Post.query(`DELETE FROM JOB_POSTING WHERE post_id = ('${id}')`)
+        const deletedPost = await PostDB.query(`DELETE FROM JOB_POSTING WHERE post_id = ('${id}')`)
 
         return(deletedPost.protocol41)
 
@@ -79,9 +79,9 @@ class PostDB{
      * Requires: poster_email
      */
     static async getPostsFromEmail(poster_email) {
-        if(!Post.connection) await Post.makeConnection()
+        if(!PostDB.connection) await PostDB.makeConnection()
 
-        const listIDs = await Post.query(`SELECT post_id FROM JOB_POSTING WHERE poster_email = ('${poster_email}')`)
+        const listIDs = await PostDB.query(`SELECT post_id FROM JOB_POSTING WHERE poster_email = ('${poster_email}')`)
         console.log("lidsIDs: ", listIDs)
         var listOfIDs = []
         for(let i = 0; i< listIDs.length; i++){
@@ -95,9 +95,9 @@ class PostDB{
      * Requires: post_id
      */
     static async getPostFromID(id) {
-        if(!Post.connection) await Post.makeConnection()
+        if(!PostDB.connection) await PostDB.makeConnection()
 
-        const postInfoStored = await Post.query(`SELECT * FROM JOB_POSTING WHERE post_id = ('${id}')`)
+        const postInfoStored = await PostDB.query(`SELECT * FROM JOB_POSTING WHERE post_id = ('${id}')`)
         var postInfo = []
         postInfo.push(postInfoStored[0].post_id)
         postInfo.push(postInfoStored[0].description)
@@ -116,9 +116,9 @@ class PostDB{
      * Requires: post_id, contractor_email
      */
     static async assignContractor(id, contractor_email){
-        if(!Post.connection) await Post.makeConnection()
+        if(!PostDB.connection) await PostDB.makeConnection()
 
-        const newContractor = await Post.query(`UPDATE JOB_POSTING SET contractor_email = ('${contractor_email}') WHERE post_id = '${id}'`)
+        const newContractor = await PostDB.query(`UPDATE JOB_POSTING SET contractor_email = ('${contractor_email}') WHERE post_id = '${id}'`)
         return(newContractor.protocol41)
     }
 
@@ -127,9 +127,9 @@ class PostDB{
      * Requires: post_id
      */
     static async setPostInactive(id){
-        if(!Post.connection) await Post.makeConnection()
+        if(!PostDB.connection) await PostDB.makeConnection()
 
-        const inactive = await Post.query(`UPDATE JOB_POSTING SET status = 'Inactive' WHERE post_id = '${id}'`)
+        const inactive = await PostDB.query(`UPDATE JOB_POSTING SET status = 'Inactive' WHERE post_id = '${id}'`)
         return(inactive.protocol41)
     }
 
@@ -138,9 +138,9 @@ class PostDB{
      * Requires: post_id
      */
     static async setPostActive(id){
-        if(!Post.connection) await Post.makeConnection()
+        if(!PostDB.connection) await PostDB.makeConnection()
 
-        const active = await Post.query(`UPDATE JOB_POSTING SET status = 'Active' WHERE post_id = '${id}'`)
+        const active = await PostDB.query(`UPDATE JOB_POSTING SET status = 'Active' WHERE post_id = '${id}'`)
         return(active.protocol41)
     }
 
@@ -149,7 +149,7 @@ class PostDB{
      * Requires: post_id
      */
     static async setPostInProgress(id){
-        if(!Post.connection) await Post.makeConnection()
+        if(!PostDB.connection) await PostDB.makeConnection()
 
         const progress = await Post.query(`UPDATE JOB_POSTING SET status = 'In Progress' WHERE post_id = '${id}'`)
         return(progress.protocol41)
@@ -160,9 +160,9 @@ class PostDB{
      * Requires: post_id, newPrice
      */
     static async updatePrice(id, newPrice){
-        if(!Post.connection) await Post.makeConnection()
+        if(!PostDB.connection) await PostDB.makeConnection()
 
-        const price = await Post.query(`UPDATE JOB_POSTING SET price = ('${newPrice}') WHERE post_id = '${id}'`)
+        const price = await PostDB.query(`UPDATE JOB_POSTING SET price = ('${newPrice}') WHERE post_id = '${id}'`)
         return(price.protocol41)
     }
 
@@ -171,9 +171,9 @@ class PostDB{
      * Requires: post_id, newDescription
      */
     static async updateDescription(id, newDescription){
-        if(!Post.connection) await Post.makeConnection()
+        if(!PostDB.connection) await PostDB.makeConnection()
 
-        const description = await Post.query(`UPDATE JOB_POSTING SET description = ('${newDescription}') WHERE post_id = '${id}'`)
+        const description = await PostDB.query(`UPDATE JOB_POSTING SET description = ('${newDescription}') WHERE post_id = '${id}'`)
         return(description.protocol41)
     }
 }
@@ -183,7 +183,7 @@ async function mockCreatePostFunction() {
     // var newPost = await Post.createPost('Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.com')   // <= username to be validated
     // console.log("createPost returned", newPost)
 
-    var newContractor = await Post.deletePost(6)
+    var newContractor = await PostDB.deletePost(6)
 }
 
 // async function mockGetIDFunction() {

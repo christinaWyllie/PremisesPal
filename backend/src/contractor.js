@@ -1,4 +1,4 @@
-class Contractor{
+class ContractorDB{
 
     // =============================== START =====================================
     static mysql = require('mysql');  //Grab mysql libraries
@@ -38,33 +38,33 @@ class Contractor{
      * Adds a new contractor into the contractor table, if email does not already exist
      */
     static async addContractor(email, biography) {
-        if(!Contractor.connection) await Contractor.makeConnection()
+        if(!ContractorDB.connection) await ContractorDB.makeConnection()
 
-        const newContractor = await Contractor.query(`INSERT INTO contractor VALUES ('${email}', '${biography}')`)
+        const newContractor = await ContractorDB.query(`INSERT INTO contractor VALUES ('${email}', '${biography}')`)
 
         return(newContractor.protocol41)
     }
 
     static async addReference(email, reference) {
-        if(!Contractor.connection) await Contractor.makeConnection()
+        if(!ContractorDB.connection) await ContractorDB.makeConnection()
 
-        const newReference = await Contractor.query(`INSERT INTO contractor_references VALUES ('${email}', '${reference}')`)
+        const newReference = await ContractorDB.query(`INSERT INTO contractor_references VALUES ('${email}', '${reference}')`)
 
         return(newReference.protocol41)
     }
 
     static async addSkill(email, skill) {
-        if(!Contractor.connection) await Contractor.makeConnection()
+        if(!ContractorDB.connection) await ContractorDB.makeConnection()
 
-        const newSkill = await Contractor.query(`INSERT INTO contractor_specialties VALUES ('${email}', '${skill}')`)
+        const newSkill = await ContractorDB.query(`INSERT INTO contractor_specialties VALUES ('${email}', '${skill}')`)
 
         return(newSkill.protocol41)
     }
 
     static async viewReferences(email) {
-        if(!Contractor.connection) await Contractor.makeConnection()
+        if(!ContractorDB.connection) await ContractorDB.makeConnection()
 
-        const references = await Contractor.query(`SELECT * FROM contractor_references WHERE email = '${email}'`)
+        const references = await ContractorDB.query(`SELECT * FROM contractor_references WHERE email = '${email}'`)
 
         var allReferences = []
 
@@ -76,9 +76,9 @@ class Contractor{
     }
 
     static async viewSkills(email) {
-        if(!Contractor.connection) await Contractor.makeConnection()
+        if(!ContractorDB.connection) await ContractorDB.makeConnection()
 
-        const skills = await Contractor.query(`SELECT * FROM contractor_specialties WHERE email = '${email}'`)
+        const skills = await ContractorDB.query(`SELECT * FROM contractor_specialties WHERE email = '${email}'`)
 
         var allSkills = []
 
@@ -93,7 +93,7 @@ class Contractor{
 
 async function mockAddContractor() {
     console.log("\nMocking new contractor functionlity:")
-    var newContractor = await Contractor.viewSkills('test@gmail.ca')   // <= username to be validated
+    var newContractor = await ContractorDB.viewSkills('test@gmail.ca')   // <= username to be validated
     console.log("createPost returned", newContractor)
 }
 
