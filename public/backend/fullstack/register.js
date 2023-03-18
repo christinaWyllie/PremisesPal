@@ -1,23 +1,24 @@
-
+const AccountDB = require("../src/account.js")
 
 class Register{
 
-    static account = require('uhhh whatever path account is in')
+    //static account = require('uhhh whatever path account is in')
 
     static async registerAccount(email, password){
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         const passwordRegex = /^(?=.*\d).{8,}$/
 
-        if (!passwordRegex.test(password)) {
+        if (passwordRegex.test(password)) {
+            console.log("password was not proper")
             return false
         }
 
         if (emailRegex.test(email)){
-            
-            if (account.validateUsername(email)) {
-                console.log("email is already in use dumguy!");
-                return false
-            }
+            // commented out for testing purposes
+            // if (!AccountDB.validateUsername(email)) {
+            //     console.log("email is already in use dumguy!");
+            //     return false
+            // }
 
             if (password.length < 4 || password.length > 16){
                 console.log("password must be between 4 and 16 characters.");
@@ -29,7 +30,7 @@ class Register{
             return false
         }
 
-        if (account.registerUser(email, password)) {
+        if (!AccountDB.registerUser(email, password)) {
             console.log("account registration error in the database.")
             return false
         }
@@ -37,6 +38,6 @@ class Register{
         console.log("successfully registered account.")
         return true
     }
-
-
 }
+
+module.exports = Register;

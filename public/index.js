@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const {readFile} = require("fs").promises;
 const Login = require("./backend/fullstack/login.js")
+const Register = require("./backend/fullstack/register.js")
 
 // port number
 const port = 3000;
@@ -36,6 +37,22 @@ app.post('/Login', async (req, res) => {
 	} else {
 		console.log("login unsuccessful");
 		res.status(302).redirect('login.html');
+		//need to add error message somehow
+	}
+
+});
+
+//handle register requests
+app.post('/Register', async (req,res) => {
+	// need to add implementation for skills
+	const { uname, psw } = req.body;
+	const registrationResult = await Register.registerAccount(uname, psw);
+	if (registrationResult == true) {
+		console.log("registration successful, redirecting...");
+		res.status(302).redirect('account.html');
+	} else {
+		console.log("registration unsuccessful");
+		res.status(302).redirect('Register.html');
 		//need to add error message somehow
 	}
 
