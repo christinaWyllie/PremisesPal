@@ -1,0 +1,144 @@
+body {
+  background-image: url("../imgs/background.jpeg");
+  background-size: cover;
+  font-family: Arial;
+}
+
+p {
+  background: #ffffff;
+  color: white;
+  padding: 10px;
+}
+.Home {
+  overflow: hidden;
+}
+
+.Home img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  padding: 20px;
+}
+
+.HomeBox {
+  background: #1b6dc1;
+  color: white;
+  padding: 20px;
+  margin: 0px 350px;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-family: Arial;
+}
+
+.HomeBox button{
+  background-color: #ffffff; 
+  border: none;
+  color: 2a96fc;
+  padding: 15px 32px;
+  margin: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.Login {
+  background: #175492;
+  padding: 20px;
+  margin: 100px 350px;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-family: Arial;
+  display: block;
+}
+
+.Login input[type=text], input[type=password] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 8px 8px 165px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  display: block;
+}
+
+.Login button{
+  background-color: #ffffff; 
+  border: none;
+  color: 2a96fc;
+  padding: 15px 32px;
+  margin: 10px 5px 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.Register {
+  background: #175492;
+  padding: 20px;
+  margin: 100px 350px;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-family: Arial;
+  display: block;
+}
+
+.Register input[type=text], input[type=password] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 8px 8px 165px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  display: block;
+}
+
+.Register button{
+  background-color: #ffffff; 
+  border: none;
+  color: 2a96fc;
+  padding: 15px 32px;
+  margin: 10px 5px 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.Register fieldset{
+  background: white;
+  border: 10px black;
+  width: 31.5%;
+  margin: auto;
+  text-align: left;
+}
+
+.Register legend{
+  padding: 10px;
+  color: #ffffff;
+  background: black;
+  text-align: center;
+}
+
+#post-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+/* Creates a grid with three columns */
+gap: 20px;
+/* Adds a gap of 20px between the items */
+}
+
+.post {
+background-color: #f5f5f5;
+padding: 10px;
+border-radius: 5px;
+box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* #175492 blue */
+/* #363636 grey */

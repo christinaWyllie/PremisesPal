@@ -1,0 +1,15 @@
+{
+  "name": "premisespal-main",
+  "version": "1.0.0",
+  "description": "# For database: # Create a new username using Command Line Client with: # CREATE USER 'seng401'@'localhost' IDENTIFIED BY 'pal'; # Then to grant access: grant all privileges on `PremisesPal`.* to 'seng401'@'localhost';",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
