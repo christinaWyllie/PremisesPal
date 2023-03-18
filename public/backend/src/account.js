@@ -93,10 +93,12 @@ class AccountDB{
 // }
 
 
-async function mockLoginFunction() {
-    console.log("\nMocking register functionality:")
-    var username = await AccountDB.registerUser('register@yahoo.ca', 'password')   // <= username to be validated
-    console.log(`registerUser returned: ${username}`)
-}
+// async function mockLoginFunction() {
+//     console.log("\nMocking register functionality:")
+//     var username = await AccountDB.registerUser('register@yahoo.ca', 'password')   // <= username to be validated
+//     console.log(`registerUser returned: ${username}`)
+// }
 
-mockLoginFunction()
+// mockLoginFunction()
+
+module.exports = AccountDB

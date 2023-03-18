@@ -1,17 +1,21 @@
+const AccountDB = require("../src/account.js")
+
 class Login {
 
-    static account = require('uhhh whatever path account is in')
-
     static async loginUser(email, password) {
-        if (account.validateUsername(email)) {
+        console.log(AccountDB.validateUsername(email))
+        if (AccountDB.validateUsername(email) == false) {
             console.log('username is incorrect.')
             return false
         }
-        if (account.validatePassword(password)) {
+        if (AccountDB.validatePassword(email, password) == false) {
             console.log('password is incorrect')
             return false
         }
+        console.log("login middleware checks successful.")
         return true
     }
 
 }
+
+module.exports = Login;
