@@ -38,13 +38,18 @@ class AccountDB{
 
     // Ensures username is present in ACCOUNT table
     static async validateUsername( user ) {
-        console.log(`Connection status: ${AccountDB.connection}`)
+        //console.log(`Connection status: ${AccountDB.connection}`)
         if (!AccountDB.connection) await AccountDB.makeConnection();  //Establish database connection if not already made
         console.log(`validateUsername: Validating ${user}`)
 
         const existingUsers = await AccountDB.query(`SELECT email FROM ACCOUNT WHERE email ='${user}'`)
-        console.log('validateUsername: Found existing users', existingUsers)
-        return (existingUsers && existingUsers.length)  // existingUsers is defined and nonzero
+
+        if (existingUsers && existingUsers.length > 0) {
+            console.log('validateUsername: Found existing users', existingUsers);
+            return true;
+        }
+        console.log("found no users.");
+        return false;
     }
 
     // Ensures pass corresponds to given user in ACCOUNT table
@@ -54,6 +59,10 @@ class AccountDB{
         console.log(`validatePassword: validating ${pass} for ${user}`)
 
         const existingUsers = await AccountDB.query(`SELECT email, pass FROM ACCOUNT WHERE email ='${user}'`)
+        if (existingUsers.length === 0) {
+            console.log("found no users.");
+            return false;
+        }
         console.log('validatePassword: Found existing users', existingUsers)
         return (existingUsers && existingUsers.length && existingUsers[0].pass === pass) // existingUsers is defined, nonzero, and pass matches
     }
