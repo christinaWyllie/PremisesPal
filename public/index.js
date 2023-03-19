@@ -29,8 +29,8 @@ app.use(express.static("public/frontend/"));
 
 // Array of posts to be used for testing will eventually need to get from backend
 const posts = [
-	new Post("Sample description for a job posting - need someone who knows how to fix a leaky kitchen sink", 100, ["Plumber", "Sink"], "johnNotScott@gmail.com"),
-	new Post("Poo-Poo dont flush ", 50, ["Plumber", "Big-Load"], "stinky@example.com"),
+	new Post("Broken Sink", "Sample description for a job posting - need someone who knows how to fix a leaky kitchen sink", 100, ["Plumber", "Sink"], "johnNotScott@gmail.com"),
+	new Post("Toilet Overflowing", "Poo-Poo dont flush ", 50, ["Plumber", "Big-Load"], "stinky@example.com"),
   ];
 
 // default URL

@@ -28,7 +28,8 @@ class Post{
 
     static idCounter = 100;
 
-    constructor(description, price, requiredSkills = [], posterEmail) {
+    constructor(title, description, price, requiredSkills = [], posterEmail) {
+      this.title = title;
       this.id = Post.generateId();
       this.description = description;
       this.available = true;
