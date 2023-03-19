@@ -5,8 +5,56 @@
         <link rel="stylesheet" href="styles/main.css">
         <link rel="icon" href="imgs/favicon.ico">
     </header>
-
     <body>
-
+        <div class="createPost">
+            <h1>Please Input Post Information</h1>
+            <form method="POST" action="/createPost">
+                <fieldset>
+                    <label for="title">Title:</label><br>
+                    <input type="text" id="title" required><br>
+                    <br>
+                    <label for="desription">Description:</label><br>
+                    <input type="text" id="desription" required><br>
+                    <br>
+                    <label for="price">Price:</label><br>
+                    <input type="text" id="price" required><br>
+                    <br>
+                    <label for="checkbox">Skills:</label>
+                    <div>
+                    <input type="checkbox" id="carpentry" name="carpentry" value="carpentry" />
+                    <label for="carpentry">Carpentry</label><br>
+                    </div>
+                    <div>
+                    <input type="checkbox" id="plumbing" name="plumbing" value="plumbing" />
+                    <label for="plumbing">Plumbing</label><br>
+                    </div>
+                    <div>
+                    <input type="checkbox" id="cleaning" name="cleaning" value="cleaning" />
+                    <label for="cleaning">Cleaning</label><br>
+                    </div>
+                    <div>
+                    <input type="checkbox" id="electrical" name="electrical" value="electrical" />
+                    <label for="electrical">Electrical</label><br>
+                    </div>
+                    <div>
+                    <input type="checkbox" id="landscaping" name="landscaping" value="landscaping" />
+                    <label for="landscaping">Landscaping</label><br>
+                    </div>
+                    <div>
+                    <input type="checkbox" id="painting" name="painting" value="painting" />
+                    <label for="painting">Painting</label><br>
+                    </div>
+                    <div>
+                    <input type="checkbox" id="other" name="other" value="other" />
+                    <label for="other">Other</label><br>
+                    </div>
+                    <br>
+                    <label for="email">Email:</label><br>
+                    <input type="text" id="email" required><br>
+                </fieldset>
+                <button type="submit">Submit</button>
+                <button onclick="window.location.href='feed.html';">Cancel</button>
+            </form>
+        </div>
     </body>
 </html>
