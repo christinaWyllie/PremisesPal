@@ -7,40 +7,48 @@
     <body>
       <div class="Register">
         <h1>Please Register</h1>
-        <form method="POST" action="/Register">
+        <form id="registerForm" method="POST" action="/Register">
           <label for="uname"><b></b></label>
           <input type="text" placeholder="Enter Email" name="uname" required>
           <label for="psw"><b></b></label>
           <input type="password" placeholder="Enter Password" name="psw" required>
+          <br /><br />
           <fieldset>
-            <legend>Choose Your Skills</legend>
+            <label for="role">Please Select Your Role:</label>
+            <select name="Role" id="role" required>
+              <option value="owner">Home Owner</option>
+              <option value="contractor">Contractor</option>
+            </select>
+            <br /><br />
+            <label for="checkbox">If a contractor, please select skills:</label>
+            <legend>User Information</legend>
             <div>
-              <input type="checkbox" id="carpentry" name="interest" value="carpentry" />
-              <label for="carpentry">Carpentry</label>
+              <input type="checkbox" id="carpentry" name="carpentry" value="carpentry" />
+              <label for="carpentry">Carpentry</label><br>
             </div>
             <div>
-              <input type="checkbox" id="plumbing" name="interest" value="plumbing" />
-              <label for="plumbing">Plumbing</label>
+              <input type="checkbox" id="plumbing" name="plumbing" value="plumbing" />
+              <label for="plumbing">Plumbing</label><br>
             </div>
             <div>
-              <input type="checkbox" id="cleaning" name="interest" value="cleaning" />
-              <label for="cleaning">Cleaning</label>
+              <input type="checkbox" id="cleaning" name="cleaning" value="cleaning" />
+              <label for="cleaning">Cleaning</label><br>
             </div>
             <div>
-              <input type="checkbox" id="electrical" name="interest" value="electrical" />
-              <label for="electrical">Electrical</label>
+              <input type="checkbox" id="electrical" name="electrical" value="electrical" />
+              <label for="electrical">Electrical</label><br>
             </div>
             <div>
-              <input type="checkbox" id="landscaping" name="interest" value="landscaping" />
-              <label for="landscaping">Landscaping</label>
+              <input type="checkbox" id="landscaping" name="landscaping" value="landscaping" />
+              <label for="landscaping">Landscaping</label><br>
             </div>
             <div>
-              <input type="checkbox" id="painting" name="interest" value="painting" />
-              <label for="painting">Painting</label>
+              <input type="checkbox" id="painting" name="painting" value="painting" />
+              <label for="painting">Painting</label><br>
             </div>
             <div>
-              <input type="checkbox" id="other" name="interest" value="other" />
-              <label for="other">Other</label>
+              <input type="checkbox" id="other" name="other" value="other" />
+              <label for="other">Other</label><br>
             </div>
           </fieldset>
           <button type="submit">Register</button>
