@@ -14,9 +14,17 @@ class Post{
         this.contractorEmail = ""
     }
 
-    Post(id, description, dateOfPosting, available, price, requiredSkills, posterEmail, contractorEmail){
-        // will load all information about the post from the database
-    }
+    // Post(id, description, dateOfPosting, available, price, requiredSkills, posterEmail, contractorEmail){
+    //     // will load all information about the post from the database
+    // }
+
+    // test constructor
+    Post(description, price, requiredSkills = [], posterEmail) {
+        this.description = description;
+        this.price = price;
+        this.requiredSkills = requiredSkills;
+        this.posterEmail = posterEmail;
+      }
 
     getID(){
         return this.id
@@ -43,3 +51,5 @@ class Post{
         return this.contractorEmail
     }
 }
+
+module.exports = Post;
