@@ -40,7 +40,9 @@ class ContractorDB{
     static async addContractor(email, biography) {
         if(!ContractorDB.connection) await ContractorDB.makeConnection()
 
-        const newContractor = await ContractorDB.query(`INSERT INTO contractor VALUES ('${email}', '${biography}')`)
+        const newContractor = await ContractorDB.query(`INSERT INTO contractor 
+                                                        SELECT '${email}', '${biography}'
+                                                        WHERE NOT EXISTS (SELECT 1 FROM contractor WHERE email = '${email}');`)
 
         return(newContractor.protocol41)
     }
@@ -91,10 +93,4 @@ class ContractorDB{
 
 }
 
-async function mockAddContractor() {
-    console.log("\nMocking new contractor functionlity:")
-    var newContractor = await ContractorDB.viewSkills('test@gmail.ca')   // <= username to be validated
-    console.log("createPost returned", newContractor)
-}
-
-mockAddContractor()
+module.exports = ContractorDB

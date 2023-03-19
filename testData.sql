@@ -97,10 +97,10 @@ INSERT INTO CONTRACTOR_SPECIALTIES
 VALUES    ('testContractor@yahoo.ca','Testing');
 
 INSERT INTO CONTRACTOR_REFERENCES
-VALUES    ('testContractor@yahoo.ca','I have none');
+VALUES    ('testContractor@yahoo.ca','This is my first reference');
 
 INSERT INTO JOB_POSTING
-VALUES    (1,'Test needed', 'Hi, I need someone to test something for me', '2023-03-19', 'Active', 123.45, 'Testing', 'testPoster@hotmail.com', 'testContractor@yahoo.ca');
+VALUES    (1, 'Test needed', 'Hi, I need someone to test something for me', '2023-03-19', 'Active', 123.45, 'Testing', 'testPoster@hotmail.com', 'testContractor@yahoo.ca');
 
 INSERT INTO REVIEW
 VALUES    (1, 'testPoster@hotmail.com', 'testContractor@yahoo.ca','2023-04-1', 'Wow', 'Testing', 5);
