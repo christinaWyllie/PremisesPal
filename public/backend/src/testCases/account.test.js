@@ -1,30 +1,52 @@
 const AccountDB = require("../account.js");
-const assert = require('assert');
 
-//validate username
-test('Testing validateUsername() with existing username', async () => {
-    const result = await AccountDB.validateUsername('testAccount@gmail.com');
-    assert.strictEqual(result, true);
-});
+// ===================== ACCOUNT.JS TEST CASES =====================
+describe('AccountDB', () => {
+    // Set up procedure. Establishes DB connection before all tests, and ends once tests are complete.
+    beforeAll(async () => {
+        await AccountDB.makeConnection();
+    });
 
-test('Testing validateUsername() with non-existent username', async () => {
-    const result = await AccountDB.validateUsername('nonexistent@gmail.com');
-    assert.strictEqual(result, false);
-});
+    afterAll(async () => {
+        await AccountDB.connection.end();
+    });
 
-//validate password
-test('Testing validatePassword with correct password', async () => {
-    const result = await AccountDB.validatePassword('testAccount@gmail.com', 'testAccount');
-    assert.strictEqual(result, true);
-});
+// -------------------- ValidateUsername() --------------------
+    describe('validateUsername', () => {
+        // Ensures validateUsername() returns true given existing account
+        it('should return true given an existing account', async () => {
+            const result = await AccountDB.validateUsername('testAccount@gmail.com');
+            expect(result).toBe(true);
+        });
 
-test('Testing validatePassword with incorrect password', async () => {
-    const result = await AccountDB.validatePassword('testAccount@gmail.com', 'incorrectPassword');
-    assert.strictEqual(result, false);
-});
+        // Ensures validateUsername() returns false given nonexistent account
+        it('should return false given a nonexistent account', async () => {
+            const result = await AccountDB.validateUsername('nonexistent@gmail.com');
+            expect(result).toBe(false);
+        });
+    });
 
-//register user
-test('Testing registerUser with ', async () => {
-    const result = await AccountDB.registerUser('testNewAccount@gmail.com', 'testNewAccount');
-    assert.strictEqual(result, true);
+// -------------------- ValidatePassword() --------------------
+    describe('validatePassword', () => {
+        // Ensures validatePassword() returns true given correct account and password
+        it('should return true given an existing account and correct password', async () => {
+            const result = await AccountDB.validatePassword('testAccount@gmail.com', 'testAccount');
+            expect(result).toBe(true);
+        });
+
+        // Ensures validatePassword() returns false given correct account and incorrect password
+        it('should return false given an existing account and incorrect password', async () => {
+            const result = await AccountDB.validatePassword('testAccount@gmail.com', 'incorrectPassword');
+            expect(result).toBe(false);
+        });
+    });
+
+// -------------------- registerUser() --------------------
+    describe('registerUser', () => {
+        // Ensures registerUser() can register a user given new account and password
+        it('should return true given a new account and password', async () => {
+            const result = await AccountDB.registerUser('testNewAccount@gmail.com', 'testNewAccount');
+            expect(result).toBe(true);
+        });
+    });
 });
