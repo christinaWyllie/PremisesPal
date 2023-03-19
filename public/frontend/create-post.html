@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <header>
+    <head>
         <title>Create Post</title>
         <link rel="stylesheet" href="styles/main.css">
         <link rel="icon" href="imgs/favicon.ico">
-    </header>
+    </head>
     <body>
         <div class="createPost">
             <h1>Please Input Post Information</h1>
             <form method="POST" action="/createPost">
                 <fieldset>
                     <label for="title">Title:</label><br>
-                    <input type="text" id="title" required><br>
+                    <input type="text" id="title" name="title" required><br>
                     <br>
-                    <label for="desription">Description:</label><br>
-                    <input type="text" id="desription" required><br>
+                    <label for="description">Description:</label><br>
+                    <input type="text" id="description" name="description" required><br>
                     <br>
                     <label for="price">Price:</label><br>
-                    <input type="text" id="price" required><br>
+                    <input type="text" id="price" name="price" required><br>
                     <br>
                     <label for="checkbox">Skills:</label>
                     <div>
@@ -50,7 +50,7 @@
                     </div>
                     <br>
                     <label for="email">Email:</label><br>
-                    <input type="text" id="email" required><br>
+                    <input type="text" id="email" name="email" required><br>
                 </fieldset>
                 <button type="submit">Submit</button>
                 <button onclick="window.location.href='feed.html';">Cancel</button>

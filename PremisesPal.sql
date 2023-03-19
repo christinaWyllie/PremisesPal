@@ -36,7 +36,7 @@ DROP TABLE IF EXISTS CONTRACTOR_SPECIALTIES;
 CREATE TABLE CONTRACTOR_SPECIALTIES
 (
 	email		VARCHAR(50)	NOT NULL,
-    skills		VARCHAR(50),
+    skills		VARCHAR(200),
     
     FOREIGN KEY  (email) REFERENCES CONTRACTOR(email)
 );
@@ -60,7 +60,7 @@ CREATE TABLE JOB_POSTING
     dateOfPosting		DATE,
     status				VARCHAR(15),
     price				FLOAT,
-    requiredSkills		VARCHAR(50),
+    requiredSkills		VARCHAR(200),
     
     poster_email		VARCHAR(50),
     contractor_email	VARCHAR(50),
@@ -78,7 +78,7 @@ CREATE TABLE REVIEW
     reviewee_email		VARCHAR(50),
     date				DATE, #date the review was made
     feedback			VARCHAR(200),
-    job_type			VARCHAR(50),
+    job_type			VARCHAR(200),
     stars				INT, #should be a number from 1-5
     
     
