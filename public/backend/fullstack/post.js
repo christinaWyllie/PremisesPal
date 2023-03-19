@@ -1,36 +1,10 @@
-class Post{
+const AccountDB = require("../src/post.js")
 
-    // Post(){
-    //     // test constructor for frontend
-    //     // id, description, dateOfPosting, available, price, requiredSkills, posterEmail, contractorEmail
-    //     this.id = 101;
-    //     this.description = "Sample description for a job posting - need someone who knows how to fix a leaky kitchen sink"
-    //     this.available = true;
-    //     this.dateOfPosting = new Date()
-    //     this.price = 100
-    //     this.requiredSkills = ["Plumber", "Sink"]
-    //     this.posterEmail = "johnNotScott@gmail.com"
-    //     // contractor email field not set until poster accepts contractor
-    //     this.contractorEmail = ""
-    // }
-
-    // Post(id, description, dateOfPosting, available, price, requiredSkills, posterEmail, contractorEmail){
-    //     // will load all information about the post from the database
-    // }
-
-    // // test constructor
-    // Post(description, price, requiredSkills = [], posterEmail) {
-    //     this.description = description;
-    //     this.price = price;
-    //     this.requiredSkills = requiredSkills;
-    //     this.posterEmail = posterEmail;
-    //   }
-
-    static idCounter = 100;
+class Post {
 
     constructor(title, description, price, requiredSkills = [], posterEmail) {
       this.title = title;
-      this.id = Post.generateId();
+      this.id;
       this.description = description;
       this.available = true;
       this.dateOfPosting = new Date();
@@ -39,10 +13,10 @@ class Post{
       this.posterEmail = posterEmail;
       this.contractorEmail = "";
     }
-  
-    static generateId() {
-      Post.idCounter += 1;
-      return Post.idCounter;
+
+    async addToDatabase() {
+        const usernameResult = await Post.createPost(title, description, dateOfPosting, "Active", price, requiredSkills, email);
+        return usernameResult;
     }
 
     getID(){
