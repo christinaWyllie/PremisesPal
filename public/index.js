@@ -33,7 +33,7 @@ const posts = [
 	new Post("Toilet Overflowing", "Poo-Poo dont flush ", 50, ["Plumber", "Big-Load"], "stinky@example.com"),
   ];
 
-// default URL
+// default route
 app.get('/', (req, res) => {
 
 	res.sendFile(path.join(__dirname, "/frontend/home.html"));
