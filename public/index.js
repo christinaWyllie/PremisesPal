@@ -17,6 +17,9 @@ const Register = require("./backend/fullstack/register.js")
 // port number
 const port = 3000;
 
+// Set the view engine to EJS
+app.set('view engine', 'ejs');
+
 // set default directory
 app.use(express.static("public/frontend/"));
 
