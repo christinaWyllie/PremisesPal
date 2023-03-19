@@ -71,7 +71,51 @@ app.post('/Register', async (req,res) => {
 
 });
 
-// Send the post data
+//handle register requests
+app.post('/createPost', async (req,res) => {
+	const { title, description, price, email, carpentry, plumbing, cleaning, electrical, landscaping, painting, other } = req.body;
+	const requiredSkills = [];
+	//bla bla required skills check
+	if (carpentry) {
+		requiredSkills.push("Carpentry");
+	}
+	if (plumbing) {
+		requiredSkills.push("Plumbing");
+	}
+	if (cleaning) {
+		requiredSkills.push("Cleaning");
+	}
+	if (electrical) {
+		requiredSkills.push("Electrical");
+	}
+	if (landscaping) {
+		requiredSkills.push("Landscaping");
+	}
+	if (painting) {
+		requiredSkills.push("Painting");
+	}
+	if (other) {
+		requiredSkills.push("Other");
+	}
+	const post = new Post(title, description, price, requiredSkills, email);
+	const postResult = await post.addToDatabase();
+	if (postResult == true) {
+		console.log("successfully added post to database.");
+		res.status(302).redirect('feed.html');
+	} else {
+		console.log("adding post to database failed.");
+		res.status(302).redirect('feed.html');
+		//better error checking once again
+	}
+
+
+
+
+
+
+});
+
+// Send the post data MUST MAKE THIS WORK AFTER NEW POST TOO
 app.get('/feed.html', (req, res) => {
 	res.render('frontend/feed', { posts }, (err, html) => {
 		if (err) {
