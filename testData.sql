@@ -89,7 +89,8 @@ VALUES  ('testAccount@gmail.com', 'testAccount'),
         ('testDeleting@gmail.com', 'testDeleting'),
         ('testPostings@shaw.ca', 'testPosting'), 
         ('testEmpty@hotmail.com', 'empty'), 
-        ('testAdding@gmail.com', 'adding');
+        ('testAdding@gmail.com', 'adding'),
+        ('testNewContractor@gmail.com', 'testNewContractor');
         
 INSERT INTO POSTER
 VALUES  ('testPoster@hotmail.com'), 
@@ -101,11 +102,11 @@ VALUES  ('testContractor@yahoo.ca', 'I am a testor. I am great at testing. I lik
 		('testDeleting@gmail.com', 'I am a welder and went to Sait for school. I am good.');
 
 INSERT INTO CONTRACTOR_SPECIALTIES
-VALUES  ('testContractor@yahoo.ca','Testing'), 
+VALUES  ('testContractor@yahoo.ca','Testing default first skill'), 
 		('testDeleting@gmail.com', 'Welding');
 
 INSERT INTO CONTRACTOR_REFERENCES
-VALUES  ('testContractor@yahoo.ca','I have none'), 
+VALUES  ('testContractor@yahoo.ca','Testing default first reference'), 
 		('testDeleting@gmail.com', 'Frank');
 
 INSERT INTO JOB_POSTING

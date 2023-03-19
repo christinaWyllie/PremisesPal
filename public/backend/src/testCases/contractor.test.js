@@ -30,7 +30,7 @@ describe('ContractorDB', () => {
     describe('addReference()', () => {
         // Ensures addReference() returns true given a reference
         it('should return true given a new reference', async () => {
-            const result = await ContractorDB.addReference('testContractor@yahoo.ca', 'I am leaving a new reference for testContractor@yahoo.ca');
+            const result = await ContractorDB.addReference('testContractor@yahoo.ca', 'This is a new reference');
             expect(result).toBe(true);
         });
     });
@@ -50,7 +50,8 @@ describe('ContractorDB', () => {
         it('should return references given an existing Contractor', async () => {
             const result = await ContractorDB.viewReferences('testContractor@yahoo.ca');
 
-            var references = ["This is my first reference", "I am leaving a new reference for testContractor@yahoo.ca"];
+            var references = ["Testing default first reference", "This is a new reference"];
+            
             expect(result).toStrictEqual(references);
         });
     });
@@ -61,7 +62,8 @@ describe('ContractorDB', () => {
         it('should return skills given an existing Contractor', async () => {
             const result = await ContractorDB.viewSkills('testContractor@yahoo.ca');
 
-            var skills = ["Testing", "This is a new skill"];
+            var skills = ["Testing default first skill", "This is a new skill"];
+
             expect(result).toStrictEqual(skills);
         });
     });
