@@ -45,7 +45,7 @@ class PostDB{
      * poster_email must be a valid ACCOUNT && poster
      * Will also insert poster_email into poster table.
      */
-    static async createPost( description, title, dateOfPosting, status, price, requiredSkills, poster_email ) {
+    static async createPost( title, description, dateOfPosting, status, price, requiredSkills, poster_email ) {
         if(!PostDB.connection) await PostDB.makeConnection()
         console.log(`Creating from poster: ${poster_email}`)
 
@@ -53,8 +53,8 @@ class PostDB{
                                             SELECT '${poster_email}'
                                             WHERE NOT EXISTS (SELECT 1 FROM poster WHERE email = '${poster_email}');`)
 
-        const createPost = await PostDB.query(`INSERT INTO JOB_POSTING(description, title, dateOfPosting, status, price, requiredSkills, poster_email) VALUES ` + 
-        `('${description}', '${title}', '${dateOfPosting}', '${status}', ${price}, '${requiredSkills}', '${poster_email}')`) 
+        const createPost = await PostDB.query(`INSERT INTO JOB_POSTING(title, description, dateOfPosting, status, price, requiredSkills, poster_email) VALUES ` + 
+        `('${title}', '${description}', '${dateOfPosting}', '${status}', ${price}, '${requiredSkills}', '${poster_email}')`) 
         
         return(newPoster.protocol41 && createPost.protocol41)
     }

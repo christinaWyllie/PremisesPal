@@ -55,7 +55,7 @@ CREATE TABLE JOB_POSTING
 	post_id				INT NOT NULL AUTO_INCREMENT,
     title 				VARCHAR(30),
 	description			VARCHAR(500),
-    dateOfPosting		DATETIME,
+    dateOfPosting		DATE,
     status				VARCHAR(15),
     price				FLOAT,
     requiredSkills		VARCHAR(50),
@@ -73,7 +73,7 @@ CREATE TABLE REVIEW
 	job_id				INT NOT NULL, #will be a copy of the post_id, not dependent tho
 	reviewer_email		VARCHAR(50),
     reviewee_email		VARCHAR(50),
-    date				DATETIME, #date the review was made
+    date				DATE, #date the review was made
     feedback			VARCHAR(200),
     job_type			VARCHAR(50),
     stars				INT, #should be a number from 1-5
@@ -83,24 +83,36 @@ CREATE TABLE REVIEW
 );
 
 INSERT INTO ACCOUNT
-VALUES     ('testAccount@gmail.com', 'testAccount'), 
-			('testPoster@hotmail.com', 'testPoster'),
-            ('testContractor@yahoo.ca', 'testContractor');
+VALUES  ('testAccount@gmail.com', 'testAccount'), 
+		('testPoster@hotmail.com', 'testPoster'),
+        ('testContractor@yahoo.ca', 'testContractor'),
+        ('testDeleting@gmail.com', 'testDeleting'),
+        ('testPostings@shaw.ca', 'testPosting'), 
+        ('testEmpty@hotmail.com', 'empty'), 
+        ('testAdding@gmail.com', 'adding');
         
 INSERT INTO POSTER
-VALUES    ('testPoster@hotmail.com');
+VALUES  ('testPoster@hotmail.com'), 
+		('testEmpty@hotmail.com'), 
+        ('testPostings@shaw.ca');
 
 INSERT INTO CONTRACTOR
-VALUES    ('testContractor@yahoo.ca', 'I am a testor. I am great at testing. I like testing. Yay yahoo.');
+VALUES  ('testContractor@yahoo.ca', 'I am a testor. I am great at testing. I like testing. Yay yahoo.'), 
+		('testDeleting@gmail.com', 'I am a welder and went to Sait for school. I am good.');
 
 INSERT INTO CONTRACTOR_SPECIALTIES
-VALUES    ('testContractor@yahoo.ca','Testing');
+VALUES  ('testContractor@yahoo.ca','Testing'), 
+		('testDeleting@gmail.com', 'Welding');
 
 INSERT INTO CONTRACTOR_REFERENCES
-VALUES    ('testContractor@yahoo.ca','I have none');
+VALUES  ('testContractor@yahoo.ca','I have none'), 
+		('testDeleting@gmail.com', 'Frank');
 
 INSERT INTO JOB_POSTING
-VALUES    (1,'Hi, I need someone to test something for me', '2023-03-19', 'Active', 123.45, 'Testing', 'testPoster@hotmail.com', 'testContractor@yahoo.ca');
+VALUES  (1,'Testing', 'Hi, I need someone to test something for me', '2023-03-19', 'Active', 123.45, 'Testing', 'testPoster@hotmail.com', 'testContractor@yahoo.ca'), 
+        (2,'Welding', 'Hi, I need someone who can weld some metal for me', '2023-01-30', 'Inactive', 250.75, 'Welding', 'testPoster@hotmail.com', 'testDeleting@gmail.com'),
+        (3,'Fix Toilet', 'Hi, I need someone who can fix my toilet', '2023-03-19', 'Inactive', 250.75, 'Welding', 'testPoster@hotmail.com', 'testContractor@yahoo.ca'), 
+        (4,'Deleting', 'Hi, I need someone who can delete this for me', '2023-01-30', 'Inactive', 250.75, 'Delete', 'testPostings@shaw.ca', 'testDeleting@gmail.com');
 
 INSERT INTO REVIEW
 VALUES    (1, 'testPoster@hotmail.com', 'testContractor@yahoo.ca','2023-04-1', 'Wow', 'Testing', 5);
