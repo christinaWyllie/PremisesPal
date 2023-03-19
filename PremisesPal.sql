@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS ACCOUNT;
 CREATE TABLE ACCOUNT
 (
 	email		VARCHAR(50)	NOT NULL,
-    pass		VARCHAR(25)	NOT NULL,
+    pass		VARCHAR(17)	NOT NULL,
     
     PRIMARY KEY (email)
 );
@@ -16,6 +16,8 @@ CREATE TABLE POSTER
 (
 	email		VARCHAR(50)	NOT NULL,
     
+    UNIQUE(email),
+    
     FOREIGN KEY  (email) REFERENCES ACCOUNT(email)
 );
 
@@ -24,6 +26,8 @@ CREATE TABLE CONTRACTOR
 (
 	email		VARCHAR(50)	NOT NULL,
     biography	VARCHAR(500),
+    
+    UNIQUE(email),
     
     FOREIGN KEY  (email) REFERENCES ACCOUNT(email)
 );
@@ -51,8 +55,9 @@ DROP TABLE IF EXISTS JOB_POSTING;
 CREATE TABLE JOB_POSTING
 (
 	post_id				INT NOT NULL AUTO_INCREMENT,
+    title				VARCHAR(30),
 	description			VARCHAR(500),
-    dateOfPosting		DATETIME,
+    dateOfPosting		DATE,
     status				VARCHAR(15),
     price				FLOAT,
     requiredSkills		VARCHAR(50),
@@ -71,10 +76,11 @@ CREATE TABLE REVIEW
 	job_id				INT NOT NULL, #will be a copy of the post_id, not dependent tho
 	reviewer_email		VARCHAR(50),
     reviewee_email		VARCHAR(50),
-    date				DATETIME, #date the review was made
+    date				DATE, #date the review was made
     feedback			VARCHAR(200),
     job_type			VARCHAR(50),
     stars				INT, #should be a number from 1-5
+    
     
     FOREIGN KEY  (reviewee_email) REFERENCES CONTRACTOR(email),
     FOREIGN KEY (reviewer_email) REFERENCES POSTER(email)
