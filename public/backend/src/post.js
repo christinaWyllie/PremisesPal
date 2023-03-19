@@ -45,7 +45,7 @@ class PostDB{
      * poster_email must be a valid ACCOUNT && poster
      * Will also insert poster_email into poster table.
      */
-    static async createPost( description, dateOfPosting, status, price, requiredSkills, poster_email ) {
+    static async createPost( description, title, dateOfPosting, status, price, requiredSkills, poster_email ) {
         if(!PostDB.connection) await PostDB.makeConnection()
         console.log(`Creating from poster: ${poster_email}`)
 
@@ -53,8 +53,8 @@ class PostDB{
                                             SELECT '${poster_email}'
                                             WHERE NOT EXISTS (SELECT 1 FROM poster WHERE email = '${poster_email}');`)
 
-        const createPost = await PostDB.query(`INSERT INTO JOB_POSTING(description, dateOfPosting, status, price, requiredSkills, poster_email) VALUES ` + 
-        `('${description}', '${dateOfPosting}', '${status}', ${price}, '${requiredSkills}', '${poster_email}')`) 
+        const createPost = await PostDB.query(`INSERT INTO JOB_POSTING(description, title, dateOfPosting, status, price, requiredSkills, poster_email) VALUES ` + 
+        `('${description}', '${title}', '${dateOfPosting}', '${status}', ${price}, '${requiredSkills}', '${poster_email}')`) 
         
         return(newPoster.protocol41 && createPost.protocol41)
     }
@@ -99,12 +99,17 @@ class PostDB{
 
         const postInfoStored = await PostDB.query(`SELECT * FROM JOB_POSTING WHERE post_id = ('${id}')`)
         var postInfo = []
+        if(postInfoStored.length == 0){
+            return postInfo
+        }
+        var postInfo = []
+        console.log(postInfoStored)
         postInfo.push(postInfoStored[0].post_id)
+        postInfo.push(postInfoStored[0].title)
         postInfo.push(postInfoStored[0].description)
         postInfo.push(postInfoStored[0].dateOfPosting)
         postInfo.push(postInfoStored[0].status)
         postInfo.push(postInfoStored[0].price)
-        postInfo.push(postInfoStored[0].post_id)
         postInfo.push(postInfoStored[0].requiredSkills)
         postInfo.push(postInfoStored[0].poster_email)
         postInfo.push(postInfoStored[0].contractor_email)
@@ -178,19 +183,22 @@ class PostDB{
     }
 }
 
-async function mockCreatePostFunction() {
-    // console.log("\nMocking login functionality:")
-    // var newPost = await Post.createPost('Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.com')   // <= username to be validated
-    // console.log("createPost returned", newPost)
+module.exports = PostDB
 
-    var newContractor = await PostDB.deletePost(6)
-}
+// async function mockCreatePostFunction() {
+//     // console.log("\nMocking login functionality:")
+//     // var newPost = await Post.createPost('Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.com')   // <= username to be validated
+//     // console.log("createPost returned", newPost)
 
-// async function mockGetIDFunction() {
-//     console.log("\nMocking getID functionality:")
-//     var username = await Post.getPostFromID(1)   // <= username to be validated
-//     console.log("registerUser returned: ", username)
+//     var newContractor = await PostDB.deletePost(6)
+//     console.log(newContractor)
 // }
 
-mockCreatePostFunction()
+async function mockGetIDFunction() {
+    console.log("\nMocking getID functionality:")
+    var username = await PostDB.getPostFromID(20)   // <= username to be validated
+    console.log("registerUser returned: ", username)
+}
+
+mockGetIDFunction()
 
