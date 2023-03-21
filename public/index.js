@@ -48,7 +48,7 @@ app.post('/Login', async (req, res) => {
 	const loginResult = await Login.loginUser(email, password);
 	if (loginResult === true) {
 	  console.log("login successful, redirecting...");
-	  res.status(302).redirect('account.html');
+	  res.status(302).redirect('feed.html');
 	} else {
 	  console.log("login unsuccessful");
 	  // Pass loginResult to Login.ejs rendering
@@ -63,7 +63,7 @@ app.post('/Register', async (req,res) => {
 	const registrationResult = await Register.registerAccount(uname, psw);
 	if (registrationResult == true) {
 		console.log("registration successful, redirecting...");
-		res.status(302).redirect('account.html');
+		res.status(302).redirect('feed.html');
 	} else {
 		console.log("registration unsuccessful");
 		res.status(302).redirect('Register.html');
