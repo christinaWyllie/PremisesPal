@@ -27,13 +27,6 @@ app.set('views', path.join(__dirname));
 // set default directory
 app.use(express.static("public/frontend/"));
 
-
-// Array of posts to be used for testing will eventually need to get from backend
-const posts = [
-	new Post("Broken Sink", "Sample description for a job posting - need someone who knows how to fix a leaky kitchen sink", 100, ["Plumber", "Sink"], "johnNotScott@gmail.com"),
-	new Post("Toilet Overflowing", "Poo-Poo dont flush ", 50, ["Plumber", "Big-Load"], "stinky@example.com"),
-  ];
-
 // default route
 app.get('/', (req, res) => {
 
@@ -113,7 +106,16 @@ app.post('/createPost', async (req,res) => {
 });
 
 // Send the post data MUST MAKE THIS WORK AFTER NEW POST TOO
-app.get('/feed.html', (req, res) => {
+app.get('/feed.html', async (req, res) => {
+	const allPosts = await PostDB.getPostsBySkills(['Testing']);
+	const posts = []
+	
+	for (let i = 0; i < allPosts.length; i++) {
+		const posterID = await PostDB.getPostFromID(allPosts[i].post_id);
+		const post = new Post(posterID[1], posterID[2], posterID[5], posterID[6].split(','), posterID[8]);
+		posts.push(post);
+	}
+	
 	res.render('frontend/feed', { posts }, (err, html) => {
 		if (err) {
 		  console.error(err);
@@ -139,15 +141,12 @@ app.get('/Login.html', (req, res) => {
   // NEED EMAIL SOMEHOW
 app.get('/account.html', async (req, res) => {
 	const postIDs = await PostDB.getPostsFromEmail('testPoster@hotmail.com');
-	
-	
+	const posts = []
 	for (let i = 0; i < postIDs.length; i++) {
 		const posterID = await PostDB.getPostFromID(postIDs[i]);
 		const post = new Post(posterID[1], posterID[2], posterID[5], posterID[6].split(','), posterID[8]);
 		posts.push(post);
 	}
-
-	
 	
 	res.render('frontend/account', { posts }, (err, html) => {
 	  if (err) {
