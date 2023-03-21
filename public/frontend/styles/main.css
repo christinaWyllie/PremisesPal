@@ -1,7 +1,7 @@
 body {
   background-image: url("../imgs/background.jpeg");
   background-size: cover;
-  font-family: Arial;
+  font-family: 'Roboto';
 }
 
 p {
@@ -26,26 +26,32 @@ h1{
 }
 
 .HomeBox {
-  background: #1b6dc1;
+  background: linear-gradient(90deg,#308ae5, #1b6dc1);
   color: white;
-  padding: 20px;
+  padding: 10px 20px 20px;
   margin: 0px 350px;
   text-align: center;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   border-radius: 10px;
-  font-family: Arial;
+}
+
+.HomeText {
+  font-size: 30px;
+  font-weight: 700;
 }
 
 .HomeBox button{
-  background-color: #ffffff; 
+  background-color: #363636; 
+  color: white;
   border: none;
-  color: 2a96fc;
-  padding: 15px 32px;
+  padding: 9px 32px;
   margin: 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 4px;
 }
 
 .Login {
@@ -55,8 +61,8 @@ h1{
   text-align: center;
   border: 2px solid black;
   border-radius: 10px;
-  font-family: Arial;
   display: block;
+  font-weight: 900;
 }
 
 .Login input[type=text], input[type=password] {
