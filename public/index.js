@@ -109,11 +109,6 @@ app.post('/createPost', async (req,res) => {
 		//better error checking once again
 	}
 
-
-
-
-
-
 });
 
 // Send the post data MUST MAKE THIS WORK AFTER NEW POST TOO
@@ -134,6 +129,18 @@ app.get('/Login.html', (req, res) => {
 	  if (err) {
 		console.error(err);
 		res.status(500).send('Error rendering Login');
+	  } else {
+		res.send(html);
+	  }
+	});
+  });
+
+  // Send the post data MUST MAKE THIS WORK AFTER NEW POST TOO
+app.get('/account.html', (req, res) => {
+	res.render('frontend/account', { posts }, (err, html) => {
+	  if (err) {
+		console.error(err);
+		res.status(500).send('Error rendering account');
 	  } else {
 		res.send(html);
 	  }
