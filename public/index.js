@@ -174,25 +174,25 @@ app.get('/Login.html', (req, res) => {
 	});
   });
 
-  // NEED EMAIL SOMEHOW
-app.get('/account.html', async (req, res) => {
+  app.get('/account.html', async (req, res) => {
 	if (!req.session || !req.session.user || !req.session.user.email) {
-		console.log('No email found in the session');
-		res.status(401).send('Unauthorized access');
-		return;
+	  console.log('No email found in the session');
+	  res.status(401).send('Unauthorized access');
+	  return;
 	}
-	  
+  
 	const userEmail = req.session.user.email;
-
+	const skills = await ContractorDB.viewSkills(userEmail);
+  
 	const postIDs = await PostDB.getPostsFromEmail(userEmail);
-	const posts = []
+	const posts = [];
 	for (let i = 0; i < postIDs.length; i++) {
-		const posterID = await PostDB.getPostFromID(postIDs[i]);
-		const post = new Post(posterID[1], posterID[2], posterID[5], posterID[6].split(','), posterID[7]);
-		posts.push(post);
+	  const posterID = await PostDB.getPostFromID(postIDs[i]);
+	  const post = new Post(posterID[1], posterID[2], posterID[5], posterID[6].split(','), posterID[7]);
+	  posts.push(post);
 	}
-	
-	res.render('frontend/account', { posts }, (err, html) => {
+  
+	res.render('frontend/account', { email: userEmail, skills, posts }, (err, html) => {
 	  if (err) {
 		console.error(err);
 		res.status(500).send('Error rendering account');
