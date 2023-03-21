@@ -156,7 +156,7 @@ class PostDB{
     static async setPostInProgress(id){
         if(!PostDB.connection) await PostDB.makeConnection()
 
-        const progress = await Post.query(`UPDATE JOB_POSTING SET status = 'In Progress' WHERE post_id = '${id}'`)
+        const progress = await PostDB.query(`UPDATE JOB_POSTING SET status = 'In Progress' WHERE post_id = '${id}'`)
         return(progress.protocol41)
     }
 
@@ -165,7 +165,7 @@ class PostDB{
 
         var posts = []
         for(let i = 0; i < skills.length; i++) {
-            var result = await Post.query(`SELECT * FROM job_posting WHERE requiredSkills = '${skills[i]}'`)
+            var result = await PostDB.query(`SELECT * FROM job_posting WHERE requiredSkills = '${skills[i]}'`)
 
             for(let j = 0; j < result.length; j++) {
                 posts.push(result[j])
