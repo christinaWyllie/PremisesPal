@@ -164,6 +164,21 @@ class PostDB{
         return(progress.protocol41)
     }
 
+    static async getPostsBySkills(skills) {
+        if(!PostDB.connection) await PostDB.makeConnection()
+
+        var posts = []
+        for(let i = 0; i < skills.length; i++) {
+            var result = await Post.query(`SELECT * FROM job_posting WHERE requiredSkills = '${skills[i]}'`)
+
+            for(let j = 0; j < result.length; j++) {
+                posts.push(result[j])
+            }
+        }
+
+        return posts
+    }
+
      /*
      * Updates the price of an existing post in the job_posting table
      * Requires: post_id, newPrice
