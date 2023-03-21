@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <header>
-        <title>PremisesPal/Account</title>
-        <link rel="stylesheet" href="styles/main.css">
-        <link rel="icon" href="/imgs/PremisesPal_Favicon.png">
-    </header>
-    <body>
-        <div class="account">
-            <h1>Your Premises Pal Account</h1>
-            <fieldset>
-                <legend>Personal Information</legend>
-                <p>email: scott@gmail.com</p>
-                <p>Name: Scott</p> 
-                <p>Role: Home Owner</p>
-                <p>Skills: none</p>
-            </fieldset>
-            <button onclick="window.location.href='Home.html';">Back</button>
+  <head>
+    <title>PremisesPal/Account</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" href="/imgs/PremisesPal_Favicon.png">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="account">
+      <h1>Your Premises Pal Account</h1>
+      <fieldset>
+        <legend>Personal Information</legend>
+        <p>Email: <%= email %></p>
+        <p>Skills: <%= skills.length === 0 ? 'None' : skills.join(', ') %></p>
+      </fieldset>
+      <button onclick="window.location.href='feed.html';">Back</button>
+    </div>
+    <h1>Your Posts</h1>
+    <div id="post-grid">
+      <% for (let i = 0; i < posts.length; i++) { %>
+        <div class="post">
+          <h2><%= posts[i].title %></h2>
+          <p>Description: <%= posts[i].description %></p>
+          <p>Price: $<%= posts[i].price %></p>
+          <% if (posts[i].requiredSkills) { %>
+            <p>Skills: <%= posts[i].requiredSkills.join(', ') %></p>
+          <% } %>
+          <p>Contact: <%= posts[i].posterEmail %></p>
         </div>
-        <h1>Your Posts</h1>
-        <div id="post-grid">
-            <% for (let i = 0; i < posts.length; i++) { %>
-              <div class="post">
-                <h2><%= posts[i].title %></h2>
-                <p>Description: <%= posts[i].description %></p>
-                <p>Price: $<%= posts[i].price %></p>
-                <% if (posts[i].requiredSkills) { %>
-                  <p>Skills: <%= posts[i].requiredSkills.join(', ') %></p>
-                <% } %>
-                <p>Contact: <%= posts[i].posterEmail %></p>
-              </div>
-            <% } %>
-          </div>
-    </body>
+      <% } %>
+    </div>
+  </body>
 </html>
