@@ -185,6 +185,8 @@ class PostDB{
 
 module.exports = PostDB
 
+//add something for getting all posts with null contractor
+
 // async function mockCreatePostFunction() {
 //     // console.log("\nMocking login functionality:")
 //     // var newPost = await Post.createPost('Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.com')   // <= username to be validated
@@ -194,11 +196,11 @@ module.exports = PostDB
 //     console.log(newContractor)
 // }
 
-async function mockGetIDFunction() {
-    console.log("\nMocking getID functionality:")
-    var username = await PostDB.getPostFromID(20)   // <= username to be validated
-    console.log("registerUser returned: ", username)
-}
+// async function mockGetIDFunction() {
+//     console.log("\nMocking getID functionality:")
+//     var username = await PostDB.getPostFromID(20)   // <= username to be validated
+//     console.log("registerUser returned: ", username)
+// }
 
-mockGetIDFunction()
+// mockGetIDFunction()
 
