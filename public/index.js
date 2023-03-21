@@ -50,6 +50,9 @@ app.post('/Login', async (req, res) => {
 	} else {
 		console.log("login unsuccessful");
 		res.status(302).redirect('login.html');
+
+		//loginResult = false;
+		//res.render('login.html', { loginResult });
 		//need to add error message somehow
 	}
 
