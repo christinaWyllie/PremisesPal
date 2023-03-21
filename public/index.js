@@ -14,6 +14,7 @@ const {readFile} = require("fs").promises;
 const Login = require("./backend/fullstack/login.js")
 const Register = require("./backend/fullstack/register.js")
 const Post = require('./backend/fullstack/post.js');
+const PostDB = require('./backend/src/post.js')
 
 // port number
 const port = 3000;
@@ -135,8 +136,19 @@ app.get('/Login.html', (req, res) => {
 	});
   });
 
-  // Send the post data MUST MAKE THIS WORK AFTER NEW POST TOO
-app.get('/account.html', (req, res) => {
+  // NEED EMAIL SOMEHOW
+app.get('/account.html', async (req, res) => {
+	const postIDs = await PostDB.getPostsFromEmail('testPoster@hotmail.com');
+	
+	
+	for (let i = 0; i < postIDs.length; i++) {
+		const posterID = await PostDB.getPostFromID(postIDs[i]);
+		const post = new Post(posterID[1], posterID[2], posterID[5], posterID[6].split(','), posterID[8]);
+		posts.push(post);
+	}
+
+	
+	
 	res.render('frontend/account', { posts }, (err, html) => {
 	  if (err) {
 		console.error(err);
