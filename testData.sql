@@ -110,8 +110,8 @@ VALUES  ('testContractor@yahoo.ca','Testing default first reference'),
 		('testDeleting@gmail.com', 'Frank');
 
 INSERT INTO JOB_POSTING
-VALUES  (1,'Testing', 'Hi, I need someone to test something for me', '2023-03-19', 'Active', 123.45, 'Testing', 'testPoster@hotmail.com', 'testContractor@yahoo.ca'), 
-        (2,'Welding', 'Hi, I need someone who can weld some metal for me', '2023-01-30', 'Inactive', 250.75, 'Welding', 'testPoster@hotmail.com', 'testDeleting@gmail.com'),
+VALUES  (1,'Testing', 'Welding', '2023-03-19', 'Active', 123.45, 'Testing', 'testPoster@hotmail.com', 'testContractor@yahoo.ca'), 
+        (2,'Welding', 'Welding', '2023-01-30', 'Inactive', 250.75, 'Welding', 'testPoster@hotmail.com', 'testDeleting@gmail.com'),
         (3,'Fix Toilet', 'Hi, I need someone who can fix my toilet', '2023-03-19', 'Inactive', 250.75, 'Welding', 'testPoster@hotmail.com', 'testContractor@yahoo.ca'), 
         (4,'Deleting', 'Hi, I need someone who can delete this for me', '2023-01-30', 'Inactive', 250.75, 'Delete', 'testPostings@shaw.ca', 'testDeleting@gmail.com');
 
