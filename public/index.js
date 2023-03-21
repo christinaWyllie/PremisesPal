@@ -40,23 +40,21 @@ app.get('/', (req, res) => {
 
 });
 
+const loginResult = false;
+
 // handle login requests
 app.post('/Login', async (req, res) => {
 	const { email, password } = req.body;
 	const loginResult = await Login.loginUser(email, password);
-	if (loginResult == true) {
-		console.log("login successful, redirecting...");
-		res.status(302).redirect('account.html');
+	if (loginResult === true) {
+	  console.log("login successful, redirecting...");
+	  res.status(302).redirect('account.html');
 	} else {
-		console.log("login unsuccessful");
-		res.status(302).redirect('login.html');
-
-		//loginResult = false;
-		//res.render('login.html', { loginResult });
-		//need to add error message somehow
+	  console.log("login unsuccessful");
+	  // Pass loginResult to Login.ejs rendering
+	  res.render('frontend/Login', { loginResult });
 	}
-
-});
+  });
 
 //handle register requests
 app.post('/Register', async (req,res) => {
@@ -128,6 +126,18 @@ app.get('/feed.html', (req, res) => {
 		  res.send(html);
 		}
 	  });
+  });
+
+// Send the post data MUST MAKE THIS WORK AFTER NEW POST TOO
+app.get('/Login.html', (req, res) => {
+	res.render('frontend/Login', { loginResult: null }, (err, html) => {
+	  if (err) {
+		console.error(err);
+		res.status(500).send('Error rendering Login');
+	  } else {
+		res.send(html);
+	  }
+	});
   });
 
 // start listening on PORT port
