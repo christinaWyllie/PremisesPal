@@ -6,7 +6,6 @@ body {
 
 p {
   background: #ffffff;
-  color: white;
   padding: 10px;
 }
 
@@ -17,6 +16,11 @@ h1{
   overflow: hidden;
 }
 
+a:link
+{
+  color: white;
+}
+
 .Home img {
   display: block;
   margin-left: auto;
@@ -25,13 +29,30 @@ h1{
   padding: 20px;
 }
 
-.HomeBox {
+.BlueBackground {
   background: linear-gradient(90deg,#308ae5, #1b6dc1);
   color: white;
   padding: 10px 20px 20px;
   margin: 0px 350px;
   text-align: center;
-  /* border: 2px solid black; */
+  border-radius: 10px;
+}
+
+.BlueBackgroundNoMargin {
+  background: linear-gradient(90deg, #308ae5, #1b6dc1);
+  color: white;
+  padding: 10px 20px 20px;
+  margin: 0px auto;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.BlueBackgroundNoMarginTopMargin {
+  background: #363636;   
+  color: white;
+  padding: 10px 20px 20px;
+  margin: 20px 0px auto;
+  text-align: center;
   border-radius: 10px;
 }
 
@@ -56,69 +77,47 @@ button{
 
 .FeedButton
 {
-    /* background: linear-gradient(90deg, #308ae5, #1b6dc1); */
     border-radius: 10px;
-    /* border: 2px solid black; */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .Login {
-  background: #1b6dc1;
-  padding: 20px;
-  margin: 100px 350px;
-  text-align: center;
-  border: 2px solid black;
-  border-radius: 10px;
-  display: block;
-  font-weight: 900;
+  background: linear-gradient(90deg, #308ae5, #1b6dc1);
+    color: white;
+    padding: 10px 20px 20px;
+    margin: 0px 350px;
+    text-align: center;
+    border-radius: 10px;
 }
 
-.Login input[type=text], input[type=password] {
+input[type=text], input[type=password] {
   width: 50%;
   padding: 12px 20px;
   margin: 8px 8px 8px 165px;
-  display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
   display: block;
+  margin: 10px auto;
 }
 
-.Register {
-  background: #1b6dc1;
-  padding: 20px;
-  margin: 100px 350px;
-  text-align: center;
-  border: 2px solid black;
-  border-radius: 10px;
-  font-family: Arial;
-  display: block;
-}
-
-.Register input[type=text], input[type=password] {
-  width: 50%;
-  padding: 12px 20px;
-  margin: 8px 8px 8px 165px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  display: block;
-}
-
-.Register fieldset{
+.RegisterFields{
   background: white;
+  color: black;
   border: 10px black;
   width: 31.5%;
-  margin: auto;
   text-align: left;
+  margin: 10px auto;
+  border-radius: 4px;
 }
 
-.Register legend{
+.RegisterLegend{
   padding: 10px;
   color: #ffffff;
-  background: black;
+  background: #363636;
   text-align: center;
+  border-radius: 10px;
 }
 
 #post-grid {
@@ -158,55 +157,36 @@ box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 }
 
-.createPost {
-  background: #1b6dc1;
-  padding: 20px;
-  margin: 100px 350px;
-  text-align: center;
-  border: 2px solid black;
-  border-radius: 10px;
-  font-family: Arial;
-  display: block;
+.AccountP {
+  background-color: #363636;
+    color: white;
+    border: none;
+    padding: 9px 32px;
+    margin: 10px auto;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 4px;
 }
 
-.createPost fieldset{
+.CreatePostFields
+{
   background: white;
-  border: 20px black;
-  width: 31.5%;
-  margin: auto;
-  text-align: left;
-}
-
-.account {
-  background: #1b6dc1;
-  padding: 20px;
-  margin: 100px 350px;
-  text-align: center;
-  border: 2px solid black;
-  border-radius: 10px;
-  font-family: Arial;
-  display: block;
-}
-.account fieldset{
-  background: white;
-  border-color: black;
-  border-style: solid;
-  width: 31.5%;
-  margin: auto;
-  text-align: left;
-}
-.account legend{
-  padding: 10px;
-  color: #ffffff;
-  background: black;
-  text-align: center;
-}
-
-.account p{
-  background: #f5f5f5;
   color: black;
-  padding: 10px;
-  margin: 10px;
-  border: 2px solid black;
-  border-radius: 10px;
+  border: 10px black;
+  width: 31.5%;
+  text-align: left;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 10px 50px;
+  border-radius: 4px;
+}
+
+.CreatePostLabels
+{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
 }

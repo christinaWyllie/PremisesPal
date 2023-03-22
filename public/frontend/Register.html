@@ -9,7 +9,7 @@
             <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     </header>
     <body>
-      <div class="Register">
+      <div class="BlueBackground">
         <h1>Please Register</h1>
         <form id="registerForm" method="POST" action="/Register">
           <label for="email"><b></b></label>
@@ -17,7 +17,7 @@
           <label for="psw"><b></b></label>
           <input type="password" placeholder="Enter Password" name="psw" required>
           <br /><br />
-          <fieldset>
+          <fieldset class="RegisterFields">
             <label for="role">Please Select Your Role:</label>
             <select name="Role" id="role" required>
               <option value="owner">Home Owner</option>
@@ -25,7 +25,7 @@
             </select>
             <br /><br />
             <label for="checkbox">If a contractor, please select skills:</label>
-            <legend>User Information</legend>
+            <legend class="RegisterLegend">User Information</legend>
             <div>
               <input type="checkbox" id="carpentry" name="carpentry" value="carpentry" />
               <label for="carpentry">Carpentry</label><br>

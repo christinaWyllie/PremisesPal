@@ -9,16 +9,16 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="account">
+    <div class="BlueBackground">
       <h1>Your Premises Pal Account</h1>
-      <fieldset>
-        <legend>Personal Information</legend>
-        <p>Email: <%= email %></p>
-        <p>Skills: <%= skills.length === 0 ? 'None' : skills.join(', ') %></p>
+      <fieldset class="RegisterFields">
+        <legend class="RegisterLegend">Personal Information</legend>
+        <p class="AccountP">Email: <%= email %></p>
+        <p class="AccountP">Skills: <%= skills.length === 0 ? 'None' : skills.join(', ') %></p>
       </fieldset>
       <button onclick="window.location.href='feed.html';">Back</button>
     </div>
-    <h1>Your Posts</h1>
+    <h1 class="BlueBackgroundNoMarginTopMargin">Your Posts</h1>
     <div id="post-grid">
       <% for (let i = 0; i < posts.length; i++) { %>
         <div class="post">
