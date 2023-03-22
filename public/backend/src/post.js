@@ -200,6 +200,11 @@ class PostDB{
         const description = await PostDB.query(`UPDATE JOB_POSTING SET description = ('${newDescription}') WHERE post_id = '${id}'`)
         return(description.protocol41)
     }
+
+    //close the connection 
+    static async closeConnection(){
+        await PostDB.connection.end()
+    }
 }
 
 module.exports = PostDB

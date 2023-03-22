@@ -72,7 +72,7 @@ class ReviewDB {
     static async viewReviewByEmails(reviewer_email, reviewee_email) {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
-        const result = await ReviewDB.query(`SELECT * FROM REVIEW WHERE reviewer_email = '${reviewer_email} AND reviewee_email = '${reviewee_email}'`);
+        const result = await ReviewDB.query(`SELECT * FROM REVIEW WHERE reviewer_email = '${reviewer_email}' AND reviewee_email = '${reviewee_email}'`);
 
         if(result.length == 0) {
             console.log("! No reviews found");
@@ -107,12 +107,18 @@ class ReviewDB {
         console.log("! Result affected", result.affectedRows);
         return result.affectedRows;
     }
+
+    static async closeConnection(){
+        await ReviewDB.connection.end()
+    }
 }
 
-async function mockLoginFunction() {
-    console.log("\nMocking register functionality:")
-    var username = await ReviewDB.viewReviewByEmails('testPoster@yahoo.ca', 'testDeleting@gmail.com') 
-    console.log(`registerUser returned: ${username}`)
-}
+module.exports = ReviewDB
 
-mockLoginFunction()
+// async function mockLoginFunction() {
+//     console.log("\nMocking register functionality:")
+//     var username = await ReviewDB.viewReviewByEmails('testPoster@yahoo.ca', 'testDeleting@gmail.com') 
+//     console.log(`registerUser returned: ${username}`)
+// }
+
+// mockLoginFunction()
