@@ -14,8 +14,10 @@ const {readFile} = require("fs").promises;
 const Login = require("./backend/fullstack/login.js")
 const Register = require("./backend/fullstack/register.js")
 const Post = require('./backend/fullstack/post.js')
+const Review = require('./backend/fullstack/review.js')
 const PostDB = require('./backend/src/post.js')
 const ContractorDB = require('./backend/src/contractor.js')
+const ReviewDB = require('./backend/src/review.js')
 
 // port number
 const port = 3000;
@@ -208,6 +210,18 @@ app.get('/Login.html', (req, res) => {
 	  }
 	});
   });
+
+  	// not working rn 
+	// Set up route for review.html
+	// app.get('/review.html', (req, res) => {
+	// 	// Retrieve the review from your database or other data source
+	// 	const Review = {
+	// 	reviewer_email: 'johnNotscott@example.com',
+	// 	feedback: 'Great service!',
+	// 	stars: 4
+	// 	};
+	// 	res.send('review.html', { Review });
+	// });
 
 // start listening on PORT port
 app.listen(process.env.PORT || port, () => console.log("App available on http://localhost:3000"));

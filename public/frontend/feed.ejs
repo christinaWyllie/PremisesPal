@@ -19,7 +19,7 @@
     <div id="post-grid">
       <% for (let i = 0; i < posts.length; i++) { %>
         <div class="post">
-          <h2><a href="/review/<%= posts[i]._id %>"><%= posts[i].title %></a></h2>
+          <h2><a href="/review.html"><%= posts[i].title %></a></h2>
           <p>Description: <%= posts[i].description %></p>
           <p>Price: $<%= posts[i].price %></p>
           <% if (posts[i].requiredSkills) { %>
