@@ -71,7 +71,7 @@ app.post('/Register', async (req,res) => {
 	const registrationResult = await Register.registerAccount(uname, psw);
 	if (registrationResult == true) {
 		console.log("registration successful, redirecting...");
-		req.session.user = { email };
+		req.session.user = { uname };
 		res.status(302).redirect('feed.html');
 	} else {
 		console.log("registration unsuccessful");
