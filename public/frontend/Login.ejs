@@ -3,6 +3,10 @@
     <head>
         <title>PremisesPal/Login</title>
         <link rel="stylesheet" href="styles/main.css">
+        <link rel="icon" href="/imgs/PremisesPal_Favicon.png">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     </head>
     <body>
       <div class="Login">
@@ -13,6 +17,10 @@
           <label for="password"><b></b></label>
           <input type="password" placeholder="Enter Password" name="password" required>
           <button type="submit">Login</button>
+
+          <% if (loginResult===false) { %>
+            <p style="color: red">Incorrect email and/or password</p>
+            <% } %>
         </form>
         <button onclick="window.location.href='Home.html';">Back</button>
       </div>

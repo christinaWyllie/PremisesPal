@@ -3,17 +3,23 @@
   <head>
     <title>Feed</title>
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="icon" href="/imgs/favicon.ico">
+    <link rel="icon" href="/imgs/PremisesPal_Favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <button type="button" onclick="location.href='create-post.html'">Create Post</button>
-    <button type="button" onclick="location.href='account.html'">View Account</button>
+    <div class="FeedButton">
+      <button type="button" onclick="location.href='create-post.html'">Create Post</button>
+      <button type="button" onclick="location.href='account.html'">View Account</button>
+      <button type="button" onclick="location.href='/home'">Logout</button>
+    </div>
 
     <div id="post-grid">
       <% for (let i = 0; i < posts.length; i++) { %>
         <div class="post">
-          <h2><%= posts[i].title %></h2>
+          <h2><a href="/review/<%= posts[i]._id %>"><%= posts[i].title %></a></h2>
           <p>Description: <%= posts[i].description %></p>
           <p>Price: $<%= posts[i].price %></p>
           <% if (posts[i].requiredSkills) { %>

@@ -37,7 +37,7 @@ CREATE TABLE CONTRACTOR
 CREATE TABLE CONTRACTOR_SPECIALTIES
 (
 	email		VARCHAR(50)	NOT NULL,
-    skills		VARCHAR(50),
+    skills		VARCHAR(200),
     
     FOREIGN KEY  (email) REFERENCES CONTRACTOR(email)
 );
@@ -58,7 +58,7 @@ CREATE TABLE JOB_POSTING
     dateOfPosting		DATE,
     status				VARCHAR(15),
     price				FLOAT,
-    requiredSkills		VARCHAR(50),
+    requiredSkills		VARCHAR(200),
     
     poster_email		VARCHAR(50),
     contractor_email	VARCHAR(50),
@@ -75,7 +75,7 @@ CREATE TABLE REVIEW
     reviewee_email		VARCHAR(50),
     date				DATE, #date the review was made
     feedback			VARCHAR(200),
-    job_type			VARCHAR(50),
+    job_type			VARCHAR(200),
     stars				INT, #should be a number from 1-5
     
 	FOREIGN KEY (job_id) REFERENCES JOB_POSTING(post_id),
@@ -103,7 +103,8 @@ VALUES  ('testContractor@yahoo.ca', 'I am a testor. I am great at testing. I lik
 		('testDeleting@gmail.com', 'I am a welder and went to Sait for school. I am good.');
 
 INSERT INTO CONTRACTOR_SPECIALTIES
-VALUES  ('testContractor@yahoo.ca','Testing default first skill'), 
+VALUES 
+        ('testContractor@yahoo.ca','Landscaping'), 
 		('testDeleting@gmail.com', 'Welding');
 
 INSERT INTO CONTRACTOR_REFERENCES
@@ -115,6 +116,9 @@ VALUES  (1,'Testing', 'Welding', '2023-03-19', 'Active', 123.45, 'Testing', 'tes
         (2,'Welding', 'Welding', '2023-01-30', 'Inactive', 250.75, 'Welding', 'testPoster@hotmail.com', 'testDeleting@gmail.com'),
         (3,'Fix Toilet', 'Hi, I need someone who can fix my toilet', '2023-03-19', 'Inactive', 250.75, 'Welding', 'testPoster@hotmail.com', 'testContractor@yahoo.ca'), 
         (4,'Deleting', 'Hi, I need someone who can delete this for me', '2023-01-30', 'Inactive', 250.75, 'Delete', 'testPostings@shaw.ca', 'testDeleting@gmail.com');
+        
+INSERT INTO JOB_POSTING(post_id, title, description, dateOfPosting, status, price, requiredSkills, poster_email)
+VALUES (5,'Gardening', 'Hi, I need someone who can help me in my garden', '2023-01-30', 'Active', 250.75, 'Landscaping', 'testPoster@hotmail.com', '');
 
 INSERT INTO REVIEW
 VALUES    (1, 'testPoster@hotmail.com', 'testContractor@yahoo.ca','2023-04-1', 'Wow', 'Testing', 5);

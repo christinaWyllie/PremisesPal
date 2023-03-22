@@ -46,8 +46,12 @@ class PostDB{
      * Will also insert poster_email into poster table.
      */
     static async createPost( title, description, dateOfPosting, status, price, requiredSkills, poster_email ) {
-        if(!PostDB.connection) await PostDB.makeConnection()
-        console.log(`Creating from poster: ${poster_email}`)
+        if (!PostDB.connection) await PostDB.makeConnection();
+        const result = await PostDB.query(`SELECT 1 FROM account WHERE email = '${poster_email}'`);
+        if (result.length <= 0) {
+            console.log("failed, account doesn't exist in database.");
+            return false;
+        }
 
         const newPoster = await PostDB.query(`INSERT INTO poster(email) 
                                             SELECT '${poster_email}'
@@ -200,6 +204,8 @@ class PostDB{
 
 module.exports = PostDB
 
+//add something for getting all posts with null contractor
+
 // async function mockCreatePostFunction() {
 //     // console.log("\nMocking login functionality:")
 //     // var newPost = await Post.createPost('Testing new post', '2023-03-05', 'Active', 493.03, 'Plumetry', 'test@gmail.com')   // <= username to be validated
@@ -209,11 +215,10 @@ module.exports = PostDB
 //     console.log(newContractor)
 // }
 
-async function mockGetIDFunction() {
-    console.log("\nMocking getID functionality:")
-    var username = await PostDB.getPostFromID(20)   // <= username to be validated
-    console.log("registerUser returned: ", username)
-}
+// async function mockGetIDFunction() {
+//     console.log("\nMocking getID functionality:")
+//     var username = await PostDB.getPostFromID(20)   // <= username to be validated
+//     console.log("registerUser returned: ", username)
+// }
 
-mockGetIDFunction()
-
+// mockGetIDFunction()
