@@ -49,17 +49,69 @@ class ReviewDB {
 
         const createdReview = await ReviewDB.query(`INSERT INTO REVIEW 
                                                     SELECT ${id}, '${reviewer_email}', '${reviewee_email}', '${today}', '${feedback}', '${jobType}', ${stars}
-                                                    WHERE NOT EXISTS (SELECT 1 FROM REVIEW WHERE job_id = ${id})`);
+                                                    WHERE NOT EXISTS (SELECT 1 FROM REVIEW WHERE job_id = '${id}')`);
 
         return(createdReview.protocol41)
 
     }
 
+    static async viewReview(id) {
+        if(!ReviewDB.connection) await ReviewDB.makeConnection()
+
+        const result = await ReviewDB.query(`SELECT * FROM REVIEW WHERE job_id = '${id}'`);
+
+        if(result.length == 0) {
+            console.log("! No reviews found");
+            return result;
+        }
+
+        console.log("! Result", result[0]);
+        return result[0];
+    }
+
+    static async viewReviewByEmails(reviewer_email, reviewee_email) {
+        if(!ReviewDB.connection) await ReviewDB.makeConnection()
+
+        const result = await ReviewDB.query(`SELECT * FROM REVIEW WHERE reviewer_email = '${reviewer_email} AND reviewee_email = '${reviewee_email}'`);
+
+        if(result.length == 0) {
+            console.log("! No reviews found");
+            return result;
+        }
+
+        var reviews = [];
+
+        for(let i = 0; i < result.length; i++) {
+            reviews.push(result[i])
+        }
+
+        console.log("! Result", reviews);
+        return reviews;
+    } 
+
+    static async updateReview(id, newFeedback, newJobType, newStars) {
+        if(!ReviewDB.connection) await ReviewDB.makeConnection()
+
+        const result = await ReviewDB.query(`UPDATE REVIEW 
+                                            SET feedback = '${newFeedback}', job_type = '${newJobType}', stars = '${newStars}'`);
+
+        console.log("! Result changed", result.changedRows);
+        return result.changedRows;
+    }
+
+    static async deleteReview(id) {
+        if(!ReviewDB.connection) await ReviewDB.makeConnection()
+
+        const result = await ReviewDB.query(`DELETE FROM REVIEW WHERE job_id = '${id}'`);
+
+        console.log("! Result affected", result.affectedRows);
+        return result.affectedRows;
+    }
 }
 
 async function mockLoginFunction() {
     console.log("\nMocking register functionality:")
-    var username = await ReviewDB.createReview(3, 'ethan@ucalgary.ca',  'christina@gmail.com','good','paint', 4) 
+    var username = await ReviewDB.viewReviewByEmails('testPoster@yahoo.ca', 'testDeleting@gmail.com') 
     console.log(`registerUser returned: ${username}`)
 }
 
