@@ -108,8 +108,8 @@ class ReviewDB {
         return result.affectedRows;
     }
 
-    static async closeConnection(){
-        await ReviewDB.connection.end()
+    static async closeConnection() {
+        await this.connection.end()
     }
 }
 
@@ -117,7 +117,7 @@ module.exports = ReviewDB
 
 // async function mockLoginFunction() {
 //     console.log("\nMocking register functionality:")
-//     var username = await ReviewDB.viewReviewByEmails('testPoster@yahoo.ca', 'testDeleting@gmail.com') 
+//     var username = await ReviewDB.createReview(2, 'testPoster@hotmail.com',  'testDeleting@gmail.com','good','paint', 4) 
 //     console.log(`registerUser returned: ${username}`)
 // }
 

@@ -9,19 +9,25 @@
             <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div class="createPost">
+        <div class="BlueBackground">
             <h1>Please Input Post Information</h1>
             <form method="POST" action="/createPost">
-                <fieldset>
-                    <label for="title">Title:</label><br>
-                    <input type="text" id="title" name="title" required><br>
-                    <br>
-                    <label for="description">Description:</label><br>
-                    <input type="text" id="description" name="description" required><br>
-                    <br>
-                    <label for="price">Price:</label><br>
-                    <input type="text" id="price" name="price" required><br>
-                    <br>
+                <div class="CreatePostLabels">
+                    <div>
+                        <label class="AccountP"for="title">Title:</label>
+                        <input class="CreatePostInput" type="text" id="title" name="title" required>
+                    </div>
+                    <div>
+                        <label class="AccountP"for="description">Description:</label>
+                        <input class="CreatePostInput" type="text" id="description" name="description" required>
+                    </div>
+                    <div>
+                        <label class="AccountP" for="price">Price:</label>
+                        <input class="CreatePostInput" type="text" id="price" name="price" required>
+                    </div>
+                </div>
+                
+                <fieldset class="CreatePostFields">
                     <label for="checkbox">Skills:</label>
                     <div>
                     <input type="checkbox" id="carpentry" name="carpentry" value="carpentry" />
