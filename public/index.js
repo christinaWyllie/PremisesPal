@@ -67,11 +67,11 @@ app.post('/Login', async (req, res) => {
 //handle register requests
 app.post('/Register', async (req,res) => {
 	// need to add implementation for skills
-	const { uname, psw } = req.body;
-	const registrationResult = await Register.registerAccount(uname, psw);
+	const { email, psw } = req.body;
+	const registrationResult = await Register.registerAccount(email, psw);
 	if (registrationResult == true) {
 		console.log("registration successful, redirecting...");
-		req.session.user = { uname };
+		req.session.user = { email };
 		res.status(302).redirect('feed.html');
 	} else {
 		console.log("registration unsuccessful");
