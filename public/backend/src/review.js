@@ -93,7 +93,8 @@ class ReviewDB {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
         const result = await ReviewDB.query(`UPDATE REVIEW 
-                                            SET feedback = '${newFeedback}', job_type = '${newJobType}', stars = '${newStars}'`);
+                                            SET feedback = '${newFeedback}', job_type = '${newJobType}', stars = '${newStars}'
+                                            WHERE job_id = '${id}'`);
 
         console.log("! Result changed", result.changedRows);
         return result.changedRows;
