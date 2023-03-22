@@ -70,7 +70,7 @@ CREATE TABLE JOB_POSTING
 
 CREATE TABLE REVIEW
 (
-	job_id				INT NOT NULL, #will be a copy of the post_id, not dependent tho
+	job_id				INT NOT NULL,
 	reviewer_email		VARCHAR(50),
     reviewee_email		VARCHAR(50),
     date				DATE, #date the review was made
@@ -78,6 +78,7 @@ CREATE TABLE REVIEW
     job_type			VARCHAR(200),
     stars				INT, #should be a number from 1-5
     
+	FOREIGN KEY (job_id) REFERENCES JOB_POSTING(post_id),
     FOREIGN KEY  (reviewee_email) REFERENCES CONTRACTOR(email),
     FOREIGN KEY (reviewer_email) REFERENCES POSTER(email)
 );
@@ -122,10 +123,10 @@ VALUES (5,'Gardening', 'Hi, I need someone who can help me in my garden', '2023-
 INSERT INTO REVIEW
 VALUES    (1, 'testPoster@hotmail.com', 'testContractor@yahoo.ca','2023-04-1', 'Wow', 'Testing', 5);
 
--- SELECT * FROM ACCOUNT;
--- SELECT * FROM POSTER;
--- SELECT * FROM CONTRACTOR;
--- SELECT * FROM CONTRACTOR_SPECIALTIES;
--- SELECT * FROM CONTRACTOR_REFERENCES;
--- SELECT * FROM JOB_POSTING;
--- SELECT * FROM REVIEW;
+SELECT * FROM ACCOUNT;
+SELECT * FROM POSTER;
+SELECT * FROM CONTRACTOR;
+SELECT * FROM CONTRACTOR_SPECIALTIES;
+SELECT * FROM CONTRACTOR_REFERENCES;
+SELECT * FROM JOB_POSTING;
+SELECT * FROM REVIEW;
