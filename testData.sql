@@ -102,7 +102,8 @@ VALUES  ('testContractor@yahoo.ca', 'I am a testor. I am great at testing. I lik
 		('testDeleting@gmail.com', 'I am a welder and went to Sait for school. I am good.');
 
 INSERT INTO CONTRACTOR_SPECIALTIES
-VALUES  ('testContractor@yahoo.ca','Testing default first skill'), 
+VALUES 
+        ('testContractor@yahoo.ca','Landscaping'), 
 		('testDeleting@gmail.com', 'Welding');
 
 INSERT INTO CONTRACTOR_REFERENCES
@@ -114,6 +115,9 @@ VALUES  (1,'Testing', 'Welding', '2023-03-19', 'Active', 123.45, 'Testing', 'tes
         (2,'Welding', 'Welding', '2023-01-30', 'Inactive', 250.75, 'Welding', 'testPoster@hotmail.com', 'testDeleting@gmail.com'),
         (3,'Fix Toilet', 'Hi, I need someone who can fix my toilet', '2023-03-19', 'Inactive', 250.75, 'Welding', 'testPoster@hotmail.com', 'testContractor@yahoo.ca'), 
         (4,'Deleting', 'Hi, I need someone who can delete this for me', '2023-01-30', 'Inactive', 250.75, 'Delete', 'testPostings@shaw.ca', 'testDeleting@gmail.com');
+        
+INSERT INTO JOB_POSTING(post_id, title, description, dateOfPosting, status, price, requiredSkills, poster_email)
+VALUES (5,'Gardening', 'Hi, I need someone who can help me in my garden', '2023-01-30', 'Active', 250.75, 'Landscaping', 'testPoster@hotmail.com', '');
 
 INSERT INTO REVIEW
 VALUES    (1, 'testPoster@hotmail.com', 'testContractor@yahoo.ca','2023-04-1', 'Wow', 'Testing', 5);

@@ -67,8 +67,8 @@ app.post('/Login', async (req, res) => {
 //handle register requests
 app.post('/Register', async (req,res) => {
 	// need to add implementation for skills
-	const { uname, psw } = req.body;
-	const registrationResult = await Register.registerAccount(uname, psw);
+	const { email, psw } = req.body;
+	const registrationResult = await Register.registerAccount(email, psw);
 	if (registrationResult == true) {
 		console.log("registration successful, redirecting...");
 		req.session.user = { email };
@@ -126,6 +126,13 @@ app.post('/createPost', async (req,res) => {
 		//better error checking once again
 	}
 
+});
+
+app.get('/home', (req, res) => {
+	if (req.session && req.session.user) {
+		req.session.destroy();
+	}
+	res.sendFile(path.join(__dirname, "/frontend/home.html"));
 });
 
 // Send the post data MUST MAKE THIS WORK AFTER NEW POST TOO
