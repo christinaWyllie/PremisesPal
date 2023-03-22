@@ -128,6 +128,13 @@ app.post('/createPost', async (req,res) => {
 
 });
 
+app.get('/home', (req, res) => {
+	if (req.session && req.session.user) {
+		req.session.destroy();
+	}
+	res.sendFile(path.join(__dirname, "/frontend/home.html"));
+});
+
 // Send the post data MUST MAKE THIS WORK AFTER NEW POST TOO
 app.get('/feed.html', async (req, res) => {
 	if (!req.session || !req.session.user || !req.session.user.email) {
