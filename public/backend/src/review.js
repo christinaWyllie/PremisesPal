@@ -35,8 +35,8 @@ class ReviewDB {
     // ================================ END ======================================
     
     /*
-     * Deletes existing post from job_posting table
-     * Requires: post_id
+     * creates a new job review
+     * Requires: post_id, reviewer_email, reviewee_email, feedback, jobType, stars
      */
     static async createReview(id, reviewer_email, reviewee_email, feedback, jobType, stars){
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
@@ -55,6 +55,7 @@ class ReviewDB {
 
     }
 
+
     static async viewReview(id) {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
@@ -69,6 +70,10 @@ class ReviewDB {
         return result[0];
     }
 
+    /*
+     * view reviews by the reviewer email and the reviewee email
+     * Requires: reviewer email, reviewee email
+     */
     static async viewReviewByEmails(reviewer_email, reviewee_email) {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
@@ -88,7 +93,34 @@ class ReviewDB {
         console.log("! Result", reviews);
         return reviews;
     } 
+    /*
+     * view reviews by only the reviewee email
+     * Requires: reviewee email
+     */
+    static async viewReviewByEmail(reviewee_email) {
+        if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
+        const result = await ReviewDB.query(`SELECT * FROM REVIEW WHERE reviewee_email = '${reviewee_email}'`);
+
+        if(result.length == 0) {
+            console.log("! No reviews found");
+            return result;
+        }
+
+        var reviews = [];
+
+        for(let i = 0; i < result.length; i++) {
+            reviews.push(result[i])
+        }
+
+        console.log("! Result", reviews);
+        return reviews;
+    } 
+
+    /*
+     * Updates the review feedback, job type and stars of an existing review
+     * Requires: post_id, newFeedback, newJobType and newStars
+     */
     static async updateReview(id, newFeedback, newJobType, newStars) {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
@@ -100,6 +132,10 @@ class ReviewDB {
         return result.changedRows;
     }
 
+    /*
+     * deletes an existing review
+     * Requires: post_id
+     */
     static async deleteReview(id) {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 

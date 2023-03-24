@@ -26,11 +26,19 @@ test('testing updating an existing review', async () => {
     expect(result).toEqual(1)
 });
 
+//testing the viewReviewByEmail()
+test('testing viewing a review with a valid email', async () => {
+    const result = await ReviewDB.viewReviewByEmail('testContractor@yahoo.ca')
+    expect(result[0].job_id).toEqual(1)
+});
+
+
 //testing the viewReviewByEmails()
 test('testing deleting an existing review', async () => {
     const result = await ReviewDB.deleteReview(1)
     await ReviewDB.closeConnection()
     expect(result).toEqual(1)
 });
+
 
 
