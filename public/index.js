@@ -223,5 +223,22 @@ app.get('/Login.html', (req, res) => {
 	// 	res.send('review.html', { Review });
 	// });
 
+	app.get('/review.html', (req, res) => {
+		// Retrieve the review from your database or other data source
+		const review = {
+		  reviewer_email: 'johnNotscott@example.com',
+		  feedback: 'Great service!',
+		  stars: 4
+		};
+		res.render('frontend/review-details', { review }, (err, html) => {
+		  if (err) {
+			console.error(err);
+			res.status(500).send('Error rendering review details');
+		  } else {
+			res.send(html);
+		  }
+		});
+	  });
+
 // start listening on PORT port
 app.listen(process.env.PORT || port, () => console.log("App available on http://localhost:3000"));
