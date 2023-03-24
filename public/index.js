@@ -223,21 +223,19 @@ app.get('/Login.html', (req, res) => {
 	// 	res.send('review.html', { Review });
 	// });
 
-	app.get('/review.html', (req, res) => {
+	app.get('/review.html/:email', (req, res) => {
+		// Retrieve the email from the URL parameter
+		const email = req.params.email;
+	  
 		// Retrieve the review from your database or other data source
 		const review = {
 		  reviewer_email: 'johnNotscott@example.com',
 		  feedback: 'Great service!',
 		  stars: 4
 		};
-		res.render('frontend/review-details', { review }, (err, html) => {
-		  if (err) {
-			console.error(err);
-			res.status(500).send('Error rendering review details');
-		  } else {
-			res.send(html);
-		  }
-		});
+	  
+		// Pass the email along with the review to the review-details.ejs template
+		res.render('frontend/review-details', { review, email });
 	  });
 
 // start listening on PORT port
