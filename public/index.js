@@ -47,6 +47,7 @@ app.use(express.static("public/frontend/"));
 app.get('/', (req, res) => {
 
 	res.sendFile(path.join(__dirname, "/frontend/home.html"));
+	console.log(path.join(__dirname, "/frontend/home.html"))
 
 });
 
