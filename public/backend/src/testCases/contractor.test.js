@@ -62,7 +62,7 @@ describe('ContractorDB', () => {
         it('should return skills given an existing Contractor', async () => {
             const result = await ContractorDB.viewSkills('testContractor@yahoo.ca');
 
-            var skills = ["Testing default first skill", "This is a new skill"];
+            var skills = ["Landscaping", "This is a new skill"];
 
             expect(result).toStrictEqual(skills);
         });

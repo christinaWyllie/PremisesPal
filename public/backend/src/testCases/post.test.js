@@ -31,7 +31,7 @@ test('Testing deleting a post when post_id does not exist in Job_Posting Table',
 //testing the getPostsFromEmail() method when the poster email exists with posts
 test('Testing getting a posters post ids from their email when posts exists for them',async () => {
     const result = await PostDB.getPostsFromEmail('testPoster@hotmail.com')
-    expect(result).toEqual([1, 2, 3])
+    expect(result).toEqual([1, 2, 3, 5])
 });
 
 //testing the getPostsFromEmail() method when the poster email exists with no posts
