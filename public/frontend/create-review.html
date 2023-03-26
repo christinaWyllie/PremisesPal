@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create Review</title>
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="icon" href="/imgs/PremisesPal_Favicon.png">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="BlueBackground">
+            <h1>Please Input Review Information</h1>
+            <form method="POST" action="/create-review">
+                <div class="CreateReviewLabels">
+                    <div>
+                        <label class="AccountR"for="revieweeEmail">Reviewee Email:</label>
+                        <input class="CreateReviewInput" type="text" id="revieweeEmail" name="revieweeEmail" required>
+                    </div>
+                    <div>
+                        <label class="AccountR"for="feedback">Feedback:</label>
+                        <input class="CreateReviewInput" type="text" id="feedback" name="feedback" required>
+                    </div>
+                    <div>
+                        <label class="AccountR" for="stars">Stars (1-5):</label>
+                        <input class="CreateReviewInput" type="number" id="stars" name="stars" min="1" max="5" required>
+                    </div>
+                </div>
+                
+                <fieldset class="CreateReviewFields">
+                    <label for="ratio">Job Type:</label>
+                    <div>
+                    <input type="checkbox" id="carpentry" name="carpentry" value="carpentry" />
+                    <label for="carpentry">Carpentry</label><br>
+                    </div>
+                    <div>
+                    <input type="checkbox" id="plumbing" name="plumbing" value="plumbing" />
+                    <label for="plumbing">Plumbing</label><br>
+                    </div>
+                    <div>
+                    <input type="checkbox" id="cleaning" name="cleaning" value="cleaning" />
+                    <label for="cleaning">Cleaning</label><br>
+                    </div>
+                    <div>
+                    <input type="checkbox" id="electrical" name="electrical" value="electrical" />
+                    <label for="electrical">Electrical</label><br>
+                    </div>
+                    <div>
+                    <input type="checkbox" id="landscaping" name="landscaping" value="landscaping" />
+                    <label for="landscaping">Landscaping</label><br>
+                    </div>
+                    <div>
+                    <input type="checkbox" id="painting" name="painting" value="painting" />
+                    <label for="painting">Painting</label><br>
+                    </div>
+                    <div>
+                    <input type="checkbox" id="other" name="other" value="other" />
+                    <label for="other">Other</label><br>
+                    </div>
+                </fieldset>
+                <button type="submit">Submit</button>
+                <button onclick="window.location.href='feed.html';">Cancel</button>
+            </form>
+        </div>
+    </body>
+</html>

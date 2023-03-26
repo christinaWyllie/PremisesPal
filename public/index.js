@@ -84,7 +84,6 @@ app.post('/Register', async (req,res) => {
 
 });
 
-//handle register requests
 app.post('/createPost', async (req,res) => {
 
 	if (!req.session || !req.session.user || !req.session.user.email) {
@@ -237,5 +236,61 @@ app.get('/Login.html', (req, res) => {
 		res.render('frontend/review-details', { allReviews });
 	  });
 
+app.post('/create-review', async (req,res) => {
+
+	if (!req.session || !req.session.user || !req.session.user.email) {
+		console.log('No email found in the session');
+		res.status(401).send('Unauthorized access');
+		return;
+	}
+	const userEmail = req.session.user.email;
+
+	const { revieweeEmail, feedback, stars, carpentry, plumbing, cleaning, electrical, landscaping, painting, other } = req.body;
+	var jobType = "";
+
+	//monke code go brrrr
+	if (carpentry) {
+		jobType = "Carpentry";
+	}
+	if (plumbing) {
+		jobType = "Plumbing";
+	}
+	if (cleaning) {
+		jobType = "Cleaning";
+	}
+	if (electrical) {
+		jobType = "Electrical";
+	}
+	if (landscaping) {
+		jobType = "Landscaping";
+	}
+	if (painting) {
+		jobType = "Painting";
+	}
+	if (other) {
+		jobType = "Other";
+	}
+	var reviewResult;
+
+	try {
+		reviewResult = await ReviewDB.createReview(userEmail, revieweeEmail, feedback, jobType, stars);
+		console.log(reviewResult);
+	} catch (error) {
+		console.log(error);
+		//ERROR CHECK HERE
+	}
+
+	if (reviewResult == true) {
+		console.log("successfully added review to database.");
+		res.status(302).redirect('feed.html');
+	} else {
+		console.log("adding review to database failed.");
+		res.status(302).redirect('feed.html');
+		//better error checking once again
+	}
+
+});
+
+	  
 // start listening on PORT port
 app.listen(process.env.PORT || port, () => console.log("App available on http://localhost:3000"));
