@@ -2,6 +2,7 @@ const { setPostInProgress } = require('../post.js');
 const PostDB = require('../post.js')
 
 //testing the createPost method for when the email is not in the poster table yet
+//TC12
 test('Testing creating a post when poster does not yet exist in Poster Table', async () => {
     const result = await PostDB.createPost('adding', 'description', '2023-03-19', 
                     'active', 400, 'painting', 'testAdding@gmail.com')
