@@ -213,19 +213,26 @@ app.get('/Login.html', (req, res) => {
   });
 
 
-	app.get('/review.html/:email', (req, res) => {
-		// Retrieve the email from the URL parameter
-		const reviewEmail = req.params.email;
+	app.post('/review-details', (req, res) => {
+		if (!req.session || !req.session.user || !req.session.user.email) {
+			console.log('No email found in the session');
+			res.status(401).send('Unauthorized access');
+			return;
+		}
+		const userEmail = req.session.user.email;
+
+		const { email } = req.body;
+		console.log(email);
 	  
 		// Retrieve the review from database test data supplied for now this is what needs to be changed
 		const review = [];
 		review.push(new Review('testReviewer@mail.com', 'testReviewee@mail.com', 'Job was well done', 'Welding', 4));
-		review.push(new Review('testReviewer2@mail.com', 'testReviewe2@mail.com', 'Job was not well done', 'Landscaping', 1));
+		review.push(new Review('testReviewer2@mail.com', 'testReviewee2@mail.com', 'Job was not well done', 'Landscaping', 1));
 
 		//const review = ReviewDB.viewReviewByEmail('testContractor@yahoo.ca');
 	  
 		// Pass the email along with the review to the review-details.ejs template
-		res.render('frontend/review-details', { review, reviewEmail });
+		res.render('frontend/review-details', { review });
 	  });
 
 // start listening on PORT port

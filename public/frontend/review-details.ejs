@@ -13,6 +13,7 @@
     <div class="review-details">
       <% for (let i = 0; i < review.length; i++) { %>
         <h2>Review for <%= review[i].revieweeEmail %></h2>
+        <p>Review by <%= review[i].reviewerEmail %></p>
         <p>Feedback: <%= review[i].feedback %></p>
         <p>Job Type: <%= review[i].jobType %></p>
         <div class="star-bar">
