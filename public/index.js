@@ -213,7 +213,7 @@ app.get('/Login.html', (req, res) => {
   });
 
 
-	app.post('/review-details', (req, res) => {
+	app.post('/review-details', async (req, res) => {
 		if (!req.session || !req.session.user || !req.session.user.email) {
 			console.log('No email found in the session');
 			res.status(401).send('Unauthorized access');
@@ -224,15 +224,17 @@ app.get('/Login.html', (req, res) => {
 		const { email } = req.body;
 		console.log(email);
 	  
-		// Retrieve the review from database test data supplied for now this is what needs to be changed
-		const review = [];
-		review.push(new Review('testReviewer@mail.com', 'testReviewee@mail.com', 'Job was well done', 'Welding', 4));
-		review.push(new Review('testReviewer2@mail.com', 'testReviewee2@mail.com', 'Job was not well done', 'Landscaping', 1));
+		const reviews = await ReviewDB.viewReviewByEmail(email);
+		console.log(reviews);
 
-		//const review = ReviewDB.viewReviewByEmail('testContractor@yahoo.ca');
+		const allReviews = [];
+
+		for (let i = 0; i < reviews.length; i++) {
+			allReviews.push(new Review(reviews[i].reviewer_email, reviews[i].reviewee_email, reviews[i].feedback, reviews[i].job_type, reviews[i].stars));
+		}
 	  
 		// Pass the email along with the review to the review-details.ejs template
-		res.render('frontend/review-details', { review });
+		res.render('frontend/review-details', { allReviews });
 	  });
 
 // start listening on PORT port

@@ -11,14 +11,14 @@
 
   <body>
     <div class="review-details">
-      <% for (let i = 0; i < review.length; i++) { %>
-        <h2>Review for <%= review[i].revieweeEmail %></h2>
-        <p>Review by <%= review[i].reviewerEmail %></p>
-        <p>Feedback: <%= review[i].feedback %></p>
-        <p>Job Type: <%= review[i].jobType %></p>
+      <% for (let i = 0; i < allReviews.length; i++) { %>
+        <h2>Review for <%= allReviews[i].revieweeEmail %></h2>
+        <p>Review by <%= allReviews[i].reviewerEmail %></p>
+        <p>Feedback: <%= allReviews[i].feedback %></p>
+        <p>Job Type: <%= allReviews[i].jobType %></p>
         <div class="star-bar">
           <% for (let j = 1; j <= 5; j++) { %>
-            <% if (review[i].stars >= j) { %>
+            <% if (allReviews[i].stars >= j) { %>
               <span class="star full-star">&#9733;</span>
             <% } else { %>
               <span class="star empty-star">&#9734;</span>
