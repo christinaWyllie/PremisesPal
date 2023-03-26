@@ -212,31 +212,29 @@ app.get('/Login.html', (req, res) => {
 	});
   });
 
-  	// not working rn 
-	// Set up route for review.html
-	// app.get('/review.html', (req, res) => {
-	// 	// Retrieve the review from your database or other data source
-	// 	const Review = {
-	// 	reviewer_email: 'johnNotscott@example.com',
-	// 	feedback: 'Great service!',
-	// 	stars: 4
-	// 	};
-	// 	res.send('review.html', { Review });
-	// });
 
-	app.get('/review.html/:email', (req, res) => {
-		// Retrieve the email from the URL parameter
-		const email = req.params.email;
+	app.post('/review-details', async (req, res) => {
+		if (!req.session || !req.session.user || !req.session.user.email) {
+			console.log('No email found in the session');
+			res.status(401).send('Unauthorized access');
+			return;
+		}
+		const userEmail = req.session.user.email;
+
+		const { email } = req.body;
+		console.log(email);
 	  
-		// Retrieve the review from your database or other data source
-		const review = {
-		  reviewer_email: 'johnNotscott@example.com',
-		  feedback: 'Great service!',
-		  stars: 4
-		};
+		const reviews = await ReviewDB.viewReviewByEmail(email);
+		console.log(reviews);
+
+		const allReviews = [];
+
+		for (let i = 0; i < reviews.length; i++) {
+			allReviews.push(new Review(reviews[i].reviewer_email, reviews[i].reviewee_email, reviews[i].feedback, reviews[i].job_type, reviews[i].stars));
+		}
 	  
 		// Pass the email along with the review to the review-details.ejs template
-		res.render('frontend/review-details', { review, email });
+		res.render('frontend/review-details', { allReviews });
 	  });
 
 // start listening on PORT port

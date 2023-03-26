@@ -14,12 +14,17 @@
       <button type="button" onclick="location.href='create-post.html'">Create Post</button>
       <button type="button" onclick="location.href='account.html'">View Account</button>
       <button type="button" onclick="location.href='/home'">Logout</button>
+      <label for="email"><b></b></label>
     </div>
+    <form class="BlueBackgroundNoBackground" method="POST" action="/review-details">
+      <input class="ReviewButton" type="email" name="email" placeholder="Enter contractor email">
+      <button type="submit">Find Reviews</button>
+    </form>
 
     <div id="post-grid">
       <% for (let i = 0; i < posts.length; i++) { %>
         <div class="post">
-          <h2><a href="/review.html/<%= encodeURIComponent(posts[i].posterEmail) %>"><%= posts[i].title %></a></h2>
+          <h2><%= posts[i].title %></h2>
           <p>Description: <%= posts[i].description %></p>
           <p>Price: $<%= posts[i].price %></p>
           <% if (posts[i].requiredSkills) { %>

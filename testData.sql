@@ -71,6 +71,7 @@ CREATE TABLE JOB_POSTING
 CREATE TABLE REVIEW
 (
 	reviewID			INT NOT NULL auto_increment,
+	reviewID			INT NOT NULL auto_increment,
 	reviewer_email		VARCHAR(50),
     reviewee_email		VARCHAR(50),
     date				DATE, #date the review was made
@@ -78,6 +79,9 @@ CREATE TABLE REVIEW
     job_type			VARCHAR(200),
     stars				INT, #should be a number from 1-5
     
+    PRIMARY KEY (reviewID),
+    FOREIGN KEY  (reviewee_email) REFERENCES ACCOUNT(email),
+    FOREIGN KEY (reviewer_email) REFERENCES ACCOUNT(email)
     PRIMARY KEY (reviewID),
     FOREIGN KEY  (reviewee_email) REFERENCES ACCOUNT(email),
     FOREIGN KEY (reviewer_email) REFERENCES ACCOUNT(email)
