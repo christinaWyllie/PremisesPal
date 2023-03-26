@@ -38,18 +38,17 @@ class ReviewDB {
      * creates a new job review
      * Requires: post_id, reviewer_email, reviewee_email, feedback, jobType, stars
      */
-    static async createReview(id, reviewer_email, reviewee_email, feedback, jobType, stars){
+    static async createReview(reviewer_email, reviewee_email, feedback, jobType, stars){
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
-        console.log(`Creating Review: ${id}`)
+        console.log(`Creating Review`)
 
         let today = new Date().toISOString().slice(0, 10)
 
         
 
-        const createdReview = await ReviewDB.query(`INSERT INTO REVIEW 
-                                                    SELECT ${id}, '${reviewer_email}', '${reviewee_email}', '${today}', '${feedback}', '${jobType}', ${stars}
-                                                    WHERE NOT EXISTS (SELECT 1 FROM REVIEW WHERE job_id = '${id}')`);
+        const createdReview = await ReviewDB.query(`INSERT INTO REVIEW (reviewer_email, reviewee_email, date, feedback, job_type, stars) VALUES` +
+                                                `('${reviewer_email}', '${reviewee_email}', '${today}', '${feedback}', '${jobType}', ${stars})`)
 
         return(createdReview.protocol41)
 
@@ -59,7 +58,7 @@ class ReviewDB {
     static async viewReview(id) {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
-        const result = await ReviewDB.query(`SELECT * FROM REVIEW WHERE job_id = '${id}'`);
+        const result = await ReviewDB.query(`SELECT * FROM REVIEW WHERE reviewID = '${id}'`);
 
         if(result.length == 0) {
             console.log("! No reviews found");
@@ -126,7 +125,7 @@ class ReviewDB {
 
         const result = await ReviewDB.query(`UPDATE REVIEW 
                                             SET feedback = '${newFeedback}', job_type = '${newJobType}', stars = '${newStars}'
-                                            WHERE job_id = '${id}'`);
+                                            WHERE reviewID = '${id}'`);
 
         console.log("! Result changed", result.changedRows);
         return result.changedRows;
@@ -139,7 +138,7 @@ class ReviewDB {
     static async deleteReview(id) {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
-        const result = await ReviewDB.query(`DELETE FROM REVIEW WHERE job_id = '${id}'`);
+        const result = await ReviewDB.query(`DELETE FROM REVIEW WHERE reviewID = '${id}'`);
 
         console.log("! Result affected", result.affectedRows);
         return result.affectedRows;

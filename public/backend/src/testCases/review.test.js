@@ -2,7 +2,7 @@ const ReviewDB = require('../review.js')
 
 //testing the createPost method for when the email is not in the poster table yet
 test('testing creating a review with valid emails', async () => {
-    const result = await ReviewDB.createReview(2, 'testPoster@hotmail.com', 'testDeleting@gmail.com', 'Great work', 'Welding', 5)
+    const result = await ReviewDB.createReview('testPoster@hotmail.com', 'testDeleting@gmail.com', 'Great work', 'Welding', 5)
     expect(result).toBe(true)
 });
 
@@ -17,7 +17,7 @@ test('testing viewing a review with valid id', async () => {
 //testing the viewReviewByEmails()
 test('testing viewing a review with valid emails', async () => {
     const result = await ReviewDB.viewReviewByEmails('testPoster@hotmail.com', 'testContractor@yahoo.ca')
-    expect(result[0].job_id).toEqual(1)
+    expect(result[0].reviewID).toEqual(1)
 });
 
 //testing the viewReviewByEmails()
@@ -29,7 +29,7 @@ test('testing updating an existing review', async () => {
 //testing the viewReviewByEmail()
 test('testing viewing a review with a valid email', async () => {
     const result = await ReviewDB.viewReviewByEmail('testContractor@yahoo.ca')
-    expect(result[0].job_id).toEqual(1)
+    expect(result[0].reviewID).toEqual(1)
 });
 
 
