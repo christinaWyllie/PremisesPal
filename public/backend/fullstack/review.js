@@ -2,10 +2,12 @@ const AccountDB = require("../src/review.js")
 
 class Review{
 
-    //test constructor
-    constructor( review_email, feedback, stars){
-        this.reviewer_email = review_email;
+    constructor(id, reviewerEmail, revieweeEmail, feedback, jobType, stars) {
+        this.id = id;
+        this.reviewerEmail = reviewerEmail;
+        this.revieweeEmail = revieweeEmail;
         this.feedback = feedback;
+        this.jobType = jobType;
         this.stars = stars;
     }
 }

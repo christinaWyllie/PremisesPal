@@ -226,17 +226,19 @@ app.get('/Login.html', (req, res) => {
 
 	app.get('/review.html/:email', (req, res) => {
 		// Retrieve the email from the URL parameter
-		const email = req.params.email;
+		const reviewEmail = req.params.email;
 	  
-		// Retrieve the review from your database or other data source
+		Retrieve the review from your database or other data source
 		const review = {
 		  reviewer_email: 'johnNotscott@example.com',
 		  feedback: 'Great service!',
 		  stars: 4
 		};
+
+		const review = ReviewDB.viewReviewByEmail('testContractor@yahoo.ca');
 	  
 		// Pass the email along with the review to the review-details.ejs template
-		res.render('frontend/review-details', { review, email });
+		res.render('frontend/review-details', { review, reviewEmail });
 	  });
 
 // start listening on PORT port
