@@ -212,30 +212,17 @@ app.get('/Login.html', (req, res) => {
 	});
   });
 
-  	// not working rn 
-	// Set up route for review.html
-	// app.get('/review.html', (req, res) => {
-	// 	// Retrieve the review from your database or other data source
-	// 	const Review = {
-	// 	reviewer_email: 'johnNotscott@example.com',
-	// 	feedback: 'Great service!',
-	// 	stars: 4
-	// 	};
-	// 	res.send('review.html', { Review });
-	// });
 
 	app.get('/review.html/:email', (req, res) => {
 		// Retrieve the email from the URL parameter
 		const reviewEmail = req.params.email;
 	  
-		Retrieve the review from your database or other data source
-		const review = {
-		  reviewer_email: 'johnNotscott@example.com',
-		  feedback: 'Great service!',
-		  stars: 4
-		};
+		// Retrieve the review from database test data supplied for now this is what needs to be changed
+		const review = [];
+		review.push(new Review('testReviewer@mail.com', 'testReviewee@mail.com', 'Job was well done', 'Welding', 4));
+		review.push(new Review('testReviewer2@mail.com', 'testReviewe2@mail.com', 'Job was not well done', 'Landscaping', 1));
 
-		const review = ReviewDB.viewReviewByEmail('testContractor@yahoo.ca');
+		//const review = ReviewDB.viewReviewByEmail('testContractor@yahoo.ca');
 	  
 		// Pass the email along with the review to the review-details.ejs template
 		res.render('frontend/review-details', { review, reviewEmail });
