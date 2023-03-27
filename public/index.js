@@ -66,7 +66,7 @@ app.post('/Login', async (req, res) => {
 	  // Pass loginResult to Login.ejs rendering
 	  res.render('frontend/Login', { loginResult });
 	}
-  });
+});
 
 //handle register requests
 app.post('/Register', async (req,res) => {
@@ -124,7 +124,6 @@ app.post('/Register', async (req,res) => {
 		res.render('frontend/Register', { registrationResult });
 		//need to add error message somehow
 	}
-
 });
 
 app.post('/createPost', async (req,res) => {
@@ -178,7 +177,6 @@ app.post('/createPost', async (req,res) => {
 		res.status(302).redirect('feed.html');
 		//better error checking once again
 	}
-
 });
 
 app.get('/home', (req, res) => {
@@ -220,7 +218,7 @@ app.get('/feed.html', async (req, res) => {
 		  res.send(html);
 		}
 	  });
-  });
+});
 
 // Send the post data MUST MAKE THIS WORK AFTER NEW POST TOO
 app.get('/Login.html', (req, res) => {
@@ -232,7 +230,7 @@ app.get('/Login.html', (req, res) => {
 		res.send(html);
 	  }
 	});
-  });
+});
 
   app.get('/Register.html', (req, res) => {
 	res.render('frontend/Register', { registrationResult: null }, (err, html) => {
@@ -243,9 +241,9 @@ app.get('/Login.html', (req, res) => {
 		res.send(html);
 	  }
 	});
-  });
+});
 
-  app.get('/account.html', async (req, res) => {
+app.get('/account.html', async (req, res) => {
 	if (!req.session || !req.session.user || !req.session.user.email) {
 	  console.log('No email found in the session');
 	  res.status(401).send('Unauthorized access');
@@ -271,43 +269,42 @@ app.get('/Login.html', (req, res) => {
 		res.send(html);
 	  }
 	});
-  });
+});
 
+app.post('/review-details', async (req, res) => {
+	if (!req.session || !req.session.user || !req.session.user.email) {
+		console.log('No email found in the session');
+		res.status(401).send('Unauthorized access');
+		return;
+	}
+	const userEmail = req.session.user.email;
 
-	app.post('/review-details', async (req, res) => {
-		if (!req.session || !req.session.user || !req.session.user.email) {
-			console.log('No email found in the session');
-			res.status(401).send('Unauthorized access');
-			return;
-		}
-		const userEmail = req.session.user.email;
-
-		const { email } = req.body;
-		console.log(email);
+	const { email } = req.body;
+	console.log(email);
 	  
-		const reviews = await ReviewDB.viewReviewByEmail(email);
-		console.log(reviews);
+	const reviews = await ReviewDB.viewReviewByEmail(email);
+	console.log(reviews);
 
-		const allReviews = [];
+	const allReviews = [];
 
-		for (let i = 0; i < reviews.length; i++) {
-			allReviews.push(new Review(reviews[i].reviewer_email, reviews[i].reviewee_email, reviews[i].feedback, reviews[i].job_type, reviews[i].stars));
-		}
+	for (let i = 0; i < reviews.length; i++) {
+		allReviews.push(new Review(reviews[i].reviewer_email, reviews[i].reviewee_email, reviews[i].feedback, reviews[i].job_type, reviews[i].stars));
+	}
 	  
-		// Pass the email along with the review to the review-details.ejs template
-		res.render('frontend/review-details', { allReviews });
-	  });
+	// Pass the email along with the review to the review-details.ejs template
+	res.render('frontend/review-details', { allReviews });
+});
 
-	app.get('/create-review.html', (req, res) => {
-		res.render('frontend/create-review', {emailInDatabase: true}, (err, html) => {
-			if (err) {
-				console.error(err);
-				res.status(500).send('Error rendering create-review 297');
-			} else {
-				res.send(html);
-			}
-		});
+app.get('/create-review.html', (req, res) => {
+	res.render('frontend/create-review', {emailInDatabase: true}, (err, html) => {
+		if (err) {
+			console.error(err);
+			res.status(500).send('Error rendering create-review 297');
+		} else {
+			res.send(html);
+		}
 	});
+});
 
 app.post('/create-review', async (req,res) => {
 
@@ -375,7 +372,6 @@ app.post('/create-review', async (req,res) => {
 			//better error checking once again
 		}
 	}
-
 });
 
 	  
