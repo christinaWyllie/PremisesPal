@@ -69,7 +69,8 @@ app.post('/Login', async (req, res) => {
 
 //handle register requests
 app.post('/Register', async (req,res) => {
-	// need to add implementation for skills
+	
+	// implementation for creating account does not distinguish poster or contractor
 	const { email, psw } = req.body;
 	const registrationResult = await Register.registerAccount(email, psw);
 	if (registrationResult == true) {
@@ -80,6 +81,40 @@ app.post('/Register', async (req,res) => {
 		console.log("registration unsuccessful");
 		res.status(302).redirect('Register.html');
 		//need to add error message somehow
+	}
+
+	const userType = req.body.role;
+	if (userType == "homeOwner"){
+		// need to implement registration as a home owner
+	}
+	else if (userType == "contractor"){
+		const contractorRegistrationResult = await ContractorDB.addContractor(email, "Default biography");
+		if (contractorRegistrationResult){
+			// checks whether skills have been checked or not
+			const carpentrySkill = req.body.carpentry !== undefined;
+			if (carpentrySkill) await ContractorDB.addSkill(email, "Carpentry");
+			const plumbingSkill = req.body.plumbing !== undefined;
+			if (plumbingSkill) await ContractorDB.addSkill(email, "Plumbing");
+			const cleaningSkill = req.body.cleaning !== undefined;
+			if (cleaningSkill) await ContractorDB.addSkill(email, "Cleaning");
+			const electricalSkill = req.body.electrical !== undefined;
+			if (electricalSkill) await ContractorDB.addSkill(email, "Electrical");
+			const landscapingSkill = req.body.landscaping !== undefined;
+			if (landscapingSkill) await ContractorDB.addSkill(email, "Landscaping");
+			const paintingSkill = req.body.painting !== undefined;
+			if (paintingSkill) await ContractorDB.addSkill(email, "Painting");
+			const otherSkill = req.body.other !== undefined;
+			if (otherSkill) await ContractorDB.addSkill(email, "Other");
+			res.status(302).redirect('feed.html');
+		}
+		else {
+			console.log("Was unable to register as a contractor");
+		}
+	}
+	else{
+		// should never get to this else statement as the user selects homeOwner or contractor
+		// from a dropdown menu
+		console.log("Issue with the user type");
 	}
 
 });
