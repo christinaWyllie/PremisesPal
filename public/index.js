@@ -76,7 +76,6 @@ app.post('/Register', async (req,res) => {
 	if (registrationResult == true) {
 		console.log("registration successful, redirecting...");
 		req.session.user = { email };
-		res.status(302).redirect('feed.html');
 	} else {
 		console.log("registration unsuccessful");
 		res.status(302).redirect('Register.html');
@@ -86,6 +85,7 @@ app.post('/Register', async (req,res) => {
 	const userType = req.body.role;
 	if (userType == "homeOwner"){
 		// need to implement registration as a home owner
+		res.status(302).redirect('feed.html');
 	}
 	else if (userType == "contractor"){
 		const contractorRegistrationResult = await ContractorDB.addContractor(email, "Default biography");
