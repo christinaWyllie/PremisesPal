@@ -122,6 +122,13 @@ test('Testing changing the price post',async () => {
 //TC28
 test('Testing changing the description of a  post',async () => {
     const result = await PostDB.updateDescription(1, 'This is the updated testing')
+    expect(result).toBe(true)
+});
+
+//testing adding a new poster
+//TC35
+test('Testing adding a poster to the poster table',async () => {
+    const result = await PostDB.addPoster('testNewPoster@gmail.com')
     await PostDB.closeConnection()
     expect(result).toBe(true)
 });

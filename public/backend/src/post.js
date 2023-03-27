@@ -39,6 +39,25 @@ class PostDB{
     }
     // ================================ END ======================================
 
+
+    /*
+    * Create a new poster and add it to the poster table in the database
+    */
+    static async addPoster(poster_email ) {
+        if (!PostDB.connection) await PostDB.makeConnection();
+        const result = await PostDB.query(`SELECT 1 FROM account WHERE email = '${poster_email}'`);
+        if (result.length <= 0) {
+            console.log("failed, account doesn't exist in database.");
+            return false;
+        }
+
+        const newPoster = await PostDB.query(`INSERT INTO poster(email) 
+                                            SELECT '${poster_email}'
+                                            WHERE NOT EXISTS (SELECT 1 FROM poster WHERE email = '${poster_email}');`)
+        
+        return(newPoster.protocol41)
+    }
+
     /*
      * Inserts new post into job_posting table
      * Requires: description, dateOfPosting, status, price, requiredSkills, poster_email
