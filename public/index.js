@@ -113,7 +113,7 @@ app.post('/Register', async (req,res) => {
 		}
 	} else {
 		console.log("registration unsuccessful");
-		res.status(302).redirect('Register.html');
+		res.status(302).redirect('frontend/Register', {registrationResult});
 		//need to add error message somehow
 	}
 

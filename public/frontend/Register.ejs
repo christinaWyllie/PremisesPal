@@ -17,6 +17,9 @@
           <label for="psw"><b></b></label>
           <input type="password" placeholder="Enter Password" name="psw" required>
           <br /><br />
+          <% if (registrationResult===false) { %>
+            <p class="AccountP" style="color: red; margin: 0px 75px;">Account already exist! Please use login</p>
+            <% } %>
           <fieldset class="RegisterFields">
             <label for="role">Please Select Your Role:</label>
             <select name="role" id="role" required>
