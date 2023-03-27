@@ -282,6 +282,17 @@ app.get('/Login.html', (req, res) => {
 		res.render('frontend/review-details', { allReviews });
 	  });
 
+	app.get('/create-review.html', (req, res) => {
+		res.render('frontend/create-review', (err, html) => {
+			if (err) {
+				console.error(err);
+				res.status(500).send('Error rendering create-review');
+			} else {
+				res.send(html);
+			}
+		});
+	});
+
 app.post('/create-review', async (req,res) => {
 
 	if (!req.session || !req.session.user || !req.session.user.email) {
