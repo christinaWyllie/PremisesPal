@@ -10,12 +10,15 @@
   </head>
 
   <body>
-    <div class="review-details">
+    <div class="BlueBackground">
+      <% if (allReviews.length==0) { %>
+        <h2>No Reviews Found</h2>
+      <% } %>
       <% for (let i = 0; i < allReviews.length; i++) { %>
         <h2>Review for <%= allReviews[i].revieweeEmail %></h2>
-        <p>Review by <%= allReviews[i].reviewerEmail %></p>
-        <p>Feedback: <%= allReviews[i].feedback %></p>
-        <p>Job Type: <%= allReviews[i].jobType %></p>
+        <p class="AccountP">Review by <%= allReviews[i].reviewerEmail %></p>
+        <p class="AccountP">Feedback: <%= allReviews[i].feedback %></p>
+        <p class="AccountP">Job Type: <%= allReviews[i].jobType %></p>
         <div class="star-bar">
           <% for (let j = 1; j <= 5; j++) { %>
             <% if (allReviews[i].stars >= j) { %>

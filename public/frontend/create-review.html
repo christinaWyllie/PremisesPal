@@ -12,22 +12,22 @@
         <div class="BlueBackground">
             <h1>Please Input Review Information</h1>
             <form method="POST" action="/create-review">
-                <div class="CreateReviewLabels">
+                <div class="CreatePostLabels">
                     <div>
-                        <label class="AccountR"for="revieweeEmail">Reviewee Email:</label>
-                        <input class="CreateReviewInput" type="text" id="revieweeEmail" name="revieweeEmail" required>
+                        <label class="AccountP"for="revieweeEmail">Reviewee Email:</label>
+                        <input class="CreatePostInput" type="text" id="revieweeEmail" name="revieweeEmail" required>
                     </div>
                     <div>
-                        <label class="AccountR"for="feedback">Feedback:</label>
-                        <input class="CreateReviewInput" type="text" id="feedback" name="feedback" required>
+                        <label class="AccountP"for="feedback">Feedback:</label>
+                        <input class="CreatePostInput" type="text" id="feedback" name="feedback" required>
                     </div>
-                    <div>
-                        <label class="AccountR" for="stars">Stars (1-5):</label>
-                        <input class="CreateReviewInput" type="number" id="stars" name="stars" min="1" max="5" required>
+                    <div class="ReviewStars">
+                        <label class="AccountP" for="stars">Stars (1-5):</label>
+                        <input style="padding: 9px; margin: 10px 200px;" class="CreatePostInput" type="number" id="stars" name="stars" min="1" max="5" required>
                     </div>
                 </div>
                 
-                <fieldset class="CreateReviewFields">
+                <fieldset class="CreatePostFields">
                     <label for="ratio">Job Type:</label>
                     <div>
                     <input type="checkbox" id="carpentry" name="carpentry" value="carpentry" />

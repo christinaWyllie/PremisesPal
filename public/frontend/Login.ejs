@@ -12,15 +12,14 @@
       <div class="Login">
         <h1>Please Login</h1>
         <form class="BlueBackgroundNoBackground"method="POST" action="/Login">
+          <% if (loginResult===false) { %>
+            <p class="AccountP" style="color: red; margin: 0px 75px;">Incorrect email and/or password</p>
+            <% } %>
           <label for="email"><b></b></label>
           <input class="LoginInput" type="text" placeholder="Enter Email" name="email" required>
           <label for="password"><b></b></label>
           <input class="LoginInput" type="password" placeholder="Enter Password" name="password" required>
           <button type="submit">Login</button>
-
-          <% if (loginResult===false) { %>
-            <p style="color: red">Incorrect email and/or password</p>
-            <% } %>
         </form>
         <button onclick="window.location.href='home.html';">Back</button>
       </div>
