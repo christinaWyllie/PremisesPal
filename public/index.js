@@ -79,8 +79,15 @@ app.post('/Register', async (req,res) => {
 
 		const userType = req.body.role;
 		if (userType == "homeOwner"){
-			// need to implement registration as a home owner
-			res.status(302).redirect('feed.html');
+			const posterRegistrationResult = await PostDB.addPoster(email);
+			if (posterRegistrationResult) {
+				console.log("poster registration success");
+				res.status(302).redirect('feed.html');
+			} else {
+				console.log("was unable to register as a poster");
+				res.status(302).redirect('register.html');
+			}
+
 		}
 		else if (userType == "contractor"){
 			const contractorRegistrationResult = await ContractorDB.addContractor(email, "Default biography");
