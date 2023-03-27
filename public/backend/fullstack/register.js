@@ -29,7 +29,7 @@ class Register{
             return false
         }
 
-        if (!AccountDB.registerUser(email, password)) {
+        if (! await AccountDB.registerUser(email, password)) {
             console.log("account registration error in the database.")
             return false
         }
