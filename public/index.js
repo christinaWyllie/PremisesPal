@@ -113,7 +113,7 @@ app.post('/Register', async (req,res) => {
 		}
 	} else {
 		console.log("registration unsuccessful");
-		res.status(302).redirect('frontend/Register', {registrationResult});
+		res.render('frontend/Register', { registrationResult });
 		//need to add error message somehow
 	}
 
@@ -212,6 +212,17 @@ app.get('/Login.html', (req, res) => {
 	  if (err) {
 		console.error(err);
 		res.status(500).send('Error rendering Login');
+	  } else {
+		res.send(html);
+	  }
+	});
+  });
+
+  app.get('/Register.html', (req, res) => {
+	res.render('frontend/Register', { registrationResult: null }, (err, html) => {
+	  if (err) {
+		console.error(err);
+		res.status(500).send('Error rendering Register');
 	  } else {
 		res.send(html);
 	  }
