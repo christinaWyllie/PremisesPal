@@ -138,6 +138,14 @@ app.post('/createPost', async (req,res) => {
 
 	const { title, description, price, carpentry, plumbing, cleaning, electrical, landscaping, painting, other } = req.body;
 	const requiredSkills = [];
+	
+	const regex = /^-?\d+(\.\d+)?$/;
+
+	if (!regex.test(price)) {
+		res.status(401).send('Unauthorized Post');
+		return;
+	}
+
 	//bla bla required skills check
 	if (carpentry) {
 		requiredSkills.push("Carpentry");
