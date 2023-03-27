@@ -26,6 +26,7 @@ const crypto = require('crypto');
 const secretKey = crypto.randomBytes(64).toString('hex');
 
 const session = require('express-session');
+const AccountDB = require("./backend/src/account.js");
 app.use(session({
   secret: secretKey,
   resave: false,
@@ -290,10 +291,10 @@ app.get('/Login.html', (req, res) => {
 	  });
 
 	app.get('/create-review.html', (req, res) => {
-		res.render('frontend/create-review', (err, html) => {
+		res.render('frontend/create-review', {emailInDatabase: true}, (err, html) => {
 			if (err) {
 				console.error(err);
-				res.status(500).send('Error rendering create-review');
+				res.status(500).send('Error rendering create-review 297');
 			} else {
 				res.send(html);
 			}
@@ -310,47 +311,61 @@ app.post('/create-review', async (req,res) => {
 	const userEmail = req.session.user.email;
 
 	const { revieweeEmail, feedback, stars, carpentry, plumbing, cleaning, electrical, landscaping, painting, other } = req.body;
-	var jobType = "";
 
-	//monke code go brrrr
-	if (carpentry) {
-		jobType = "Carpentry";
+	const emailFound = await AccountDB.validateUsername(revieweeEmail);
+	if (!emailFound){
+		res.render('frontend/create-review', {emailInDatabase: false}, (err, html) => {
+			if (err) {
+				console.error(err);
+				res.status(500).send('Error rendering create-review 320');
+			} else {
+				res.send(html);
+			}
+		});
 	}
-	if (plumbing) {
-		jobType = "Plumbing";
-	}
-	if (cleaning) {
-		jobType = "Cleaning";
-	}
-	if (electrical) {
-		jobType = "Electrical";
-	}
-	if (landscaping) {
-		jobType = "Landscaping";
-	}
-	if (painting) {
-		jobType = "Painting";
-	}
-	if (other) {
-		jobType = "Other";
-	}
-	var reviewResult;
+	else{
+		var jobType = "";
 
-	try {
-		reviewResult = await ReviewDB.createReview(userEmail, revieweeEmail, feedback, jobType, stars);
-		console.log(reviewResult);
-	} catch (error) {
-		console.log(error);
-		//ERROR CHECK HERE
-	}
+		//monke code go brrrr
+		if (carpentry) {
+			jobType = "Carpentry";
+		}
+		if (plumbing) {
+			jobType = "Plumbing";
+		}
+		if (cleaning) {
+			jobType = "Cleaning";
+		}
+		if (electrical) {
+			jobType = "Electrical";
+		}
+		if (landscaping) {
+			jobType = "Landscaping";
+		}
+		if (painting) {
+			jobType = "Painting";
+		}
+		if (other) {
+			jobType = "Other";
+		}
+		var reviewResult;
 
-	if (reviewResult == true) {
-		console.log("successfully added review to database.");
-		res.status(302).redirect('feed.html');
-	} else {
-		console.log("adding review to database failed.");
-		res.status(302).redirect('feed.html');
-		//better error checking once again
+		try {
+			reviewResult = await ReviewDB.createReview(userEmail, revieweeEmail, feedback, jobType, stars);
+			console.log(reviewResult);
+		} catch (error) {
+			console.log(error);
+			//ERROR CHECK HERE
+		}
+
+		if (reviewResult == true) {
+			console.log("successfully added review to database.");
+			res.status(302).redirect('feed.html');
+		} else {
+			console.log("adding review to database failed.");
+			res.status(302).redirect('feed.html');
+			//better error checking once again
+		}
 	}
 
 });

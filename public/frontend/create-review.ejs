@@ -16,6 +16,9 @@
                     <div>
                         <label class="AccountP"for="revieweeEmail">Reviewee Email:</label>
                         <input class="CreatePostInput" type="text" id="revieweeEmail" name="revieweeEmail" required>
+                        <% if (emailInDatabase===false) { %>
+                            <p class="AccountP" style="color: red; margin: 0px 75px;">There is no account with that email!</p>
+                            <% } %>
                     </div>
                     <div>
                         <label class="AccountP"for="feedback">Feedback:</label>
