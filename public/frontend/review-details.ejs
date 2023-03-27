@@ -10,11 +10,13 @@
   </head>
 
   <body>
-    <div class="BlueBackground">
+    <div>
+      <button onclick="window.location.href='feed.html';">Back</button>
       <% if (allReviews.length==0) { %>
-        <h2>No Reviews Found</h2>
+        <h2 class="BlueBackground">No Reviews Found</h2>
       <% } %>
       <% for (let i = 0; i < allReviews.length; i++) { %>
+      <div class="BlueBackground" style="margin-bottom: 10px;">
         <h2>Review for <%= allReviews[i].revieweeEmail %></h2>
         <p class="AccountP">Review by <%= allReviews[i].reviewerEmail %></p>
         <p class="AccountP">Feedback: <%= allReviews[i].feedback %></p>
@@ -27,9 +29,10 @@
               <span class="star empty-star">&#9734;</span>
             <% } %>
           <% } %>
-      <% } %>
+        </div>
       </div>
+      <% } %>
     </div>
-    <button onclick="window.location.href='feed.html';">Back</button>
+    
   </body>
 </html>
