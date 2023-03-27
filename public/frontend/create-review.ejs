@@ -16,9 +16,6 @@
                     <div>
                         <label class="AccountP"for="revieweeEmail">Reviewee Email:</label>
                         <input class="CreatePostInput" type="text" id="revieweeEmail" name="revieweeEmail" required>
-                        <% if (emailInDatabase===false) { %>
-                            <p class="AccountP" style="color: red; margin: 0px 75px;">There is no account with that email!</p>
-                            <% } %>
                     </div>
                     <div>
                         <label class="AccountP"for="feedback">Feedback:</label>
@@ -31,33 +28,33 @@
                 </div>
                 
                 <fieldset class="CreatePostFields">
-                    <label for="radio">Job Type:</label>
+                    <label for="checkbox">Job Type:</label>
                     <div>
-                    <input type="radio" id="carpentry" name="jobType" value="carpentry" />
+                    <input type="checkbox" id="carpentry" name="carpentry" value="carpentry" />
                     <label for="carpentry">Carpentry</label><br>
                     </div>
                     <div>
-                    <input type="radio" id="plumbing" name="jobType" value="plumbing" />
+                    <input type="checkbox" id="plumbing" name="plumbing" value="plumbing" />
                     <label for="plumbing">Plumbing</label><br>
                     </div>
                     <div>
-                    <input type="radio" id="cleaning" name="jobType" value="cleaning" />
+                    <input type="checkbox" id="cleaning" name="cleaning" value="cleaning" />
                     <label for="cleaning">Cleaning</label><br>
                     </div>
                     <div>
-                    <input type="radio" id="electrical" name="jobType" value="electrical" />
+                    <input type="checkbox" id="electrical" name="electrical" value="electrical" />
                     <label for="electrical">Electrical</label><br>
                     </div>
                     <div>
-                    <input type="radio" id="landscaping" name="jobType" value="landscaping" />
+                    <input type="checkbox" id="landscaping" name="landscaping" value="landscaping" />
                     <label for="landscaping">Landscaping</label><br>
                     </div>
                     <div>
-                    <input type="radio" id="painting" name="jobType" value="painting" />
+                    <input type="checkbox" id="painting" name="painting" value="painting" />
                     <label for="painting">Painting</label><br>
                     </div>
                     <div>
-                    <input type="radio" id="other" name="jobType" value="other" />
+                    <input type="checkbox" id="other" name="other" value="other" />
                     <label for="other">Other</label><br>
                     </div>
                 </fieldset>
