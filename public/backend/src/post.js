@@ -28,10 +28,10 @@ class PostDB{
     }
 
     // Abstracted query function that runs synchronously using promises
-    static async query( query ) {
+    static async query( query , values ) {
         return new Promise(( resolve,reject )=>{
             console.log(`Running query: ${query}`)
-            this.connection.query( query, function(err,results,fields) {
+            this.connection.query( query, values,  function(err,results,fields) {
                 if ( err ) reject( err ) // rejections are for query errors, network and other failures
                 else resolve( results,fields ) // resolve with query results
             })    
@@ -45,15 +45,16 @@ class PostDB{
     */
     static async addPoster(poster_email ) {
         if (!PostDB.connection) await PostDB.makeConnection();
-        const result = await PostDB.query(`SELECT 1 FROM account WHERE email = '${poster_email}'`);
+        const query = 'SELECT 1 FROM account WHERE email = ?'
+        const result = await PostDB.query(query, [poster_email]);
         if (result.length <= 0) {
             console.log("failed, account doesn't exist in database.");
             return false;
         }
 
-        const newPoster = await PostDB.query(`INSERT INTO poster(email) 
-                                            SELECT '${poster_email}'
-                                            WHERE NOT EXISTS (SELECT 1 FROM poster WHERE email = '${poster_email}');`)
+        const query2 = 'INSERT INTO poster(email) SELECT ? WHERE NOT EXISTS (SELECT 1 FROM poster WHERE email = ?);'
+
+        const newPoster = await PostDB.query(query2, [poster_email,poster_email])
         
         return(newPoster.protocol41)
     }
@@ -65,19 +66,19 @@ class PostDB{
      * Will also insert poster_email into poster table.
      */
     static async createPost( title, description, dateOfPosting, status, price, requiredSkills, poster_email ) {
-        if (!PostDB.connection) await PostDB.makeConnection();
-        const result = await PostDB.query(`SELECT 1 FROM account WHERE email = '${poster_email}'`);
+        if (!PostDB.connection) await PostDB.makeConnection()
+        const query = 'SELECT 1 FROM account WHERE email = ?'
+        const result = await PostDB.query(query, [poster_email])
         if (result.length <= 0) {
             console.log("failed, account doesn't exist in database.");
             return false;
         }
 
-        const newPoster = await PostDB.query(`INSERT INTO poster(email) 
-                                            SELECT '${poster_email}'
-                                            WHERE NOT EXISTS (SELECT 1 FROM poster WHERE email = '${poster_email}');`)
+        const query2 = 'INSERT INTO poster(email) SELECT ? WHERE NOT EXISTS (SELECT 1 FROM poster WHERE email = ?);'
+        const newPoster = await PostDB.query(query2, [poster_email, poster_email])
 
-        const createPost = await PostDB.query(`INSERT INTO JOB_POSTING(title, description, dateOfPosting, status, price, requiredSkills, poster_email) VALUES ` + 
-        `('${title}', '${description}', '${dateOfPosting}', '${status}', ${price}, '${requiredSkills}', '${poster_email}')`) 
+        const query3 = 'INSERT INTO JOB_POSTING(title, description, dateOfPosting, status, price, requiredSkills, poster_email) VALUES (?,?,?,?,?,?,?)'
+        const createPost = await PostDB.query(query3, [title, description, dateOfPosting, status, price, requiredSkills, poster_email]) 
         
         return(newPoster.protocol41 && createPost.protocol41)
     }
