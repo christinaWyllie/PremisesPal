@@ -135,8 +135,7 @@ app.post('/createPost', async (req,res) => {
 	}
 	const userEmail = req.session.user.email;
 
-	const { title, description, price, carpentry, plumbing, cleaning, electrical, landscaping, painting, other } = req.body;
-	const requiredSkills = [];
+	const { title, description, price, skill} = req.body;
 	
 	const regex = /^-?\d+(\.\d+)?$/;
 
@@ -145,29 +144,7 @@ app.post('/createPost', async (req,res) => {
 		return;
 	}
 
-	//bla bla required skills check
-	if (carpentry) {
-		requiredSkills.push("Carpentry");
-	}
-	if (plumbing) {
-		requiredSkills.push("Plumbing");
-	}
-	if (cleaning) {
-		requiredSkills.push("Cleaning");
-	}
-	if (electrical) {
-		requiredSkills.push("Electrical");
-	}
-	if (landscaping) {
-		requiredSkills.push("Landscaping");
-	}
-	if (painting) {
-		requiredSkills.push("Painting");
-	}
-	if (other) {
-		requiredSkills.push("Other");
-	}
-	const post = new Post(title, description, price, requiredSkills, userEmail);
+	const post = new Post(title, description, price, skill, userEmail);
 	const postResult = await post.addToDatabase();
 	if (postResult == true) {
 		console.log("successfully added post to database.");
@@ -315,7 +292,7 @@ app.post('/create-review', async (req,res) => {
 	}
 	const userEmail = req.session.user.email;
 
-	const { revieweeEmail, feedback, stars, carpentry, plumbing, cleaning, electrical, landscaping, painting, other } = req.body;
+	const { revieweeEmail, feedback, stars, jobType } = req.body;
 
 	const emailFound = await AccountDB.validateUsername(revieweeEmail);
 	if (!emailFound){
@@ -329,30 +306,7 @@ app.post('/create-review', async (req,res) => {
 		});
 	}
 	else{
-		var jobType = "";
 
-		//monke code go brrrr
-		if (carpentry) {
-			jobType = "Carpentry";
-		}
-		if (plumbing) {
-			jobType = "Plumbing";
-		}
-		if (cleaning) {
-			jobType = "Cleaning";
-		}
-		if (electrical) {
-			jobType = "Electrical";
-		}
-		if (landscaping) {
-			jobType = "Landscaping";
-		}
-		if (painting) {
-			jobType = "Painting";
-		}
-		if (other) {
-			jobType = "Other";
-		}
 		var reviewResult;
 
 		try {
