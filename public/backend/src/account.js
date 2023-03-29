@@ -23,10 +23,10 @@ class AccountDB{
     }
 
     // Abstracted query function that runs synchronously using promises
-    static async query( query ) {
+    static async query( query, values ) {
         return new Promise(( resolve,reject )=>{
             console.log(`Running query: ${query}`)
-            this.connection.query( query, function(err,results,fields) {
+            this.connection.query( query, values, function(err,results,fields) {
                 if ( err ) reject( err ) // rejections are for query errors, network and other failures
                 else resolve( results,fields ) // resolve with query results
             })    
@@ -42,7 +42,8 @@ class AccountDB{
         if (!AccountDB.connection) await AccountDB.makeConnection();  //Establish database connection if not already made
         console.log(`validateUsername: Validating ${user}`)
 
-        const existingUsers = await AccountDB.query(`SELECT email FROM ACCOUNT WHERE email ='${user}'`)
+        const query = `SELECT email FROM ACCOUNT WHERE email = ?`
+        const existingUsers = await AccountDB.query(query, [user])
 
         if (existingUsers && existingUsers.length > 0) {
             console.log('validateUsername: Found existing users', existingUsers);
@@ -58,7 +59,8 @@ class AccountDB{
         if (!AccountDB.connection) await AccountDB.makeConnection();  //Establish database connection if not already made
         console.log(`validatePassword: validating ${pass} for ${user}`)
 
-        const existingUsers = await AccountDB.query(`SELECT email, pass FROM ACCOUNT WHERE email ='${user}'`)
+        const query = `SELECT email, pass FROM ACCOUNT WHERE email = ?`
+        const existingUsers = await AccountDB.query(query, [user])
         if (existingUsers.length === 0) {
             console.log("found no users.");
             return false;
@@ -73,7 +75,8 @@ class AccountDB{
         if (!AccountDB.connection) await AccountDB.makeConnection();  //Establish database connection if not already made
         console.log(`validateUsername: Validating ${username}`)
 
-        const insertUser = await AccountDB.query(`INSERT INTO ACCOUNT VALUES ('${username}', '${password}')`)
+        const query = `INSERT INTO ACCOUNT VALUES (?, ?)`
+        const insertUser = await AccountDB.query(query, [username, password])
 
         return (insertUser.protocol41)  // returns true if insert is successful
     }
