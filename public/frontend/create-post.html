@@ -28,34 +28,34 @@
                 </div>
                 
                 <fieldset class="CreatePostFields">
-                    <h2 class="AccountP">Please Only Click 1 Skill</h2>
+                    <h2 class="AccountP">Select A Skill</h2>
                     <label for="checkbox">Skills:</label>
                     <div>
-                    <input type="checkbox" id="carpentry" name="carpentry" value="carpentry" />
+                    <input type="checkbox" id="carpentry" name="skill" value="carpentry" />
                     <label for="carpentry">Carpentry</label><br>
                     </div>
                     <div>
-                    <input type="checkbox" id="plumbing" name="plumbing" value="plumbing" />
+                    <input type="checkbox" id="plumbing" name="skill" value="plumbing" />
                     <label for="plumbing">Plumbing</label><br>
                     </div>
                     <div>
-                    <input type="checkbox" id="cleaning" name="cleaning" value="cleaning" />
+                    <input type="checkbox" id="cleaning" name="skill" value="cleaning" />
                     <label for="cleaning">Cleaning</label><br>
                     </div>
                     <div>
-                    <input type="checkbox" id="electrical" name="electrical" value="electrical" />
+                    <input type="checkbox" id="electrical" name="skill" value="electrical" />
                     <label for="electrical">Electrical</label><br>
                     </div>
                     <div>
-                    <input type="checkbox" id="landscaping" name="landscaping" value="landscaping" />
+                    <input type="checkbox" id="landscaping" name="skill" value="landscaping" />
                     <label for="landscaping">Landscaping</label><br>
                     </div>
                     <div>
-                    <input type="checkbox" id="painting" name="painting" value="painting" />
+                    <input type="checkbox" id="painting" name="skill" value="painting" />
                     <label for="painting">Painting</label><br>
                     </div>
                     <div>
-                    <input type="checkbox" id="other" name="other" value="other" />
+                    <input type="checkbox" id="other" name="skill" value="other" />
                     <label for="other">Other</label><br>
                     </div>
                 </fieldset>
@@ -63,5 +63,22 @@
                 <button onclick="window.location.href='feed.html';">Cancel</button>
             </form>
         </div>
+        <script>
+            const skillCheckboxes = document.querySelectorAll('input[name="skill"]');
+            
+            // add event listener to each checkbox
+            skillCheckboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('click', function() {
+                    // uncheck all checkboxes except for the one that was just clicked
+                    skillCheckboxes.forEach(function(otherCheckbox) {
+                        if (otherCheckbox !== checkbox) {
+                            otherCheckbox.checked = false;
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
 </html>
+
+       
