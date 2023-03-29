@@ -23,10 +23,10 @@ class ReviewDB {
     }
 
     // Abstracted query function that runs synchronously using promises
-    static async query( query ) {
+    static async query( query, values ) {
         return new Promise(( resolve,reject )=>{
             console.log(`Running query: ${query}`)
-            this.connection.query( query, function(err,results,fields) {
+            this.connection.query( query, values, function(err,results,fields) {
                 if ( err ) reject( err ) // rejections are for query errors, network and other failures
                 else resolve( results,fields ) // resolve with query results
             })    
@@ -46,9 +46,8 @@ class ReviewDB {
         let today = new Date().toISOString().slice(0, 10)
 
         
-
-        const createdReview = await ReviewDB.query(`INSERT INTO REVIEW (reviewer_email, reviewee_email, date, feedback, job_type, stars) VALUES` +
-                                                `('${reviewer_email}', '${reviewee_email}', '${today}', '${feedback}', '${jobType}', ${stars})`)
+        const query = `INSERT INTO REVIEW (reviewer_email, reviewee_email, date, feedback, job_type, stars) VALUES (?, ?, ?, ?, ?, ?)`
+        const createdReview = await ReviewDB.query(query, [reviewer_email, reviewee_email, today, feedback, jobType, stars])
 
         return(createdReview.protocol41)
 
@@ -58,7 +57,8 @@ class ReviewDB {
     static async viewReview(id) {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
-        const result = await ReviewDB.query(`SELECT * FROM REVIEW WHERE reviewID = '${id}'`);
+        const query = `SELECT * FROM REVIEW WHERE reviewID = ?`
+        const result = await ReviewDB.query(query, [id]);
 
         if(result.length == 0) {
             console.log("! No reviews found");
@@ -76,7 +76,8 @@ class ReviewDB {
     static async viewReviewByEmails(reviewer_email, reviewee_email) {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
-        const result = await ReviewDB.query(`SELECT * FROM REVIEW WHERE reviewer_email = '${reviewer_email}' AND reviewee_email = '${reviewee_email}'`);
+        const query = `SELECT * FROM REVIEW WHERE reviewer_email = ? AND reviewee_email = ?`
+        const result = await ReviewDB.query(query, [reviewer_email, reviewee_email]);
 
         if(result.length == 0) {
             console.log("! No reviews found");
@@ -99,7 +100,8 @@ class ReviewDB {
     static async viewReviewByEmail(reviewee_email) {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
-        const result = await ReviewDB.query(`SELECT * FROM REVIEW WHERE reviewee_email = '${reviewee_email}'`);
+        const query = `SELECT * FROM REVIEW WHERE reviewee_email = ?`
+        const result = await ReviewDB.query(query, [reviewee_email]);
 
         if(result.length == 0) {
             console.log("! No reviews found");
@@ -123,9 +125,8 @@ class ReviewDB {
     static async updateReview(id, newFeedback, newJobType, newStars) {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
-        const result = await ReviewDB.query(`UPDATE REVIEW 
-                                            SET feedback = '${newFeedback}', job_type = '${newJobType}', stars = '${newStars}'
-                                            WHERE reviewID = '${id}'`);
+        const query = `UPDATE REVIEW SET feedback = ?, job_type = ?, stars = ? WHERE reviewID = ?`
+        const result = await ReviewDB.query(query, [newFeedback, newJobType, newStars, id]);
 
         console.log("! Result changed", result.changedRows);
         return result.changedRows;
@@ -138,7 +139,8 @@ class ReviewDB {
     static async deleteReview(id) {
         if(!ReviewDB.connection) await ReviewDB.makeConnection()
 
-        const result = await ReviewDB.query(`DELETE FROM REVIEW WHERE reviewID = '${id}'`);
+        const query = `DELETE FROM REVIEW WHERE reviewID = ?`
+        const result = await ReviewDB.query(query, [id]);
 
         console.log("! Result affected", result.affectedRows);
         return result.affectedRows;
