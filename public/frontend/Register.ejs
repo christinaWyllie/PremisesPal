@@ -13,9 +13,9 @@
         <h1>Please Register</h1>
         <form id="registerForm" method="POST" action="/Register">
           <label for="email"><b></b></label>
-          <input type="text" placeholder="Enter Email" name="email" required>
+          <input type="text" placeholder="Enter Email" name="email" required maxlength="49">
           <label for="psw"><b></b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
+          <input type="password" placeholder="Enter Password" name="psw" required maxlength="24">
           <br /><br />
           <% if (registrationResult===false) { %>
             <p class="AccountP" style="color: red; margin: 0px 75px;">Error With Registration.</p>

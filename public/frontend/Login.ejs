@@ -16,9 +16,9 @@
             <p class="AccountP" style="color: red; margin: 0px 75px;">Incorrect email and/or password</p>
             <% } %>
           <label for="email"><b></b></label>
-          <input class="LoginInput" type="text" placeholder="Enter Email" name="email" required>
+          <input class="LoginInput" type="text" placeholder="Enter Email" name="email" required maxlength="49">
           <label for="password"><b></b></label>
-          <input class="LoginInput" type="password" placeholder="Enter Password" name="password" required>
+          <input class="LoginInput" type="password" placeholder="Enter Password" name="password" required maxlength="24">
           <button type="submit">Login</button>
         </form>
         <button onclick="window.location.href='home.html';">Back</button>
