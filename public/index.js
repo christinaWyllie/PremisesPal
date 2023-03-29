@@ -130,7 +130,7 @@ app.post('/createPost', async (req,res) => {
 
 	if (!req.session || !req.session.user || !req.session.user.email) {
 		console.log('No email found in the session');
-		res.status(401).send('Unauthorized access');
+		res.status(401).send('Logged out, please return to home page.');
 		return;
 	}
 	const userEmail = req.session.user.email;
@@ -141,7 +141,7 @@ app.post('/createPost', async (req,res) => {
 	const regex = /^-?\d+(\.\d+)?$/;
 
 	if (!regex.test(price)) {
-		res.status(401).send('Unauthorized Post');
+		res.status(401).send('Unauthorized Post, please relog. And dont do that again!');
 		return;
 	}
 
@@ -190,7 +190,7 @@ app.get('/home', (req, res) => {
 app.get('/feed.html', async (req, res) => {
 	if (!req.session || !req.session.user || !req.session.user.email) {
 		console.log('No email found in the session');
-		res.status(401).send('Unauthorized access');
+		res.status(401).send('Logged out, please return to home page.');
 		return;
 	}
 	  
@@ -246,7 +246,7 @@ app.get('/Login.html', (req, res) => {
 app.get('/account.html', async (req, res) => {
 	if (!req.session || !req.session.user || !req.session.user.email) {
 	  console.log('No email found in the session');
-	  res.status(401).send('Unauthorized access');
+	  res.status(401).send('Logged out, please return to home page.');
 	  return;
 	}
   
@@ -274,7 +274,7 @@ app.get('/account.html', async (req, res) => {
 app.post('/review-details', async (req, res) => {
 	if (!req.session || !req.session.user || !req.session.user.email) {
 		console.log('No email found in the session');
-		res.status(401).send('Unauthorized access');
+		res.status(401).send('Logged out, please return to home page.');
 		return;
 	}
 	const userEmail = req.session.user.email;
@@ -310,7 +310,7 @@ app.post('/create-review', async (req,res) => {
 
 	if (!req.session || !req.session.user || !req.session.user.email) {
 		console.log('No email found in the session');
-		res.status(401).send('Unauthorized access');
+		res.status(401).send('Logged out, please return to home page.');
 		return;
 	}
 	const userEmail = req.session.user.email;
