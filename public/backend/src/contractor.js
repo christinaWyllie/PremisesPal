@@ -23,10 +23,10 @@ class ContractorDB{
     }
 
     // Abstracted query function that runs synchronously using promises
-    static async query( query ) {
+    static async query( query, values ) {
         return new Promise(( resolve,reject )=>{
             console.log(`Running query: ${query}`)
-            this.connection.query( query, function(err,results,fields) {
+            this.connection.query( query, values, function(err,results,fields) {
                 if ( err ) reject( err ) // rejections are for query errors, network and other failures
                 else resolve( results,fields ) // resolve with query results
             })    
@@ -40,9 +40,8 @@ class ContractorDB{
     static async addContractor(email, biography) {
         if(!ContractorDB.connection) await ContractorDB.makeConnection()
 
-        const newContractor = await ContractorDB.query(`INSERT INTO contractor 
-                                                        SELECT '${email}', '${biography}'
-                                                        WHERE NOT EXISTS (SELECT 1 FROM contractor WHERE email = '${email}');`)
+        const query = 'INSERT INTO contractor SELECT ?, ? WHERE NOT EXISTS (SELECT 1 FROM contractor WHERE email = ?)'
+        const newContractor = await ContractorDB.query(query, [email, biography, email])
 
         return(newContractor.protocol41)
     }
@@ -50,7 +49,8 @@ class ContractorDB{
     static async addReference(email, reference) {
         if(!ContractorDB.connection) await ContractorDB.makeConnection()
 
-        const newReference = await ContractorDB.query(`INSERT INTO contractor_references VALUES ('${email}', '${reference}')`)
+        const query = 'INSERT INTO contractor_references VALUES (?, ?)'
+        const newReference = await ContractorDB.query(query, [email, reference])
 
         return(newReference.protocol41)
     }
@@ -58,7 +58,8 @@ class ContractorDB{
     static async addSkill(email, skill) {
         if(!ContractorDB.connection) await ContractorDB.makeConnection()
 
-        const newSkill = await ContractorDB.query(`INSERT INTO contractor_specialties VALUES ('${email}', '${skill}')`)
+        const query = 'INSERT INTO contractor_specialties VALUES (?, ?)'
+        const newSkill = await ContractorDB.query(query, [email, skill])
 
         return(newSkill.protocol41)
     }
@@ -66,7 +67,8 @@ class ContractorDB{
     static async viewReferences(email) {
         if(!ContractorDB.connection) await ContractorDB.makeConnection()
 
-        const references = await ContractorDB.query(`SELECT * FROM contractor_references WHERE email = '${email}'`)
+        const query = 'SELECT * FROM contractor_references WHERE email = ?'
+        const references = await ContractorDB.query(query, [email])
 
         var allReferences = []
 
@@ -80,7 +82,8 @@ class ContractorDB{
     static async viewSkills(email) {
         if(!ContractorDB.connection) await ContractorDB.makeConnection()
 
-        const skills = await ContractorDB.query(`SELECT * FROM contractor_specialties WHERE email = '${email}'`)
+        const query = 'SELECT * FROM contractor_specialties WHERE email = ?'
+        const skills = await ContractorDB.query(query, [email])
 
         var allSkills = []
 
