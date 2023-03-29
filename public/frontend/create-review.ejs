@@ -15,11 +15,11 @@
                 <div class="CreatePostLabels">
                     <div>
                         <label class="AccountP"for="revieweeEmail">Reviewee Email:</label>
-                        <input class="CreatePostInput" type="text" id="revieweeEmail" name="revieweeEmail" required maxlength="49">
+                        <input class="CreatePostInput" type="text" id="revieweeEmail" name="revieweeEmail" required maxlength="49" pattern="[A-Za-z0-9@]*" required>
                     </div>
                     <div>
                         <label class="AccountP"for="feedback">Feedback:</label>
-                        <input class="CreatePostInput" type="text" id="feedback" name="feedback" required maxlength="199">
+                        <input class="CreatePostInput" type="text" id="feedback" name="feedback" required maxlength="199" pattern="[A-Za-z0-9@]*" required>
                     </div>
                     <div class="ReviewStars">
                         <label class="AccountP" for="stars">Stars (1-5):</label>
