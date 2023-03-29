@@ -121,6 +121,9 @@ VALUES  (1,'Testing', 'Welding', '2023-03-19', 'Active', 123.45, 'Testing', 'tes
 INSERT INTO JOB_POSTING(post_id, title, description, dateOfPosting, status, price, requiredSkills, poster_email)
 VALUES (5,'Gardening', 'Hi, I need someone who can help me in my garden', '2023-01-30', 'Active', 250.75, 'Landscaping', 'testPoster@hotmail.com');
 
+INSERT INTO JOB_POSTING(post_id, title, description, dateOfPosting, status, price, requiredSkills, poster_email)
+VALUES (6,'Painting', 'Hi, I need someone who can help me paint', '2023-03-26', 'Active', 1000, 'Painting', 'testPoster@hotmail.com');
+
 INSERT INTO REVIEW
 VALUES    (1, 'testPoster@hotmail.com', 'testContractor@yahoo.ca','2023-04-1', 'Wow', 'Testing', 5);
 
@@ -129,5 +132,5 @@ VALUES    (1, 'testPoster@hotmail.com', 'testContractor@yahoo.ca','2023-04-1', '
 -- SELECT * FROM CONTRACTOR;
 -- SELECT * FROM CONTRACTOR_SPECIALTIES;
 -- SELECT * FROM CONTRACTOR_REFERENCES;
--- SELECT * FROM JOB_POSTING;
-SELECT * FROM REVIEW;
+SELECT * FROM JOB_POSTING;
+-- SELECT * FROM REVIEW;
