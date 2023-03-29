@@ -92,7 +92,8 @@ class PostDB{
 
         console.log(`Deleting post: ${id}`)
 
-        const deletedPost = await PostDB.query(`DELETE FROM JOB_POSTING WHERE post_id = ('${id}')`)
+        const query = 'DELETE FROM JOB_POSTING WHERE post_id = ?'
+        const deletedPost = await PostDB.query(query, [id])
 
         return(deletedPost.protocol41)
 
@@ -105,7 +106,8 @@ class PostDB{
     static async getPostsFromEmail(poster_email) {
         if(!PostDB.connection) await PostDB.makeConnection()
 
-        const listIDs = await PostDB.query(`SELECT post_id FROM JOB_POSTING WHERE poster_email = ('${poster_email}')`)
+        const query = 'SELECT post_id FROM JOB_POSTING WHERE poster_email = ?'
+        const listIDs = await PostDB.query(query, [poster_email])
         console.log("lidsIDs: ", listIDs)
         var listOfIDs = []
         for(let i = 0; i< listIDs.length; i++){
@@ -121,7 +123,8 @@ class PostDB{
     static async getPostFromID(id) {
         if(!PostDB.connection) await PostDB.makeConnection()
 
-        const postInfoStored = await PostDB.query(`SELECT * FROM JOB_POSTING WHERE post_id = ('${id}')`)
+        const query = 'SELECT * FROM JOB_POSTING WHERE post_id = ?'
+        const postInfoStored = await PostDB.query(query, [id])
         var postInfo = []
         if(postInfoStored.length == 0){
             return postInfo
@@ -147,7 +150,8 @@ class PostDB{
     static async assignContractor(id, contractor_email){
         if(!PostDB.connection) await PostDB.makeConnection()
 
-        const newContractor = await PostDB.query(`UPDATE JOB_POSTING SET contractor_email = ('${contractor_email}') WHERE post_id = '${id}'`)
+        const query = 'UPDATE JOB_POSTING SET contractor_email = ? WHERE post_id = ?'
+        const newContractor = await PostDB.query(query, [contractor_email, id])
         return(newContractor.protocol41)
     }
 
@@ -158,7 +162,8 @@ class PostDB{
     static async setPostInactive(id){
         if(!PostDB.connection) await PostDB.makeConnection()
 
-        const inactive = await PostDB.query(`UPDATE JOB_POSTING SET status = 'Inactive' WHERE post_id = '${id}'`)
+        const query = 'UPDATE JOB_POSTING SET status = \'Inactive\' WHERE post_id = ?'
+        const inactive = await PostDB.query(query, [id])
         return(inactive.protocol41)
     }
 
@@ -169,7 +174,8 @@ class PostDB{
     static async setPostActive(id){
         if(!PostDB.connection) await PostDB.makeConnection()
 
-        const active = await PostDB.query(`UPDATE JOB_POSTING SET status = 'Active' WHERE post_id = '${id}'`)
+        const query = 'UPDATE JOB_POSTING SET status = \'Active\' WHERE post_id = ?'
+        const active = await PostDB.query(query, [id])
         return(active.protocol41)
     }
 
@@ -179,8 +185,9 @@ class PostDB{
      */
     static async setPostInProgress(id){
         if(!PostDB.connection) await PostDB.makeConnection()
-
-        const progress = await PostDB.query(`UPDATE JOB_POSTING SET status = 'In Progress' WHERE post_id = '${id}'`)
+        
+        const query = 'UPDATE JOB_POSTING SET status = \'In Progress\' WHERE post_id = ?'
+        const progress = await PostDB.query(query, [id])
         return(progress.protocol41)
     }
 
@@ -189,7 +196,8 @@ class PostDB{
 
         var posts = []
         for(let i = 0; i < skills.length; i++) {
-            var result = await PostDB.query(`SELECT * FROM job_posting WHERE requiredSkills = '${skills[i]}'`)
+            const query = 'SELECT * FROM job_posting WHERE requiredSkills = ?'
+            var result = await PostDB.query(query, [skills[i]])
 
             for(let j = 0; j < result.length; j++) {
                 posts.push(result[j])
@@ -206,7 +214,8 @@ class PostDB{
     static async updatePrice(id, newPrice){
         if(!PostDB.connection) await PostDB.makeConnection()
 
-        const price = await PostDB.query(`UPDATE JOB_POSTING SET price = ('${newPrice}') WHERE post_id = '${id}'`)
+        const query = 'UPDATE JOB_POSTING SET price = ? WHERE post_id = ?'
+        const price = await PostDB.query(query, [newPrice, id])
         return(price.protocol41)
     }
 
@@ -217,7 +226,8 @@ class PostDB{
     static async updateDescription(id, newDescription){
         if(!PostDB.connection) await PostDB.makeConnection()
 
-        const description = await PostDB.query(`UPDATE JOB_POSTING SET description = ('${newDescription}') WHERE post_id = '${id}'`)
+        const query = 'UPDATE JOB_POSTING SET description = ? WHERE post_id = ?'
+        const description = await PostDB.query(query, [newDescription, id])
         return(description.protocol41)
     }
 
