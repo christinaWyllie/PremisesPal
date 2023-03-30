@@ -7,7 +7,7 @@ Then to grant access:
 grant all privileges on `PremisesPal`.* to 'seng401'@'localhost';
 
 # Running:
-To run the program on local host use: node public/index.js
+To run the program on local host use: node public/index.js (on port 3000)
 
 # Link to deployed website:
 http://ec2-3-15-178-47.us-east-2.compute.amazonaws.com:3000/
